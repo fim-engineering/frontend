@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Run tests
+npm run test
+
+if [ $? -ne 0 ]; then
+  echo "[TEST ERROR] Test must pass before pushing to origin."
+  exit 1
+fi
+
+# Add more checks here

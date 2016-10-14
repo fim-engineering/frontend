@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Run linter
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "[LINT ERROR] Please fix the reported errors and commit again."
+  exit 1
+fi
+
+# Add more checks here
