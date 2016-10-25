@@ -12,7 +12,7 @@ import { styles } from './styles.scss';
 export default function Button(props) {
   var buttonElem = createButton(props);
   return (
-    <div className={`${styles}`}>
+    <div className={styles}>
       {buttonElem}
     </div>
   );

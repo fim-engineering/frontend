@@ -22,7 +22,7 @@ class Header extends Component {
   render() {
 
     return (
-      <div className={`${styles}`}>
+      <div className={styles}>
         <header>
           <AppBar
             onLeftIconButtonTouchTap= {this.handleToggle} />

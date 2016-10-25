@@ -28,18 +28,15 @@ class LeftNavBar extends Component {
     this.props.actions.ui.closeNav();
   }
 
-
-
-
   render() {
 
     return (
-      <div className={`${styles}`} >
+      <div className={styles} >
         <Drawer
           docked={false}
           open={this.props.ui.leftNavOpen}
           onRequestChange={this.closeNav}>
-          <AppBar title="YOUR APP" />
+          <AppBar title="" />
           <Divider />
         </Drawer>
       </div>
