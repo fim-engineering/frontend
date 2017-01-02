@@ -1,7 +1,7 @@
-import React, { Component }         from 'react';
-import { connect }                  from 'react-redux';
-import { bindActionCreators }       from 'redux';
-import { AppBar, Avatar, FontIcon } from 'material-ui';
+import React, { Component }   from 'react';
+import { connect }            from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { AppBar }             from 'material-ui';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';

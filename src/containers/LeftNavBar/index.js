@@ -5,9 +5,6 @@ import { Drawer,
          AppBar,
          Divider }            from 'material-ui';
 
-/* components */
-import Button from 'components/Button';
-
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -47,7 +44,7 @@ class LeftNavBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    ui   : state.ui,
+    ui   : state.ui
   };
 }
 

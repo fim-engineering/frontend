@@ -1,10 +1,8 @@
-import { combineReducers }        from 'redux';
-import { uiReducer }              from 'core/reducers/reducer-ui';
-import { reducer as formReducer } from 'redux-form';
+import { combineReducers } from 'redux';
+import { uiReducer }       from 'core/reducers/reducer-ui';
 
 const rootReducer = combineReducers({
-  ui   : uiReducer,
-  form : formReducer
+  ui: uiReducer
 });
 
 export default rootReducer;
