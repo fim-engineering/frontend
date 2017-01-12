@@ -1,7 +1,7 @@
 import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AppBar }             from 'material-ui';
+import { AppBar }             from 'components/AppBar';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';
