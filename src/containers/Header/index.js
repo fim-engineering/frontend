@@ -1,7 +1,7 @@
 import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AppBar }             from 'components/AppBar';
+import AppBar                 from 'components/AppBar';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';
@@ -25,7 +25,7 @@ class Header extends Component {
       <div className={styles}>
         <header>
           <AppBar
-            onLeftIconButtonTouchTap= {this.handleToggle} />
+            onLeftIconButtonTouchTap={this.handleToggle} />
         </header>
       </div>
     );
