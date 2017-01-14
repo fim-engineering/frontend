@@ -9,7 +9,6 @@ import { AppBar as MuiAppBar } from 'material-ui';
 import { styles } from './styles.scss';
 
 export default function AppBar(props) {
-  const yum;
   return (
     <div className={styles}>
       <MuiAppBar {...props} className="app-bar" />
