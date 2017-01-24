@@ -2,15 +2,17 @@
  * Button - A common button
  */
 
-import React                                    from 'react';
-import { FlatButton as MaterialFlatButton}      from 'material-ui';
-import { RaisedButton as MaterialRaisedButton } from 'material-ui';
+import React                    from 'react';
+import { FlatButton,
+         RaisedButton,
+         FloatingActionButton,
+         IconButton }           from 'material-ui';
 
 /* component styles */
 import { styles } from './styles.scss';
 
 export default function Button(props) {
-  var buttonElem = createButton(props);
+  const buttonElem = createButton(props);
   return (
     <div className={styles}>
       {buttonElem}
@@ -19,26 +21,34 @@ export default function Button(props) {
 }
 
 function createButton(props) {
-  var buttonElem;
-  if(props.raised && props.secondary) {
-    buttonElem = <MaterialRaisedButton className="btn" {...props} secondary={true} primary={false} />;
+  let buttonElem;
+  if(props.floating) {
+    buttonElem = <FloatingActionButton {...props} secondary={true} primary={false}>
+                  {props.icon}
+                 </FloatingActionButton>
+  } else if(props.floating && props.secondary) {
+    buttonElem = <FloatingActionButton {...props} secondary={true} primary={false} />
+  } else if(props.iconOnly){
+    buttonElem= <IconButton {...props}>{props.icon}</IconButton>;
+  } else if(props.raised && props.secondary) {
+    buttonElem = <RaisedButton {...props} secondary={true} primary={false} />
   } else if(props.raised) {
-    buttonElem = <MaterialRaisedButton className="btn" {...props} />
-  } else if(props.secondary) {
-    buttonElem = <MaterialFlatButton className="btn" {...props} secondary={true} primary={false} />
+    buttonElem = <RaisedButton {...props} />
   } else {
-    buttonElem = <MaterialFlatButton className="btn" {...props} />
+    buttonElem = <FlatButton {...props} />
   }
   return buttonElem;
 }
 
 Button.propTypes = {
-  label  : React.PropTypes.string.isRequired,
-  raised : React.PropTypes.bool
+  raised : React.PropTypes.bool,
+  floating : React.PropTypes.string
 };
 
 Button.defaultProps = {
-  type    : 'button',
-  primary : true,
-  raised  : false
+  type      : 'button',
+  primary   : true,
+  raised    : false,
+  label     : '',
+  className : 'btn'
 }
