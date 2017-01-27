@@ -1,4 +1,4 @@
-import uiConstants from 'core/types/types-ui';
+import constants from 'core/types';
 
 const initialState = {
   leftNavOpen: false
@@ -7,12 +7,12 @@ const initialState = {
 export function uiReducer(state = initialState, action) {
   switch (action.type) {
 
-  case uiConstants.OPEN_NAV:
+  case constants.OPEN_NAV:
     return Object.assign({}, state, {
       leftNavOpen: true
     });
 
-  case uiConstants.CLOSE_NAV:
+  case constants.CLOSE_NAV:
     return Object.assign({}, state, {
       leftNavOpen: false
     });

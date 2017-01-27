@@ -1,11 +1,11 @@
-import uiConstants from 'core/types/types-ui';
+import constants from 'core/types';
 
 /**
  * openNav - Open the side nav
  */
 export function openNav() {
   return {
-    type: uiConstants.OPEN_NAV
+    type: constants.OPEN_NAV
   };
 }
 
@@ -14,6 +14,6 @@ export function openNav() {
  */
 export function closeNav() {
   return {
-    type: uiConstants.CLOSE_NAV
+    type: constants.CLOSE_NAV
   };
 }
