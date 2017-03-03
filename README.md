@@ -37,3 +37,8 @@ step 1 - this font stylesheet must be in the header of your index.html:
 step 2 - use this material ui icon component: <FontIcon className="material-icons">home</FontIcon>
 
 step 3 - go here and insert the right text for the appropriate icon: https://design.google.com/icons/
+
+## Thank You
+
+This boilerplate was developed with the assistance of expert engineers at <a href="https://www.qbisins.com/" target="_blank">QBIS</a>, a leader in insurance technology.
+
