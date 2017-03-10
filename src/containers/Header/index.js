@@ -12,10 +12,9 @@ import { styles } from './styles.scss';
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  handleToggle() {
+  handleToggle=() => {
     this.props.actions.ui.openNav();
   }
 

@@ -12,16 +12,15 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 
 class LeftNavBar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   static contextTypes = {
     router : React.PropTypes.object.isRequired
   }
 
-  constructor(props) {
-    super(props);
-    this.closeNav= this.closeNav.bind(this);
-  }
-
-  closeNav() {
+  closeNav=() => {
     this.props.actions.ui.closeNav();
   }
 
