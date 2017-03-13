@@ -21,50 +21,74 @@ export default function Button(props) {
 }
 
 function createButton(props) {
-  const { onTouchTap, className, icon } = props;
+  const {
+    label,
+    className,
+    onTouchTap,
+    icon,
+    disabled,
+    primary,
+    secondary } = props;
+
   let buttonElem;
 
   if(props.floating) {
     buttonElem = <FloatingActionButton
+                  label={label}
                   onTouchTap={onTouchTap}
                   className={className}
                   icon={icon}
+                  disabled={disabled}
                   secondary={true}>
                   {props.icon}
                  </FloatingActionButton>
 
   } else if(props.floating && props.secondary) {
     buttonElem = <FloatingActionButton
+                  label={label}
                   onTouchTap={onTouchTap}
                   className={className}
                   icon={icon}
+                  disabled={disabled}
                   secondary={true} />
 
   } else if(props.iconOnly){
     buttonElem= <IconButton
+                  label={label}
                   onTouchTap={onTouchTap}
                   className={className}
+                  disabled={disabled}
                   icon={icon}>{props.icon}</IconButton>;
 
   } else if(props.raised && props.secondary) {
     buttonElem = <RaisedButton
+                  label={label}
                   onTouchTap={onTouchTap}
                   className={className}
                   icon={icon}
+                  disabled={disabled}
                   secondary={true} />
 
   } else if(props.raised) {
     buttonElem = <RaisedButton
+                  label={label}
+                  className={className}
+                  onTouchTap={onTouchTap}
+                  primary={primary}
+                  secondary={secondary}
+                  disabled={disabled} />
+  } else if(props.flat) {
+    buttonElem = <FlatButton
                   onTouchTap={onTouchTap}
                   className={className}
-                  icon={icon} />
-
+                  icon={icon}
+                  disabled={disabled} />
   } else {
     buttonElem = <FlatButton
                   onTouchTap={onTouchTap}
                   className={className}
-                  icon={icon} />
-
+                  icon={icon}
+                  disabled={disabled} />
   }
 
   return buttonElem;
@@ -72,12 +96,16 @@ function createButton(props) {
 
 Button.propTypes = {
   raised : React.PropTypes.bool,
-  floating : React.PropTypes.bool
+  floating : React.PropTypes.bool,
+  disabled : React.PropTypes.bool
 };
 
 Button.defaultProps = {
   type      : 'button',
   raised    : false,
   label     : '',
-  className : 'btn'
+  className : 'btn',
+  disabled : false,
+  primary : true,
+  secondary: false
 }
