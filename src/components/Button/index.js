@@ -7,6 +7,7 @@ import { FlatButton,
          RaisedButton,
          FloatingActionButton,
          IconButton }           from 'material-ui';
+import PropTypes                from 'prop-types';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -95,9 +96,9 @@ function createButton(props) {
 }
 
 Button.propTypes = {
-  raised : React.PropTypes.bool,
-  floating : React.PropTypes.bool,
-  disabled : React.PropTypes.bool
+  raised   : PropTypes.bool,
+  floating : PropTypes.bool,
+  disabled : PropTypes.bool
 };
 
 Button.defaultProps = {

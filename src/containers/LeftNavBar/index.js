@@ -16,16 +16,11 @@ class LeftNavBar extends Component {
     super(props);
   }
 
-  static contextTypes = {
-    router : React.PropTypes.object.isRequired
-  }
-
   closeNav=() => {
     this.props.actions.ui.closeNav();
   }
 
   render() {
-
     return (
       <div className={styles} >
         <Drawer
@@ -43,7 +38,7 @@ class LeftNavBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    ui   : state.ui
+    ui: state.ui
   };
 }
 
