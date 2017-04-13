@@ -27,7 +27,9 @@ export class App extends Component {
           <Header />
           <div className="container">
             <HashRouter>
-              <Route exact path="/" component={Home}/>
+              <div>
+                <Route exact path="/" component={Home}/>
+              </div>
             </HashRouter>
           </div>
           <LeftNavBar />
