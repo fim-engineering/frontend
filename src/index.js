@@ -1,15 +1,18 @@
 import React                   from 'react';
 import ReactDOM                from 'react-dom';
 import { Provider }            from 'react-redux';
-import { Router, hashHistory } from 'react-router';
 import configureStore          from 'core/store/configureStore';
 import routes                  from './routes';
+import { BrowserRouter } from 'react-router-dom'
+import App  from 'containers/App';
 
-const store   = configureStore();
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory} routes={routes} />
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
