@@ -11,13 +11,15 @@ module.exports = {
   },
 
   module: {
-    loaders: [{
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        'style',
-        'css!postcss-loader!sass'
-      )
-    }],
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader','postcss-loader','sass-loader']
+        })
+      }
+    ],
   },
 
   plugins: [
@@ -27,9 +29,7 @@ module.exports = {
       },
       __DEVELOPMENT__: false,
     }),
-    new ExtractTextPlugin('bundle.css'),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new ExtractTextPlugin({filename:'bundle.css'}),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -44,7 +44,10 @@ module.exports = {
       inject: false
     }),
     new CopyWebpackPlugin([
-      { from: 'src/images', to : 'images' }
+      {
+        from: 'src/assets',
+        to  : 'assets'
+      }
     ])
   ]
 };

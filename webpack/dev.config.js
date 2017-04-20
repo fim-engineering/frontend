@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   devtool: 'source-map',
@@ -13,9 +15,30 @@ module.exports = {
   },
 
   module: {
-    loaders: [{
+    noParse: [new RegExp('node_modules/localforage/dist/localforage.js')],
+    rules: [{
       test: /\.scss$/,
-      loader: 'style!css?localIdentName=[path][name]--[local]!postcss-loader!sass',
+      use: [
+        { loader: 'style-loader' },
+        {
+          loader: 'css-loader',
+          options: {
+            localIdentName: '[hash:base64:5][path]-[local]',
+          }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: function () {
+              return [
+                precss,
+                autoprefixer
+              ];
+            }
+          }
+        },
+        { loader: 'sass-loader' }
+      ]
     }]
   },
 
@@ -26,10 +49,8 @@ module.exports = {
       },
       __DEVELOPMENT__: true,
     }),
-    new ExtractTextPlugin('bundle.css'),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     })

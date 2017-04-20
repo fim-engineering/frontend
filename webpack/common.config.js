@@ -1,7 +1,7 @@
 const path = require('path');
-const autoprefixer = require('autoprefixer');
-const postcssImport = require('postcss-import');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
+const autoprefixer = require('autoprefixer');
 
 const development = require('./dev.config.js');
 const production = require('./prod.config.js');
@@ -29,12 +29,12 @@ const common = {
   },
 
   resolve: {
-    extensions: ['', '.jsx', '.js', '.json', '.scss'],
-    modulesDirectories: ['node_modules', PATHS.app],
+    extensions: ['.jsx', '.js', '.json', '.scss'],
+    modules: ['node_modules', PATHS.app],
   },
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/,
@@ -45,16 +45,17 @@ const common = {
     }],
   },
 
-  postcss: (webpack) => {
-    return [
-      autoprefixer({
-        browsers: ['last 2 versions'],
-      }),
-      postcssImport({
-        addDependencyTo: webpack,
-      }),
-    ];
-  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [
+          autoprefixer(),
+        ]
+      }
+    })
+  ]
+
 };
 
 if (TARGET === 'start' || !TARGET) {
