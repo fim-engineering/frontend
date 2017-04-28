@@ -29,14 +29,12 @@ $ npm test
 $ npm run lint
 ```
 
-## Material UI Icons:
+## Material-UI Icons
 
-step 1 - this font stylesheet must be in the header of your index.html:
-	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+You can import Material-UI SVG icons.  Here's where to find a list of them:
 
-step 2 - use this material ui icon component: <FontIcon className="material-icons">home</FontIcon>
+https://github.com/callemall/material-ui/tree/master/src/svg-icons
 
-step 3 - go here and insert the right text for the appropriate icon: https://design.google.com/icons/
 
 ## Thank You
 
