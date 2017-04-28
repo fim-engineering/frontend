@@ -35,6 +35,11 @@ You can import Material-UI SVG icons.  Here's where to find a list of them:
 
 https://github.com/callemall/material-ui/tree/master/src/svg-icons
 
+## Course
+
+If you want learn how to use this professional boilerplate in production, check out the
+course [How to Write a Single Page Application](https://hacking-beauty.teachable.com)
+
 
 ## Thank You
 
