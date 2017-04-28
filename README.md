@@ -31,14 +31,13 @@ $ npm run lint
 
 ## Material-UI Icons
 
-You can import Material-UI SVG icons.  Here's where to find a list of them:
+You can import Material-UI SVG icons.  Here's where to find a [list of them.](https://github.com/callemall/material-ui/tree/master/src/svg-icons)
 
-https://github.com/callemall/material-ui/tree/master/src/svg-icons
 
 ## Course
 
 If you want learn how to use this professional boilerplate in production, check out the
-course [How to Write a Single Page Application](https://hacking-beauty.teachable.com)
+course [How to Write a Single Page Application.](http://www.singlepageapplication.com)
 
 
 ## Thank You
