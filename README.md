@@ -39,6 +39,10 @@ You can import Material-UI SVG icons.  Here's where to find a [list of them.](ht
 If you want learn how to use this professional boilerplate in production, check out the
 course [How to Write a Single Page Application.](http://www.singlepageapplication.com)
 
+## Join the Slack Community!
+
+Join our [Slack community](https://singlepageapp.slack.com) to get help and ask questions.
+
 
 ## Thank You
 
