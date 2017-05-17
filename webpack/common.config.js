@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
+const OfflinePlugin = require('offline-plugin');
+
 
 const development = require('./dev.config.js');
 const production = require('./prod.config.js');
@@ -53,6 +55,24 @@ const common = {
           autoprefixer(),
         ]
       }
+    }),
+    new OfflinePlugin({
+      publicPath: '/',
+      caches: {
+        main: [
+          'bundle.css',
+          'bundle.js'
+        ],
+        additional: [
+          ':externals:'
+        ],
+        optional: [
+          ':rest:'
+        ]
+      },
+      externals: [
+        '/'
+      ]
     })
   ]
 
