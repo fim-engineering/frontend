@@ -1,25 +1,20 @@
 ## Development
 ```
-$ npm i
+$ npm install
 $ npm start
 ```
-## Clean
-```
-$ npm run clean
-```
-Using rimraf clean the `dist` folder, which is the target of the `build`
 
-## Build & build:production
+## Building for production
 ```
 $ npm run build
 ```
 Builds the app into the 'dist' folder for deployment
 ```
-$ npm run build:production
+$ npm run build
 ```
 clean the `dist` folder and rebuilds the app for deployment
 
-## Run Automated test suite
+## Run automated test suite
 ```
 $ npm test
 ```
