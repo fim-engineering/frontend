@@ -2,7 +2,10 @@
 ```
 $ npm install
 $ npm start
+
 ```
+Then point your browser to http://localhost:3000
+
 
 ## Building for production
 ```
@@ -12,7 +15,7 @@ Builds the app into the 'dist' folder for deployment
 ```
 $ npm run build
 ```
-clean the `dist` folder and rebuilds the app for deployment
+Clean the `dist` folder and rebuilds the app for deployment
 
 ## Run automated test suite
 ```
