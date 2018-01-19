@@ -55,24 +55,6 @@ const common = {
           autoprefixer(),
         ]
       }
-    }),
-    new OfflinePlugin({
-      publicPath: '/',
-      caches: {
-        main: [
-          'bundle.css',
-          'bundle.js'
-        ],
-        additional: [
-          ':externals:'
-        ],
-        optional: [
-          ':rest:'
-        ]
-      },
-      externals: [
-        '/'
-      ]
     })
   ]
 

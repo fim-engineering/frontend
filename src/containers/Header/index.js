@@ -23,7 +23,7 @@ class Header extends Component {
     return (
       <div className={styles}>
         <header>
-          <AppBar onLeftIconButtonTouchTap= {this.handleToggle} />
+          <AppBar onLeftIconButtonClick={this.handleToggle} />
         </header>
       </div>
     );
