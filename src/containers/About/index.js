@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 /* component styles */
 import { styles } from './styles.scss';
 
-export default class Home extends Component {
+export default class About extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,7 +11,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className={styles}>
-        Welcome to FIM Information System
+        LALALAL
       </div>
     );
   }

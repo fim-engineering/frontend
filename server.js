@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const isDevMode = process.env.NODE_ENV === 'development';
 const request = require('request')
+const history = require('connect-history-api-fallback');
 
 app.use(require('morgan')('short'));
+app.use(history());
 
 (function initWebpack() {
   const webpack = require('webpack');
@@ -25,6 +27,8 @@ app.use(require('morgan')('short'));
 app.get(/.*/, function root(req, res) {
   res.sendFile(__dirname + '/src/index.html');
 });
+
+
 
 const server = http.createServer(app);
 server.listen(process.env.PORT || 3000, function onListen() {
