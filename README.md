@@ -1,7 +1,7 @@
 ## Development
 ```
 $ npm install
-$ npm start
+$ npm run dev
 
 ```
 Then point your browser to http://localhost:3000
