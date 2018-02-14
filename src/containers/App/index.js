@@ -5,6 +5,7 @@ import getMuiTheme                from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider           from 'material-ui/styles/MuiThemeProvider';
 import { Route, Switch }      from 'react-router-dom'
 import { ConnectedRouter as Router } from 'react-router-redux'
+import {Helmet} from "react-helmet";
 
 
 // global styles for entire app
@@ -29,6 +30,10 @@ export class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Header />
+          <Helmet>
+              <meta charSet="utf-8" />
+              <title>Forum Indonesia Muda</title>
+          </Helmet>
           <div className="container">
             <Router history={this.props.history} >
               <div>

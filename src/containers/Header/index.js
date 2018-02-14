@@ -2,6 +2,7 @@ import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AppBar                 from 'components/AppBar';
+import { push } from 'react-router-redux';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';
@@ -18,12 +19,16 @@ class Header extends Component {
     this.props.actions.ui.openNav();
   }
 
+  handleToHome = () => {
+    this.props.push('/');
+  }
+
   render() {
 
     return (
       <div className={styles}>
         <header>
-          <AppBar onLeftIconButtonClick={this.handleToggle} />
+          <AppBar onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
         </header>
       </div>
     );
@@ -40,7 +45,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       ui: bindActionCreators(uiActionCreators, dispatch)
-    }
+    },
+    push:  bindActionCreators(push, dispatch)
   };
 }
 
