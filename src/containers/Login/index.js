@@ -23,7 +23,7 @@ class Login extends Component {
     this.props.push(path)
   }
 
-  handleClick = (e) => {
+  handleClick = () => {
     this.props.actions.ui.toggleProgressbar(true);
     this.props.actions.ui.toggleNotification({
       isOpen: true

@@ -6,7 +6,7 @@ const initialState = {
   snackBarOptions: {
     isOpen: false,
     text: '',
-    autoHideDuration: 1000,
+    autoHideDuration: 1000
   }
 };
 
