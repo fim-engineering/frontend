@@ -68,6 +68,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "connect-history-api-fallback": "^1.5.0",
+    "history": "^4.7.2",
     "localforage": "^1.5.6",
     "material-ui": "^0.20.0",
     "moment": "^2.20.1",
@@ -77,6 +78,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"

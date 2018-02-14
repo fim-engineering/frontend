@@ -3,7 +3,8 @@ import { connect }                from 'react-redux';
 import injectTapEventPlugin       from 'react-tap-event-plugin';
 import getMuiTheme                from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider           from 'material-ui/styles/MuiThemeProvider';
-import { BrowserRouter as Router, Route }      from 'react-router-dom'
+import { Route, Switch }      from 'react-router-dom'
+import { ConnectedRouter as Router } from 'react-router-redux'
 
 
 // global styles for entire app
@@ -14,6 +15,7 @@ import Header     from 'containers/Header';
 import LeftNavBar from 'containers/LeftNavBar';
 import Home       from 'containers/Home';
 import About       from 'containers/About';
+import Login       from 'containers/Login';
 
 injectTapEventPlugin();
 
@@ -28,10 +30,13 @@ export class App extends Component {
         <div>
           <Header />
           <div className="container">
-            <Router>
+            <Router history={this.props.history} >
               <div>
-                <Route exact path="/" component={Home}/>
-                <Route path="/about" component={About}/>
+                <Switch>
+                  <Route exact path="/" component={Home}/>
+                  <Route path="/about" component={About}/>
+                  <Route path="/login" component={Login}/>
+                </Switch>
               </div>
             </Router>
           </div>
