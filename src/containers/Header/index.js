@@ -3,12 +3,14 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AppBar                 from 'components/AppBar';
 import { push } from 'react-router-redux';
+import LinearProgress from 'material-ui/LinearProgress';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';
 
 /* component styles */
 import { styles } from './styles.scss';
+import Snackbar from 'material-ui/Snackbar';
 
 class Header extends Component {
   constructor(props) {
@@ -24,11 +26,22 @@ class Header extends Component {
   }
 
   render() {
-
+    const { ui } = this.props
     return (
       <div className={styles}>
         <header>
           <AppBar onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
+          {
+            ui.isRunProgressBar && <LinearProgress mode="indeterminate" color="red" />
+          }
+          <Snackbar
+            open={ui.snackBarOptions.isOpen}
+            message={"this.state.message"}
+            action="undo"
+            autoHideDuration={ui.snackBarOptions.autoHideDuration}
+            onActionClick={this.handleActionClick}
+            onRequestClose={this.handleRequestClose}
+          />
         </header>
       </div>
     );
@@ -37,7 +50,8 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    ui: state.ui
   };
 }
 

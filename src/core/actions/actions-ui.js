@@ -17,3 +17,18 @@ export function closeNav() {
     type: constants.CLOSE_NAV
   };
 }
+
+export function toggleProgressbar(payload) {
+  return {
+    type: constants.TOGGLE_PROGRESSBAR,
+    payload
+  };
+}
+
+export function toggleNotification(payload) {
+  return {
+    type: constants.TOGGLE_NOTIFICATION,
+    payload
+  };
+}
+

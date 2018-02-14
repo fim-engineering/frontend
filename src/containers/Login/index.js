@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 
 /* component styles */
 import { styles } from './styles.scss';
+import * as uiActionCreators   from 'core/actions/actions-ui';
 
 class Login extends Component {
   constructor(props) {
@@ -20,6 +21,13 @@ class Login extends Component {
 
   handleChangeRoute = (path) => () => {
     this.props.push(path)
+  }
+
+  handleClick = (e) => {
+    this.props.actions.ui.toggleProgressbar(true);
+    this.props.actions.ui.toggleNotification({
+      isOpen: true
+    });
   }
 
   render() {
@@ -54,6 +62,9 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    actions: {
+      ui   : bindActionCreators(uiActionCreators, dispatch)
+    },
     push:  bindActionCreators(push, dispatch)
   };
 }

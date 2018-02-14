@@ -1,7 +1,13 @@
 import constants from 'core/types';
 
 const initialState = {
-  leftNavOpen: false
+  leftNavOpen: false,
+  isRunProgressBar: false,
+  snackBarOptions: {
+    isOpen: false,
+    text: '',
+    autoHideDuration: 1000,
+  }
 };
 
 export function uiReducer(state = initialState, action) {
@@ -16,6 +22,21 @@ export function uiReducer(state = initialState, action) {
     return Object.assign({}, state, {
       leftNavOpen: false
     });
+  
+  case constants.TOGGLE_PROGRESSBAR:
+    return Object.assign({}, state, {
+      isRunProgressBar: action.payload
+    });
+
+  case constants.TOGGLE_NOTIFICATION:
+
+    return {
+      ...state,
+      snackBarOptions : {
+        ...state.snackBarOptions,
+        ...action.payload
+      }
+    }
 
   default:
     return state;
