@@ -2,9 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import reduxThunk                       from 'redux-thunk';
 import createLogger                     from 'redux-logger';
 import rootReducer                      from '../reducers';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { routerMiddleware, push } from 'react-router-redux'
-import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 
 import history from '../browserHistory';
 

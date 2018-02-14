@@ -8,7 +8,7 @@ import FileUpload from 'material-ui/svg-icons/file/file-upload';
 import HomeIcon from 'material-ui/svg-icons/action/home';
 import AssistanIcon from 'material-ui/svg-icons/image/assistant';
 import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -61,7 +61,7 @@ function mapDispatchToProps(dispatch) {
     actions: {
       ui   : bindActionCreators(uiActionCreators, dispatch)
     },
-    push:  bindActionCreators(push, dispatch),
+    push:  bindActionCreators(push, dispatch)
   };
 }
 
