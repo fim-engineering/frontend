@@ -5,7 +5,7 @@ import getMuiTheme                from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider           from 'material-ui/styles/MuiThemeProvider';
 import { Route, Switch }      from 'react-router-dom'
 import { ConnectedRouter as Router } from 'react-router-redux'
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 
 // global styles for entire app
