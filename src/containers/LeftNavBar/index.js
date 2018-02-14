@@ -41,7 +41,8 @@ class LeftNavBar extends Component {
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />
             <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AssistanIcon />} />
-            <MenuItem onClick={this.handleRedirect('/login')} primaryText="Login" leftIcon={<FileUpload />} />
+            <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />
+            <MenuItem onClick={this.handleRedirect('/account/change_password')} primaryText="Change" leftIcon={<FileUpload />} />
           </Menu>
         </Drawer>
       </div>

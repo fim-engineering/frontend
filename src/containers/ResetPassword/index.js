@@ -8,7 +8,7 @@ import { push } from 'react-router-redux';
 /* component styles */
 import { styles } from './styles.scss';
 
-class Login extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
   }
@@ -41,12 +41,7 @@ class Login extends Component {
         <br/>
         <br/>
         <br/>
-        <RaisedButton label="Login" primary={true} style={styles} onClick={(event) => this.handleClick(event)}/>
-        <br />
-        <br />
-        <br />
-        <div>Belum mendaftar ? Daftarkan diri anda sekarang!</div>
-        <RaisedButton label="Daftar" primary={true} style={styles} onClick={this.handleChangeRoute('/sign_up')}/>
+        <RaisedButton label="Reset Password" primary={true} style={styles} onClick={(event) => this.handleClick(event)}/>
       </div>
     );
   }
@@ -58,4 +53,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(ResetPassword);

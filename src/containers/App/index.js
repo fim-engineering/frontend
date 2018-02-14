@@ -17,6 +17,10 @@ import LeftNavBar from 'containers/LeftNavBar';
 import Home       from 'containers/Home';
 import About       from 'containers/About';
 import Login       from 'containers/Login';
+import NotFound       from 'containers/NotFound';
+import Register       from 'containers/Register';
+import ResetPassword       from 'containers/ResetPassword';
+import ChangePassword       from 'containers/ChangePassword';
 
 injectTapEventPlugin();
 
@@ -40,7 +44,12 @@ export class App extends Component {
                 <Switch>
                   <Route exact path="/" component={Home}/>
                   <Route path="/about" component={About}/>
-                  <Route path="/login" component={Login}/>
+                  <Route path="/sign_in" component={Login}/>
+                  <Route path="/sign_up" component={Register}/>
+                  <Route path="/account/reset_password" component={ResetPassword}/>
+                  <Route path="/account/change_password" component={ChangePassword}/>
+
+                  <Route path="/*" component={NotFound}/>
                 </Switch>
               </div>
             </Router>
