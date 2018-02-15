@@ -12,7 +12,7 @@ module.exports = {
     './src/index',
   ],
   output: {
-    publicPath: '',
+    publicPath: '/',
   },
 
   module: {

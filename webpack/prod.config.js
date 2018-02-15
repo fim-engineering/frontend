@@ -8,7 +8,7 @@ module.exports = {
   entry: [],
 
   output: {
-    publicPath: '',
+    publicPath: '/',
   },
 
   module: {
