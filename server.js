@@ -4,6 +4,7 @@ const app = express();
 const isDevMode = process.env.NODE_ENV === 'development';
 const request = require('request')
 const history = require('connect-history-api-fallback');
+const config = require('config');
 
 app.use(require('morgan')('short'));
 app.use(history());
@@ -28,10 +29,10 @@ app.get(/.*/, function root(req, res) {
   res.sendFile(__dirname + '/src/index.html');
 });
 
-
+const PORT = process.env.PORT || config.get('port');
 
 const server = http.createServer(app);
-server.listen(process.env.PORT || 3000, function onListen() {
+server.listen(PORT, function onListen() {
   const address = server.address();
   console.log('Listening on: %j', address);
   console.log(' -> that probably means: http://localhost:%d', address.port);
