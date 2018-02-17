@@ -67,16 +67,22 @@
     "webpack-merge": "^0.7.3"
   },
   "dependencies": {
+    "apollo-client-preset": "^1.0.8",
     "axios": "^0.17.1",
     "babel-preset-stage-0": "^6.24.1",
     "config": "^1.29.4",
     "connect-history-api-fallback": "^1.5.0",
+    "fs": "0.0.1-security",
+    "graphql": "^0.13.1",
+    "graphql-tag": "^2.7.3",
     "history": "^4.7.2",
     "localforage": "^1.5.6",
     "material-ui": "^0.20.0",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
+    "querystring": "^0.2.0",
     "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",
@@ -85,8 +91,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "url": "^0.11.0"
+    "redux-thunk": "^2.2.0"
   },
   "config": {
     "ghooks": {

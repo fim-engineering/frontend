@@ -8,6 +8,7 @@ import history from '../browserHistory';
 
 
 export default function configureStore(initialState) {
+  const DEV = process.env.NODE_ENV !== 'production';
   const logger = createLogger({
     collapsed: true,
     predicate: () =>
@@ -16,7 +17,10 @@ export default function configureStore(initialState) {
 
   const middleware = applyMiddleware(reduxThunk, routerMiddleware(history), logger);
 
-  const store = middleware(createStore)(rootReducer, initialState);
+  const store = middleware(createStore)(
+    rootReducer,
+    DEV && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

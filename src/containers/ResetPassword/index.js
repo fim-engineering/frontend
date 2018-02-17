@@ -18,12 +18,16 @@ class ResetPassword extends Component {
     password: ''
   }
 
+  componentWillMount = () => {
+    console.log("props di willmount: ", this.props.match);
+  }
+
   handleChangeRoute = (path) => () => {
     this.props.push(path)
   }
 
   render() {
-    
+    console.log("props: ", this.props);
     return (
       <div className={styles}>
         <TextField
