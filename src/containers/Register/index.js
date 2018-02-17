@@ -4,9 +4,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import * as _ from 'lodash';
 
 /* component styles */
 import { styles } from './styles.scss';
+import * as uiActionCreators   from 'core/actions/actions-ui';
+import * as userActionCreators   from 'core/actions/actions-user';
+import { SignUp as SignUpAction } from '../../api'
 
 class Register extends Component {
   constructor(props) {
@@ -14,34 +18,88 @@ class Register extends Component {
   }
 
   state = {
-    username: '',
-    password: ''
+    email: '',
+    password: '',
+    isProcessLogin: false
   }
 
-  handleChangeRoute = (path) => () => {
+  handleInput = (key, value) => {
+    this.setState({
+      [key]: value
+    })
+  }
+
+  handleChangeRoute = (path) => {
     this.props.push(path)
   }
 
+  toggleDisableButton = () => {
+    this.setState({
+      isProcessLogin: !this.state.isProcessLogin
+    })
+  }
+
+  showToaster = (message) => {
+    this.props.actions.ui.toggleNotification({
+      isOpen: true,
+      text: message
+    });
+  }
+
+  handleClick = () => {
+    const { actions } = this.props
+    const { email, password } = this.state
+    actions.ui.toggleProgressbar(true);
+
+    const content = {
+      email,
+      password
+    }
+    this.toggleDisableButton()
+    SignUpAction(content)
+      .then(res => {
+        console.log('res==: ', res);
+        const userID = _.result(res, 'id', 0)
+        if (userID !== 0) {
+          this.showToaster('Sukses Daftar')
+          this.handleChangeRoute('/sign_in')
+        } else {
+          const errorMessage = _.result(res, 'user.message_error', '')
+          this.showToaster(errorMessage)
+        }
+        actions.ui.toggleProgressbar(false);
+        this.toggleDisableButton()
+      })
+      .catch(() => {
+        this.showToaster('Gagal Daftar')
+        actions.ui.toggleProgressbar(false);
+        this.toggleDisableButton()
+      })
+  }
+
   render() {
-    
+    const { email, password, isProcessLogin } = this.state
+    const isDisabledLogin = email === '' || password === '' || isProcessLogin
+    const labelButtonLogin = isProcessLogin ? 'Process' : 'Daftar'
+
     return (
       <div className={styles}>
         <TextField
-          hintText="Enter your Username"
-          floatingLabelText="Username"
-          onChange = {(event,newValue) => this.setState({username:newValue})}
+          hintText="Enter your Email"
+          floatingLabelText="Email"
+          onChange = {(e, newValue) => this.handleInput('email', newValue)}
           />
         <br/>
         <TextField
           type="password"
           hintText="Enter your Password"
           floatingLabelText="Password"
-          onChange = {(event,newValue) => this.setState({password:newValue})}
+          onChange = {(e, newValue) => this.handleInput('password', newValue)}
           />
         <br/>
         <br/>
         <br/>
-        <RaisedButton label="Daftar" primary={true} style={styles} onClick={(event) => this.handleClick(event)}/>
+        <RaisedButton disabled={isDisabledLogin} label={labelButtonLogin} primary={true} onClick={(event) => this.handleClick(event)}/>
       </div>
     );
   }
@@ -49,6 +107,10 @@ class Register extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    actions: {
+      ui   : bindActionCreators(uiActionCreators, dispatch),
+      user   : bindActionCreators(userActionCreators, dispatch)
+    },
     push:  bindActionCreators(push, dispatch)
   };
 }
