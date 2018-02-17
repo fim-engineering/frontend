@@ -20,6 +20,11 @@ export function userReducer(state = initialState, action) {
     return {
       initialState
     }
+  
+  case constants.REDUX_STORAGE_LOAD:
+    return {
+      ...action.payload.user
+    }
 
   default:
     return state;
