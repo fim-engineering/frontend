@@ -6,7 +6,7 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
-  SignUp: `${HOSTNAME}/signup`,
+  SignUp: `${HOSTNAME}/signup`
 };
 
 const configFetch = (url, method, body) => ({
@@ -14,8 +14,8 @@ const configFetch = (url, method, body) => ({
   url,
   data: querystring.stringify(body),
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
 });
 
 const Login = (content) => {

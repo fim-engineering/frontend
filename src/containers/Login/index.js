@@ -20,7 +20,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
-    isProcessLogin: false,
+    isProcessLogin: false
   }
 
   handleInput = (key, value) => {
@@ -73,7 +73,7 @@ class Login extends Component {
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
-      .catch(err => {
+      .catch(_ => {
         this.showToaster('Gagal Login')
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
@@ -117,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
       ui   : bindActionCreators(uiActionCreators, dispatch),
-      user   : bindActionCreators(userActionCreators, dispatch),
+      user   : bindActionCreators(userActionCreators, dispatch)
     },
     push:  bindActionCreators(push, dispatch)
   };

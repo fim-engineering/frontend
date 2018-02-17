@@ -19,7 +19,7 @@ class ResetPassword extends Component {
   }
 
   componentWillMount = () => {
-    console.log("props di willmount: ", this.props.match);
+    console.log('props di willmount: ', this.props.match);
   }
 
   handleChangeRoute = (path) => () => {
@@ -27,7 +27,7 @@ class ResetPassword extends Component {
   }
 
   render() {
-    console.log("props: ", this.props);
+    console.log('props: ', this.props);
     return (
       <div className={styles}>
         <TextField
