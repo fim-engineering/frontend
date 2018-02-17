@@ -21,6 +21,10 @@ class Header extends Component {
     this.props.actions.ui.openNav();
   }
 
+  handleCloseSnackbar = () => {
+    this.props.actions.ui.toggleNotification({ isOpen: false });
+  }
+
   handleToHome = () => {
     this.props.push('/');
   }
@@ -36,11 +40,9 @@ class Header extends Component {
           }
           <Snackbar
             open={ui.snackBarOptions.isOpen}
-            message={"this.state.message"}
-            action="undo"
+            message={ui.snackBarOptions.text}
             autoHideDuration={ui.snackBarOptions.autoHideDuration}
-            onActionClick={this.handleActionClick}
-            onRequestClose={this.handleRequestClose}
+            onRequestClose={this.handleCloseSnackbar}
           />
         </header>
       </div>

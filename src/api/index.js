@@ -21,10 +21,13 @@ const configFetch = (url, method, body) => ({
 const Login = (content) => {
   const url = FIM_SERVICES.Login;
   
-  return axios(configFetch(url, 'post', content)).then(response => {
-    console.log("response==: ", response)
-    return response.data
-  });
+  return axios(configFetch(url, 'post', content))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: { id: 0 }
+      }
+    })
 }
 
 export {

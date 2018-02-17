@@ -39,12 +39,16 @@ class Login extends Component {
     })
   }
 
+  showToaster = (message) => {
+    this.props.actions.ui.toggleNotification({
+      isOpen: true,
+      text: message
+    });
+  }
+
   handleClick = () => {
     const { actions } = this.props
     const { email, password } = this.state
-    actions.ui.toggleNotification({
-      isOpen: true
-    });
     actions.ui.toggleProgressbar(true);
 
     const content = {
@@ -54,17 +58,23 @@ class Login extends Component {
     this.toggleDisableButton()
     LoginAction(content)
       .then(res => {
-        console.log("res===: ", res)
-        actions.user.changeUserData({
-          isLoggedIn: true,
-          userID: _.result(res, 'user.id', 0),
-          email: _.result(res, 'user.email', ''),
-          token: _.result(res, 'token.original.access_token', '')
-        })
+        const userID = _.result(res, 'user.id', 0)
+        if (userID !== 0) {
+          actions.user.changeUserData({
+            isLoggedIn: true,
+            userID,
+            email: _.result(res, 'user.email', ''),
+            token: _.result(res, 'token.original.access_token', '')
+          })
+          this.showToaster('Sukses Login')
+        } else {
+          this.showToaster('Gagal Login')
+        }
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
       .catch(err => {
+        this.showToaster('Gagal Login')
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
