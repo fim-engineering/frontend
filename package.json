@@ -82,6 +82,7 @@
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "querystring": "^0.2.0",
+    "raven-js": "^3.22.3",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
