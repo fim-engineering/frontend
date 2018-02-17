@@ -35,8 +35,9 @@ export class App extends Component {
         <div>
           <Header />
           <Helmet>
-              <meta charSet="utf-8" />
-              <title>Forum Indonesia Muda</title>
+            <meta charSet="utf-8" />
+            <title>Forum Indonesia Muda</title>
+            <link rel="icon" href="http://www.forumindonesiamuda.org/wp-content/uploads/2016/02/cropped-logofim-32x32.png" sizes="32x32" />
           </Helmet>
           <div className="container">
             <Router history={this.props.history} >
