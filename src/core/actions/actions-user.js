@@ -7,3 +7,10 @@ export function changeUserData(payload) {
   };
 }
 
+export function resetUserData(payload) {
+  return {
+    type: constants.RESET_USER_DATA,
+    payload
+  };
+}
+

@@ -23,6 +23,13 @@ class Login extends Component {
     isProcessLogin: false
   }
 
+  componentWillMount = () => {
+    const isLoggedIn = _.result(this, 'props.user.isLoggedIn', false);
+    if (isLoggedIn) {
+      this.handleChangeRoute('/')()
+    }
+  }
+
   handleInput = (key, value) => {
     this.setState({
       [key]: value
@@ -67,11 +74,14 @@ class Login extends Component {
             token: _.result(res, 'token.original.access_token', '')
           })
           this.showToaster('Sukses Login')
+          actions.ui.toggleProgressbar(false);
+          this.toggleDisableButton()
+          this.handleChangeRoute('/')()
         } else {
           this.showToaster('Gagal Login')
+          actions.ui.toggleProgressbar(false);
+          this.toggleDisableButton()
         }
-        actions.ui.toggleProgressbar(false);
-        this.toggleDisableButton()
       })
       .catch(() => {
         this.showToaster('Gagal Login')
@@ -113,6 +123,13 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    ui: state.ui,
+    user: state.user
+  };
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
@@ -123,4 +140,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

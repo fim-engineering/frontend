@@ -11,10 +11,14 @@ export function userReducer(state = initialState, action) {
   switch (action.type) {
 
   case constants.CHANGE_USER_DATA:
-
     return {
       ...state,
       ...action.payload
+    }
+  
+  case constants.RESET_USER_DATA:
+    return {
+      initialState
     }
 
   default:

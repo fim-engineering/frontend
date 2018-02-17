@@ -7,5 +7,6 @@ export default keyMirror({
   PROGRESS_BAR_OFF : null,
   TOGGLE_PROGRESSBAR: null,
   TOGGLE_NOTIFICATION: null,
-  CHANGE_USER_DATA: null
+  CHANGE_USER_DATA: null,
+  RESET_USER_DATA: null
 });

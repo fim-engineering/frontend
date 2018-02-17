@@ -7,16 +7,18 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
-  SignUp: `${HOSTNAME}/signup`
+  SignUp: `${HOSTNAME}/signup`,
+  Logout: `${HOSTNAME}/logout`
 };
 
-const configFetch = (url, method, body, isJSON = false) => ({
+const configFetch = (url, method, body, isJSON = false, extraHeaders = {}) => ({
   method,
   url,
   data: isJSON ? body : querystring.stringify(body),
   headers: {
     'Content-Type': isJSON ? 'application/json' : 'application/x-www-form-urlencoded',
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    ...extraHeaders
   }
 });
 
@@ -52,7 +54,25 @@ const SignUp = (content) => {
     })
 }
 
+const Logout = (content) => {
+  const url = FIM_SERVICES.Logout;
+  const extraHeaders = {
+    Authorization: `Bearer ${content}`
+  }
+
+  console.log('extraHeaders===: ', extraHeaders);
+  
+  return axios(configFetch(url, 'post', content, false, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        message: 'Gagal Logout'
+      }
+    })
+}
+
 export {
   Login,
-  SignUp
+  SignUp,
+  Logout
 }

@@ -2,6 +2,7 @@ import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Drawer, AppBar, Divider } from 'material-ui';
+import * as _ from 'lodash';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import FileUpload from 'material-ui/svg-icons/file/file-upload';
@@ -11,9 +12,11 @@ import { push } from 'react-router-redux';
 // import { Link } from 'react-router-dom';
 /* component styles */
 import { styles } from './styles.scss';
+import { Logout as LogoutAction } from '../../api'
 
 /* actions */
 import * as uiActionCreators   from 'core/actions/actions-ui';
+import * as userActionCreators   from 'core/actions/actions-user';
 
 class LeftNavBar extends Component {
   constructor(props) {
@@ -25,11 +28,39 @@ class LeftNavBar extends Component {
   }
 
   handleRedirect = (path) => () => {
-    this.props.push(path);
     this.closeNav()
+    this.props.push(path);
+  }
+
+  showToaster = (message) => {
+    this.props.actions.ui.toggleNotification({
+      isOpen: true,
+      text: message
+    });
+  }
+
+  handleLogut = () => {
+    const { actions } = this.props
+    const content = _.result(this, 'props.user.token', '');
+    
+    LogoutAction(content)
+      .then(res => {
+        console.log('res===: ', res);
+        this.showToaster(res.message);
+        actions.user.resetUserData();
+        this.closeNav()
+        this.handleRedirect('/')
+      })
+      .catch(() => {
+        this.showToaster('Gagal Logount');
+        actions.user.resetUserData();
+        this.closeNav()
+      })
   }
 
   render() {
+    const { user } = this.props
+    const isLogin = user.isLoggedIn
     return (
       <div className={styles} >
         <Drawer
@@ -41,9 +72,18 @@ class LeftNavBar extends Component {
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />
             <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AssistanIcon />} />
-            <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<AssistanIcon />} />
-            <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />
-            <MenuItem onClick={this.handleRedirect('/account/change_password')} primaryText="Change" leftIcon={<FileUpload />} />
+            {
+              !isLogin && <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<AssistanIcon />} />
+            }
+            {
+              !isLogin && <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />
+            }
+            {
+              isLogin && <MenuItem onClick={this.handleRedirect('/account/change_password')} primaryText="Change" leftIcon={<FileUpload />} />
+            }
+            {
+              isLogin && <MenuItem onClick={this.handleLogut} primaryText="Logout" leftIcon={<FileUpload />} />
+            }
           </Menu>
         </Drawer>
       </div>
@@ -54,14 +94,16 @@ class LeftNavBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    ui: state.ui
+    ui: state.ui,
+    user: state.user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      ui   : bindActionCreators(uiActionCreators, dispatch)
+      ui   : bindActionCreators(uiActionCreators, dispatch),
+      user   : bindActionCreators(userActionCreators, dispatch)
     },
     push:  bindActionCreators(push, dispatch)
   };
