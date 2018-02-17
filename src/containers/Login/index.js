@@ -73,7 +73,7 @@ class Login extends Component {
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
-      .catch(_ => {
+      .catch(() => {
         this.showToaster('Gagal Login')
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
