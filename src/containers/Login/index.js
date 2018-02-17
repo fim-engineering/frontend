@@ -10,7 +10,6 @@ import * as _ from 'lodash';
 import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
-import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction } from '../../api'
 
 class Login extends Component {
