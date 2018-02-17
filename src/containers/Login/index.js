@@ -4,10 +4,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import * as _ from 'lodash';
 
 /* component styles */
 import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
+import * as userActionCreators   from 'core/actions/actions-user';
+import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction } from '../../api'
 
 class Login extends Component {
@@ -53,6 +56,12 @@ class Login extends Component {
     LoginAction(content)
       .then(res => {
         console.log("res===: ", res)
+        actions.user.changeUserData({
+          isLoggedIn: true,
+          userID: _.result(res, 'user.id', 0),
+          email: _.result(res, 'user.email', ''),
+          token: _.result(res, 'token.original.access_token', '')
+        })
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
@@ -98,7 +107,8 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
-      ui   : bindActionCreators(uiActionCreators, dispatch)
+      ui   : bindActionCreators(uiActionCreators, dispatch),
+      user   : bindActionCreators(userActionCreators, dispatch),
     },
     push:  bindActionCreators(push, dispatch)
   };

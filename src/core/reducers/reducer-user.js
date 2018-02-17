@@ -3,20 +3,18 @@ import constants from 'core/types';
 const initialState = {
   isLoggedIn: false,
   userID: 0,
-  token: ''
+  token: '',
+  email: ''
 };
 
 export function userReducer(state = initialState, action) {
   switch (action.type) {
 
-  case constants.TOGGLE_NOTIFICATION:
+  case constants.CHANGE_USER_DATA:
 
     return {
       ...state,
-      snackBarOptions : {
-        ...state.snackBarOptions,
-        ...action.payload
-      }
+      ...action.payload
     }
 
   default:
