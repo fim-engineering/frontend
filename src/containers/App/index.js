@@ -21,6 +21,7 @@ import NotFound       from 'containers/NotFound';
 import Register       from 'containers/Register';
 import ResetPassword       from 'containers/ResetPassword';
 import ChangePassword       from 'containers/ChangePassword';
+import DataUmum       from 'containers/DataUmum';
 
 injectTapEventPlugin();
 
@@ -49,6 +50,7 @@ export class App extends Component {
                   <Route path="/sign_up" component={Register}/>
                   <Route path="/account/reset_password/:token" component={ResetPassword}/>
                   <Route path="/account/change_password" component={ChangePassword}/>
+                  <Route path="/profile" component={DataUmum}/>
 
                   <Route path="/*" component={NotFound}/>
                 </Switch>
