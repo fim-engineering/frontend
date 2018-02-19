@@ -37,6 +37,13 @@ class DataUmum extends Component {
     }
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    const isLoggedIn = _.result(nextProps, 'user.isLoggedIn', false);
+    if (!isLoggedIn) {
+      this.handleChangeRoute('/')()
+    }
+  }
+
   handleInput = (key, value) => {
     this.setState({
       [key]: value
@@ -120,7 +127,7 @@ class DataUmum extends Component {
 
   handleUpload = () => {
     const cloudName = 'fim-indonesia';
-    const unsignedUploadPreset = 'jugqbeem';
+    const unsignedUploadPreset = 'profile_photo';
     const HOST = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
     let fd = new FormData()
 
@@ -136,6 +143,8 @@ class DataUmum extends Component {
       return response.json()
     }).then((result) => {
       console.log('result===: ', result);
+      console.log('result===image: ', result.secure_url);
+      alert(`Your URL image: ${result.secure_url}`)
     })
   }
 

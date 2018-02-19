@@ -34,10 +34,10 @@ class Header extends Component {
     return (
       <div className={styles}>
         <header>
-          <AppBar onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
           {
             ui.isRunProgressBar && <LinearProgress mode="indeterminate" color="red" />
           }
+          <AppBar onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
           <Snackbar
             open={ui.snackBarOptions.isOpen}
             message={ui.snackBarOptions.text}

@@ -42,16 +42,18 @@ class LeftNavBar extends Component {
   handleLogut = () => {
     const { actions } = this.props
     const content = _.result(this, 'props.user.token', '');
-    
+    actions.ui.toggleProgressbar(true);
     LogoutAction(content)
       .then(res => {
         console.log('res===: ', res);
+        actions.ui.toggleProgressbar(false);
         this.showToaster(res.message);
         actions.user.resetUserData();
         this.closeNav()
         this.handleRedirect('/')
       })
       .catch(() => {
+        actions.ui.toggleProgressbar(false);
         this.showToaster('Gagal Logount');
         actions.user.resetUserData();
         this.closeNav()
@@ -61,13 +63,14 @@ class LeftNavBar extends Component {
   render() {
     const { user } = this.props
     const isLogin = user.isLoggedIn
+    const textAppBar = `Hello ${isLogin ? user.email : ''}`
     return (
       <div className={styles} >
         <Drawer
           docked={false}
           open={this.props.ui.leftNavOpen}
           onRequestChange={this.closeNav}>
-          <AppBar title="FIM" />
+          <AppBar title={textAppBar} />
           <Divider />
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />

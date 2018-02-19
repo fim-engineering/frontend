@@ -25,7 +25,7 @@ export default function configureStore(initialState) {
   ]
 
   engine = filter(engine, filterOptions);
-  // engine = debounce(engine, 1500);
+  engine = debounce(engine, 10);
   const middlewareStorage = storage.createMiddleware(engine);
   /* - END - SETUP SAVE REDUX TO LOCALSTORAGE */
 
