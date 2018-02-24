@@ -8,7 +8,8 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
   SignUp: `${HOSTNAME}/signup`,
-  Logout: `${HOSTNAME}/logout`
+  Logout: `${HOSTNAME}/logout`,
+  getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
 };
 
 const configFetch = (url, method, body, isJSON = false, extraHeaders = {}) => ({
@@ -71,8 +72,27 @@ const Logout = (content) => {
     })
 }
 
+const getKota = () => {
+  const url = FIM_SERVICES.getKota
+  const options = {
+    method: 'get',
+    url,
+  }
+
+  return axios(options)
+    .then(response => {
+      console.log("response API: ", response);
+      return response.semuaprovinsi
+    })
+    .catch(err => {
+      console.log("err: ", err);
+      return []
+    })
+}
+
 export {
   Login,
   SignUp,
-  Logout
+  Logout,
+  getKota
 }
