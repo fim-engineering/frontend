@@ -20,6 +20,7 @@ class Register extends Component {
   state = {
     email: '',
     password: '',
+    name: '',
     isProcessLogin: false
   }
 
@@ -48,12 +49,13 @@ class Register extends Component {
 
   handleClick = () => {
     const { actions } = this.props
-    const { email, password } = this.state
+    const { email, password, name } = this.state
     actions.ui.toggleProgressbar(true);
 
     const content = {
       email,
-      password
+      password,
+      name,
     }
     this.toggleDisableButton()
     SignUpAction(content)
@@ -78,12 +80,18 @@ class Register extends Component {
   }
 
   render() {
-    const { email, password, isProcessLogin } = this.state
-    const isDisabledLogin = email === '' || password === '' || isProcessLogin
+    const { email, password, isProcessLogin, name } = this.state
+    const isDisabledLogin = email === '' || password === '' || name === '' || isProcessLogin
     const labelButtonLogin = isProcessLogin ? 'Process' : 'Daftar'
 
     return (
       <div className={styles}>
+        <TextField
+          hintText="Name"
+          floatingLabelText="Name"
+          onChange = {(e, newValue) => this.handleInput('name', newValue)}
+          />
+        <br />
         <TextField
           hintText="Enter your Email"
           floatingLabelText="Email"

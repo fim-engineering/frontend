@@ -16,7 +16,7 @@ import * as userActionCreators   from 'core/actions/actions-user';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import { GetProfile as getProfileAction } from '../../api'
 
-class Home extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,28 +26,21 @@ class Home extends Component {
     isLoadedProfile: false
   }
 
-  handleRedirect = (path) => () => {
-    this.props.push(path)
+  handleRedirect = () => {
+    this.props.push('/profile')
   }
 
-  componentWillUpdate = (nextProps, nextState) => {
-    const { user } = nextProps
-    const { userProfile, isLoadedProfile } = this.state
-    const isLogin = user.isLoggedIn
-    console.log("trigger: ", isLogin);
-    
-    if (isLogin && !isLoadedProfile ) {
-      const token = _.result(nextProps, 'user.token', '');
-      const content = { token }
-      getProfileAction(content)
-        .then(response => {
-          console.log("response: ", response);
-          this.setState({
-            userProfile: response.user_profile,
-            isLoadedProfile: true
-          })
+  componentWillMount = () => {
+    const token = _.result(this.props, 'user.token', '');
+    const content = { token }
+    getProfileAction(content)
+      .then(response => {
+        console.log("response: ", response);
+        this.setState({
+          userProfile: response.user_profile,
+          isLoadedProfile: true
         })
-    }
+      })
   }
 
   renderLoggedInUser = () => {
@@ -56,23 +49,11 @@ class Home extends Component {
     console.log("userProfile: ", userProfile);
     return (
       <div>
-        Hallo {user.email}
+        Hallo {userProfile.full_name}
         <br />
         <br />
         <br />
-        <RaisedButton 
-          primary={true}
-          onClick={this.handleRedirect('/profile')}
-          icon={<ActionAndroid />}
-          label="Isi Data Diri" fullWidth={false} />
-        <br />
-        <br />
-        <br />
-        <RaisedButton 
-          primary={true}
-          onClick={this.handleRedirect('/myprofile')}
-          icon={<ActionAndroid />}
-          label="Lihat Profile" fullWidth={false} />
+        <img src={userProfile.photo_profile_link} />
       </div>
     )
   }
@@ -83,7 +64,7 @@ class Home extends Component {
 
     return (
       <div className={styles}>
-        Welcome to FIM Information System
+        Data Profile
         {
           isLogin && this.renderLoggedInUser()
         }
@@ -109,4 +90,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

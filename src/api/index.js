@@ -10,6 +10,7 @@ const FIM_SERVICES = {
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
   UpdateProfile: `${HOSTNAME}/myprofile/update`,
+  GetProfile: `${HOSTNAME}/myprofile`,
   getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
 };
 
@@ -35,6 +36,26 @@ const Login = (content) => {
         { 
           id: 0,
           message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Login')
+        }
+      }
+    })
+}
+
+const GetProfile = (content) => {
+  const url = FIM_SERVICES.GetProfile;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
         }
       }
     })
@@ -116,5 +137,6 @@ export {
   SignUp,
   Logout,
   getKota,
-  UpdateProfile
+  UpdateProfile,
+  GetProfile
 }
