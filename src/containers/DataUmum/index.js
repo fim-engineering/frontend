@@ -15,7 +15,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction } from '../../api'
-import { getKota as getKotaAction } from '../../api'
+import { getKota as getKotaAction, UpdateProfile as updateProfileAction } from '../../api'
 
 import ImageUploader from '../../components/ImageUploader';
 import { listKota, listKampus } from '../../helpers'
@@ -122,7 +122,9 @@ class DataUmum extends Component {
       this.setState({image: {
         load: path, 
         stream: stream
-      }})
+      }}, () => {
+        this.handleUpload()
+      })
     } else {
       console.log('failed');
     }
@@ -133,7 +135,9 @@ class DataUmum extends Component {
       this.setState({imageProfile: {
         loadProfile: path, 
         streamProfile: stream
-      }})
+      }}, () => {
+        this.handleUploadProfile()
+      })
     } else {
       console.log('failed');
     }
@@ -166,9 +170,86 @@ class DataUmum extends Component {
     })
   }
 
+  handleSaveData = () => {
+    const { actions } = this.props
+    const { 
+      full_name,
+      institution,
+      majors,
+      generation,
+      address,
+      city,
+      phone,
+      gender,
+      imageURLProfile,
+      imageURL,
+      blood,
+      born_date,
+      born_city,
+      marriage_status,
+      facebook,
+      instagram,
+      blog,
+      line,
+      disease_history,
+      video_profile,
+      religion,
+    } = this.state
+    const token = _.result(this, 'props.user.token', '');
+
+    const content = {
+      token,
+      full_name,
+      institution,
+      majors,
+      generation,
+      address,
+      city,
+      phone,
+      gender,
+      photo_profile_link: imageURLProfile,
+      ktp_link: imageURL,
+      blood,
+      born_date,
+      born_city,
+      marriage_status,
+      facebook,
+      instagram,
+      blog,
+      line,
+      disease_history,
+      religion,
+      is_ready: 0,
+    }
+    actions.ui.toggleProgressbar(true);
+    updateProfileAction(content)
+      .then(response => {
+        const resUserID = _.result(response, 'user_profile.user_id', 0)
+        if (resUserID !== 0) {
+          this.showToaster('Sukses Menyimpan')
+          this.handleChangeRoute('/')()
+        } else {
+          const errorMessage = _.result(response, 'message', '')
+          this.showToaster(errorMessage)
+        }
+        actions.ui.toggleProgressbar(false);
+      })
+      .catch(err => {
+        console.log("err client: ", err);
+        actions.ui.toggleProgressbar(false);
+      }) 
+  }
+
+  showToaster = (message) => {
+    this.props.actions.ui.toggleNotification({
+      isOpen: true,
+      text: message
+    });
+  }
+
   handleUpload = () => {
     const cloudName = 'fim-indonesia';
-    const unsignedUploadPreset = 'profile_photo';
+    const unsignedUploadPreset = 'ID_card';
     const HOST = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
     let fd = new FormData()
 
@@ -185,7 +266,30 @@ class DataUmum extends Component {
     }).then((result) => {
       console.log('result===: ', result);
       console.log('result===image: ', result.secure_url);
-      alert(`Your URL image: ${result.secure_url}`)
+      this.setState({ imageURL: result.secure_url })
+    })
+  }
+
+  handleUploadProfile = () => {
+    const cloudName = 'fim-indonesia';
+    const unsignedUploadPreset = 'profile_photo';
+    const HOST = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    let fd = new FormData()
+
+    fd.append('upload_preset', unsignedUploadPreset);
+    fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', this.state.imageProfile.loadProfile);
+
+    
+    fetch(HOST,{
+      body: fd,
+      method: 'POST'
+    }).then((response) => {
+      return response.json()
+    }).then((result) => {
+      console.log('result===: ', result);
+      console.log('result===image: ', result.secure_url);
+      this.setState({ imageURLProfile: result.secure_url })
     })
   }
 
@@ -381,8 +485,9 @@ class DataUmum extends Component {
           hintText="Riwayat Penyakit"
           onChange = {(e, newValue) => this.handleInput('disease_history', newValue)}/>
         <br />
-
-        <RaisedButton label="Upload" primary={true} onClick={this.handleUpload}/>
+        <br />
+        
+        <RaisedButton label="Save" primary={true} onClick={this.handleSaveData}/>
         <br />
         <br />
         <br />
