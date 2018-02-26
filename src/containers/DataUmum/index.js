@@ -9,14 +9,18 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import AutoComplete from 'material-ui/AutoComplete';
 import DatePicker from 'material-ui/DatePicker';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
 /* component styles */
 import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction } from '../../api'
-import { getKota as getKotaAction, UpdateProfile as updateProfileAction } from '../../api'
-
+import { 
+  getKota as getKotaAction,
+  UpdateProfile as updateProfileAction,
+  GetProfile as getProfileAction
+} from '../../api';
 import ImageUploader from '../../components/ImageUploader';
 import { listKota, listKampus } from '../../helpers'
 
@@ -26,6 +30,7 @@ class DataUmum extends Component {
   }
 
   state = {
+    born_date: '2018-01-01',
     gender: 'Male',
     city: 'Dki Jakarta',
     email: '',
@@ -41,6 +46,36 @@ class DataUmum extends Component {
       loadProfile: '',
       streamProfile: ''
     }
+  }
+
+  componentWillMount = () => {
+    const token = _.result(this, 'props.user.token', '');
+    const content = { token }
+    getProfileAction(content)
+      .then(response => {
+        this.setState({
+          full_name: _.result(response, 'user_profile.full_name', ''),
+          address: _.result(response, 'user_profile.address', ''),
+          phone: _.result(response, 'user_profile.phone', ''),
+          gender: _.result(response, 'user_profile.gender', ''),
+          city: _.result(response, 'user_profile.city', ''),
+          blood: _.result(response, 'user_profile.blood', ''),
+          institution: _.result(response, 'user_profile.institution', ''),
+          majors: _.result(response, 'user_profile.majors', ''),
+          generation: _.result(response, 'user_profile.generation', ''),
+          born_date: _.result(response, 'user_profile.born_date', ''),
+          born_city: _.result(response, 'user_profile.born_city', ''),
+          marriage_status: _.result(response, 'user_profile.marriage_status', ''),
+          religion: _.result(response, 'user_profile.religion', ''),
+          disease_history: _.result(response, 'user_profile.disease_history', ''),
+          facebook: _.result(response, 'user_profile.facebook', ''),
+          blog: _.result(response, 'user_profile.blog', ''),
+          line: _.result(response, 'user_profile.line', ''),
+          instagram: _.result(response, 'user_profile.instagram', ''),
+          imageURL: _.result(response, 'user_profile.ktp_link', ''),
+          imageURLProfile: _.result(response, 'user_profile.photo_profile_link', ''),
+        })
+      })
   }
 
   componentDidMount = () => {
@@ -164,7 +199,6 @@ class DataUmum extends Component {
   }
 
   handleInput = (key, value) => {
-    console.log("key: ", key, " | value: ", value);
     this.setState({
       [key]: value
     })
@@ -235,7 +269,6 @@ class DataUmum extends Component {
         actions.ui.toggleProgressbar(false);
       })
       .catch(err => {
-        console.log("err client: ", err);
         actions.ui.toggleProgressbar(false);
       }) 
   }
@@ -264,8 +297,6 @@ class DataUmum extends Component {
     }).then((response) => {
       return response.json()
     }).then((result) => {
-      console.log('result===: ', result);
-      console.log('result===image: ', result.secure_url);
       this.setState({ imageURL: result.secure_url })
     })
   }
@@ -287,8 +318,6 @@ class DataUmum extends Component {
     }).then((response) => {
       return response.json()
     }).then((result) => {
-      console.log('result===: ', result);
-      console.log('result===image: ', result.secure_url);
       this.setState({ imageURLProfile: result.secure_url })
     })
   }
@@ -304,20 +333,46 @@ class DataUmum extends Component {
   }
 
   render() {
-    const { email, password, isProcessLogin, image } = this.state
+    const {
+      email,
+      password,
+      isProcessLogin,
+      image,
+      full_name,
+      institution,
+      majors,
+      generation,
+      address,
+      city,
+      phone,
+      gender,
+      photo_profile_link,
+      ktp_link,
+      blood,
+      born_date,
+      born_city,
+      marriage_status,
+      facebook,
+      instagram,
+      blog,
+      line,
+      disease_history,
+      religion,
+      imageURL,
+      imageURLProfile,
+    } = this.state
     const isDisabledLogin = email === '' || password === '' || isProcessLogin
     const labelButtonLogin = isProcessLogin ? 'Process' : 'Login'
-    console.log('this.state.city===: ', this.state.city);
-    console.log('this.state.gender===: ', this.state.gender);
-    console.log('this.state.institution===: ', this.state.institution);
-    console.log('this.state.blood===: ', this.state.blood);
-    console.log('this.state.born_date===: ', this.state.born_date);
-    console.log('this.state.born_city===: ', this.state.born_city);
-    console.log('this.state.marriage_status===: ', this.state.marriage_status);
+
+    const year = parseInt(born_date.split('-')[0], 10)
+    const month = parseInt(born_date.split('-')[1], 10)
+    const day = parseInt(born_date.split('-')[2], 10)
+    const oldDate = new Date(year,month,day);
     return (
       <div className={styles}>
         <h2>Nama Lengkap</h2>
         <TextField
+          value={full_name}
           hintText="Full Name"
           floatingLabelText="Full Name"
           onChange = {(e, newValue) => this.handleInput('full_name', newValue)}/>
@@ -325,6 +380,7 @@ class DataUmum extends Component {
 
         <h2>Alamat</h2>
         <TextField
+          value={address}
           multiLine={true}
           rows={2}
           rowsMax={5}
@@ -335,6 +391,7 @@ class DataUmum extends Component {
         <h2>Nomor Telpon</h2>
         <br />
         <TextField
+          value={phone}
           hintText="Phone"
           floatingLabelText="Phone"
           type="number"
@@ -342,14 +399,14 @@ class DataUmum extends Component {
         <br />
 
         <h2>Jenis Kelamin</h2>
-        <DropDownMenu value={this.state.gender} onChange={(e, index, newValue) => this.handleInput('gender', newValue)}>
+        <DropDownMenu value={gender} onChange={(e, index, newValue) => this.handleInput('gender', newValue)}>
           <MenuItem value={'Male'} primaryText="Male" />
           <MenuItem value={'Female'} primaryText="Female" />
         </DropDownMenu>
         <br />
 
         <h2>Regional</h2>
-        <DropDownMenu value={this.state.city} onChange={(e, index, newValue) => this.handleInput('city', newValue)}>
+        <DropDownMenu value={city} onChange={(e, index, newValue) => this.handleInput('city', newValue)}>
           {
             listKota.map(kota => {
               return <MenuItem value={kota} primaryText={kota} />
@@ -359,14 +416,16 @@ class DataUmum extends Component {
 
         <br />
         <TextField
+          value={generation}
           hintText="Angkatan"
           floatingLabelText="Angkatan"
           type="number"
-          onChange = {(e, newValue) => this.handleInput('generations', newValue)}/>
+          onChange = {(e, newValue) => this.handleInput('generation', newValue)}/>
         <br />
 
         <br />
         <TextField
+          value={majors}
           hintText="Jurusan"
           floatingLabelText="Jurusan"
           type="text"
@@ -375,6 +434,7 @@ class DataUmum extends Component {
 
         <br />
         <AutoComplete
+          searchText={institution}
           floatingLabelText="Kampus"
           onUpdateInput={(searchText, dataSource) => this.handleInput('institution', searchText)}
           filter={AutoComplete.fuzzyFilter}
@@ -383,22 +443,41 @@ class DataUmum extends Component {
         />
         
         <h2>Upload KTP</h2>
-        <ImageUploader 
-          onLoadFile={this.handleImageLoad} 
-          valueImage={this.state.image.stream} 
-          onRemoveImage={this.handleRemoveImage}/>
+        {
+          imageURL === '' ? <ImageUploader 
+            onLoadFile={this.handleImageLoad} 
+            valueImage={this.state.image.stream} 
+            onRemoveImage={this.handleRemoveImage}/>
+          :
+            <div>
+              <img style={{ maxWidth: '200px', maxHeight: '200px' }} src={imageURL} />
+              <br />
+              <DeleteIcon
+                onClick={this.handleRemoveImage}/>
+            </div>
+        }
         <br />
 
         <h2>Upload Photo</h2>
-        <ImageUploader 
-          onLoadFile={this.handleImageLoadProfile} 
-          valueImage={this.state.imageProfile.streamProfile} 
-          onRemoveImage={this.handleRemoveImageProfile}/>
+        {
+          imageURLProfile === '' ? <ImageUploader 
+            onLoadFile={this.handleImageLoadProfile} 
+            valueImage={this.state.imageProfile.streamProfile} 
+            onRemoveImage={this.handleRemoveImageProfile}/>
+          :
+            <div>
+              <img style={{ maxWidth: '200px', maxHeight: '200px' }} src={imageURLProfile} />
+              <br />
+              <DeleteIcon
+                onClick={this.handleRemoveImageProfile}/>
+            </div>
+        }
         <br />
 
         <h2>Golongan Darah</h2>
         <br />
         <AutoComplete
+          searchText={blood}
           floatingLabelText="Golongan Darah"
           onUpdateInput={(searchText, dataSource) => this.handleInput('blood', searchText)}
           filter={AutoComplete.fuzzyFilter}
@@ -410,15 +489,12 @@ class DataUmum extends Component {
         <h2>Tanggal Kelahiran</h2>
         <br />
         <DatePicker
+          value={oldDate}
           hintText="Tanggal Lahir"
           onChange={(_, date) => {
-            console.log("date: ", date)
             const yyyy = date.getFullYear().toString();
             const mm = (date.getMonth()+1).toString();
             const dd  = date.getDate().toString();
-            console.log("yyyy: ", yyyy)
-            console.log("mm: ", mm)
-            console.log("dd: ", dd)
             this.handleInput('born_date', `${yyyy}-${mm}-${dd}`)
           }}
           container="inline" />
@@ -427,6 +503,7 @@ class DataUmum extends Component {
         <h2>Kota Kelahiran</h2>
         <br />
         <AutoComplete
+          searchText={born_city}
           floatingLabelText="Kota Lahir"
           onUpdateInput={(searchText, dataSource) => this.handleInput('born_city', searchText)}
           filter={AutoComplete.fuzzyFilter}
@@ -437,7 +514,7 @@ class DataUmum extends Component {
 
         <h2>Status Menikah</h2>
         <br />
-        <DropDownMenu value={this.state.marriage_status} onChange={(e, index, newValue) => this.handleInput('marriage_status', newValue)}>
+        <DropDownMenu value={marriage_status} onChange={(e, index, newValue) => this.handleInput('marriage_status', newValue)}>
           <MenuItem value={1} primaryText="Menikah" />
           <MenuItem value={0} primaryText="Belum Menikah" />
         </DropDownMenu>
@@ -445,7 +522,7 @@ class DataUmum extends Component {
 
         <h2>Agama</h2>
         <br />
-        <DropDownMenu value={this.state.religion} onChange={(e, index, newValue) => this.handleInput('religion', newValue)}>
+        <DropDownMenu value={religion} onChange={(e, index, newValue) => this.handleInput('religion', newValue)}>
           <MenuItem value={"Islam"} primaryText="Islam" />
           <MenuItem value={"Kristen Protestan"} primaryText="Kristen Protestan" />
           <MenuItem value={"Kristen Katolik"} primaryText="Kristen Katolik" />
@@ -457,21 +534,25 @@ class DataUmum extends Component {
 
         <h2>Media Sosial</h2>
         <TextField
+          value={facebook}
           hintText="Facebook"
           floatingLabelText="Facebook"
           onChange = {(e, newValue) => this.handleInput('facebook', newValue)}/>
         <br />
         <TextField
+          value={instagram}
           hintText="Instagram"
           floatingLabelText="Instagram"
           onChange = {(e, newValue) => this.handleInput('instagram', newValue)}/>
         <br />
         <TextField
+          value={blog}
           hintText="Blog"
           floatingLabelText="Blog"
           onChange = {(e, newValue) => this.handleInput('blog', newValue)}/>
         <br />
         <TextField
+          value={line}
           hintText="Line"
           floatingLabelText="Line"
           onChange = {(e, newValue) => this.handleInput('line', newValue)}/>
@@ -479,6 +560,7 @@ class DataUmum extends Component {
 
         <h2>Riwayat Penyakit</h2>
         <TextField
+          value={disease_history}
           multiLine={true}
           rows={2}
           rowsMax={5}
