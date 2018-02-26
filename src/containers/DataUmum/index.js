@@ -15,7 +15,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
-import { Login as LoginAction } from '../../api'
+import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../api'
 import { 
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
@@ -30,6 +30,7 @@ class DataUmum extends Component {
   }
 
   state = {
+    listKota: listKota,
     born_date: '2018-01-01',
     gender: 'Male',
     city: 'Dki Jakarta',
@@ -75,6 +76,12 @@ class DataUmum extends Component {
           imageURL: _.result(response, 'user_profile.ktp_link', ''),
           imageURLProfile: _.result(response, 'user_profile.photo_profile_link', ''),
         })
+      })
+    
+    GetRegionalAction(content)
+      .then(res => {
+        const regionals = res.regionals.map(regional => regional.regional_name)
+        this.setState({ listKota: regionals })
       })
   }
 
@@ -334,6 +341,7 @@ class DataUmum extends Component {
 
   render() {
     const {
+      listKota,
       email,
       password,
       isProcessLogin,
