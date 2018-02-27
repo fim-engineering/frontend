@@ -12,11 +12,14 @@ const FIM_SERVICES = {
   UpdateProfile: `${HOSTNAME}/myprofile/update`,
   UpdatePersonality: `${HOSTNAME}/personality/update`,
   UpdateAchievement: `${HOSTNAME}/achievementbest/update`,
+  UpdateMeFIM: `${HOSTNAME}/meforfim/update`,
   GetProfile: `${HOSTNAME}/myprofile`,
+  GetMeFIM: `${HOSTNAME}/meforfim`,
   GetAchievement: `${HOSTNAME}/achievementbest`,
   GetPersonality: `${HOSTNAME}/personality`,
   GetRegional: `${HOSTNAME}/admin/regionals`,
   GetMBTI: `${HOSTNAME}/select/mbtis`,
+  GetFIMReference: `${HOSTNAME}/select/fim-references`,
   GetBestPerformance: `${HOSTNAME}/select/best-performances`,
   getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
 };
@@ -68,6 +71,26 @@ const GetProfile = (content) => {
     })
 }
 
+const GetMeFIM = (content) => {
+  const url = FIM_SERVICES.GetMeFIM;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
 const GetBestPerformance = (content) => {
   const url = FIM_SERVICES.GetBestPerformance;
   
@@ -90,6 +113,26 @@ const GetBestPerformance = (content) => {
 
 const GetMBTI = (content) => {
   const url = FIM_SERVICES.GetMBTI;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const GetFIMReference = (content) => {
+  const url = FIM_SERVICES.GetFIMReference;
   
   const extraHeaders = {
     Authorization: `Bearer ${content.token}`
@@ -170,6 +213,26 @@ const GetRegional = (content) => {
 
 const UpdatePersonality = (content) => {
   const url = FIM_SERVICES.UpdatePersonality;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'put', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const UpdateMeFIM = (content) => {
+  const url = FIM_SERVICES.UpdateMeFIM;
   
   const extraHeaders = {
     Authorization: `Bearer ${content.token}`
@@ -293,4 +356,7 @@ export {
   GetBestPerformance,
   UpdatePersonality,
   GetPersonality,
+  GetFIMReference,
+  UpdateMeFIM,
+  GetMeFIM,
 }

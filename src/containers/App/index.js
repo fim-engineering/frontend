@@ -24,6 +24,7 @@ import ChangePassword       from 'containers/ChangePassword';
 import DataUmum       from 'containers/DataUmum';
 import Achievement       from 'containers/Achievement';
 import Personality       from 'containers/Personality';
+import AboutFIM       from 'containers/AboutFIM';
 import Profile       from 'containers/Profile';
 
 injectTapEventPlugin();
@@ -56,6 +57,7 @@ export class App extends Component {
                   <Route path="/profile" component={DataUmum}/>
                   <Route path="/achievement" component={Achievement}/>
                   <Route path="/personality" component={Personality}/>
+                  <Route path="/me-fim" component={AboutFIM}/>
                   <Route path="/myprofile" component={Profile}/>
 
                   <Route path="/*" component={NotFound}/>

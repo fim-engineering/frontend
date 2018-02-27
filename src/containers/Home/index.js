@@ -83,6 +83,13 @@ class Home extends Component {
           label="Isi Personality" fullWidth={false} />
         <br />
         <br />
+        <RaisedButton 
+          primary={true}
+          onClick={this.handleRedirect('/me-fim')}
+          icon={<FlightTakeoff />}
+          label="Isi Tentang Aku dan FIM" fullWidth={false} />
+        <br />
+        <br />
       </div>
     )
   }

@@ -27,16 +27,21 @@ import {
   GetBestPerformance as getBestPerformanceAction,
   UpdatePersonality as updatePersonalityAction,
   GetPersonality as getPersonalityAction,
+  GetFIMReference as getFIMReferenceAction,
+  GetMeFIM as getMeFIMAction,
+  UpdateMeFIM as updateMeFIMAction,
 } from '../../api';
 import ImageUploader from '../../components/ImageUploader';
 import { listKota, listKampus } from '../../helpers'
 
-class Personality extends Component {
+class AboutFIM extends Component {
   constructor(props) {
     super(props);
   }
 
   state = {
+    listReference: [],
+
     listMBTI: [],
     listBest: [],
     best_performance: '',
@@ -111,6 +116,21 @@ class Personality extends Component {
       .then(res => {
         this.setState({ listBest: res.best_performance })
       })
+    
+    getFIMReferenceAction(content)
+      .then(res => {
+        this.setState({ listReference: res.fim_references })
+      })
+    
+    getMeFIMAction(content)
+      .then(res => {
+        this.setState({
+          fim_reference: _.result(res, 'meandfim.fim_reference', '') || '',
+          why_join_fim: _.result(res, 'meandfim.why_join_fim', '') || '',
+          skill_for_fim: _.result(res, 'meandfim.skill_for_fim', '') || '',
+          performance_apiekspresi: _.result(res, 'meandfim.performance_apiekspresi', '') || '',
+        })
+      })
   }
 
   componentDidMount = () => {
@@ -153,40 +173,22 @@ class Personality extends Component {
   handleClickData = () => {
     const { actions } = this.props
     const { 
-      best_performance,
-      cintakasih,
-      integritas,
-      kebersahajaan,
-      totalitas,
-      solidaritas,
-      keadilan,
-      keteladanan,
-      strength,
-      weakness,
-      role_model,
-      problem_solver,
-      mbti,
+      fim_reference,
+      why_join_fim,
+      skill_for_fim,
+      performance_apiekspresi,
     } = this.state
     const token = _.result(this, 'props.user.token', '');
 
     const content = {
-      best_performance,
-      cintakasih,
-      integritas,
-      kebersahajaan,
-      totalitas,
-      solidaritas,
-      keadilan,
-      keteladanan,
-      strength,
-      weakness,
-      role_model,
-      problem_solver,
+      fim_reference,
+      why_join_fim,
+      skill_for_fim,
+      performance_apiekspresi,
       token,
-      mbti,
     }
     actions.ui.toggleProgressbar(true);
-    updatePersonalityAction(content)
+    updateMeFIMAction(content)
       .then(response => {
         console.log("response==: ", response);
         const resUserID = _.result(response, 'user_profile.user_id', 0)
@@ -386,6 +388,12 @@ class Personality extends Component {
       weakness,
       role_model,
       problem_solver,
+
+      listReference,
+      fim_reference,
+      why_join_fim,
+      skill_for_fim,
+      performance_apiekspresi,
     } = this.state
 
     const year_date_from = parseInt(date_from.split('-')[0], 10)
@@ -422,132 +430,49 @@ class Personality extends Component {
     const styleDivider = { marginBottom: '20px', marginTop: '20px' }
     return (
       <div className={styles}>
-        <h1>PERSONALITY</h1>
+        <h1>Tentang Aku dan FIM</h1>
         <br />
         <br />
-        <h2>MBTI</h2>
-        <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
+        <h2>Mengetahui FIM dari mana ?</h2>
+        <DropDownMenu value={fim_reference} onChange={(e, index, newValue) => this.handleInput('fim_reference', newValue)}>
           {
-            listMBTI.map(mbti => {
+            listReference.map(mbti => {
               return <MenuItem value={mbti} primaryText={mbti} />
             })
           }
         </DropDownMenu>
         <br />
-        <h2>Best Performance</h2>
-        <DropDownMenu value={best_performance} onChange={(e, index, newValue) => this.handleInput('best_performance', newValue)}>
-          {
-            listBest.map(mbti => {
-              return <MenuItem value={mbti} primaryText={mbti} />
-            })
-          }
-        </DropDownMenu>
 
-        <h2>Kekuatan</h2>
+        <h2>Kenapa ingin ikut FIM</h2>
         <TextField
-          value={strength}
+          value={why_join_fim}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="strength"
-          onChange = {(e, newValue) => this.handleInput('strength', newValue)}/>
+          hintText="Alasan ikut FIM"
+          onChange = {(e, newValue) => this.handleInput('why_join_fim', newValue)}/>
         <br />
 
-        <h2>Kelemahan</h2>
+        <h2>Keahlian untuk FIM</h2>
         <TextField
-          value={weakness}
+          value={skill_for_fim}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="weakness"
-          onChange = {(e, newValue) => this.handleInput('weakness', newValue)}/>
+          hintText="Keahlian untuk kontribusi di FIM"
+          onChange = {(e, newValue) => this.handleInput('skill_for_fim', newValue)}/>
         <br />
 
-        <h2>Role Model</h2>
+        <h2>Pertunjukkan untuk API ekspresi</h2>
         <TextField
-          value={role_model}
+          value={performance_apiekspresi}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="role model"
-          onChange = {(e, newValue) => this.handleInput('role_model', newValue)}/>
+          hintText="Pertunjukkan untuk API ekspresi"
+          onChange = {(e, newValue) => this.handleInput('performance_apiekspresi', newValue)}/>
         <br />
 
-        <h2>Problem Solver</h2>
-        <TextField
-          value={problem_solver}
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="problem solver"
-          onChange = {(e, newValue) => this.handleInput('problem_solver', newValue)}/>
-        <br />
-
-        <h2>Cinta Kasih</h2>
-        <DropDownMenu value={cintakasih} onChange={(e, index, newValue) => this.handleInput('cintakasih', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>Integritas</h2>
-        <DropDownMenu value={integritas} onChange={(e, index, newValue) => this.handleInput('integritas', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>kebersahajaan</h2>
-        <DropDownMenu value={kebersahajaan} onChange={(e, index, newValue) => this.handleInput('kebersahajaan', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>totalitas</h2>
-        <DropDownMenu value={totalitas} onChange={(e, index, newValue) => this.handleInput('totalitas', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>solidaritas</h2>
-        <DropDownMenu value={solidaritas} onChange={(e, index, newValue) => this.handleInput('solidaritas', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>keadilan</h2>
-        <DropDownMenu value={keadilan} onChange={(e, index, newValue) => this.handleInput('keadilan', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-
-        <h2>keteladanan</h2>
-        <DropDownMenu value={keteladanan} onChange={(e, index, newValue) => this.handleInput('keteladanan', newValue)}>
-          <MenuItem value={1} primaryText="1" />
-          <MenuItem value={2} primaryText="2" />
-          <MenuItem value={3} primaryText="3" />
-          <MenuItem value={4} primaryText="4" />
-          <MenuItem value={5} primaryText="5" />
-        </DropDownMenu>
-        
-        <br />
-        <br />
         <br />
         <RaisedButton label="Save" primary={true} onClick={this.handleClickData}/>
         <br />
@@ -575,4 +500,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Personality);
+export default connect(mapStateToProps, mapDispatchToProps)(AboutFIM);
