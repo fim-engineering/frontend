@@ -10,10 +10,14 @@ const FIM_SERVICES = {
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
   UpdateProfile: `${HOSTNAME}/myprofile/update`,
+  UpdatePersonality: `${HOSTNAME}/personality/update`,
   UpdateAchievement: `${HOSTNAME}/achievementbest/update`,
   GetProfile: `${HOSTNAME}/myprofile`,
   GetAchievement: `${HOSTNAME}/achievementbest`,
+  GetPersonality: `${HOSTNAME}/personality`,
   GetRegional: `${HOSTNAME}/admin/regionals`,
+  GetMBTI: `${HOSTNAME}/select/mbtis`,
+  GetBestPerformance: `${HOSTNAME}/select/best-performances`,
   getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
 };
 
@@ -64,8 +68,68 @@ const GetProfile = (content) => {
     })
 }
 
+const GetBestPerformance = (content) => {
+  const url = FIM_SERVICES.GetBestPerformance;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const GetMBTI = (content) => {
+  const url = FIM_SERVICES.GetMBTI;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
 const GetAchievement = (content) => {
   const url = FIM_SERVICES.GetAchievement;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const GetPersonality = (content) => {
+  const url = FIM_SERVICES.GetPersonality;
   
   const extraHeaders = {
     Authorization: `Bearer ${content.token}`
@@ -92,6 +156,26 @@ const GetRegional = (content) => {
   }
 
   return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const UpdatePersonality = (content) => {
+  const url = FIM_SERVICES.UpdatePersonality;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'put', content, true, extraHeaders))
     .then(response => response.data)
     .catch(err => {
       return {
@@ -205,4 +289,8 @@ export {
   GetProfile,
   GetAchievement,
   GetRegional,
+  GetMBTI,
+  GetBestPerformance,
+  UpdatePersonality,
+  GetPersonality,
 }

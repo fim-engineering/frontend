@@ -76,6 +76,13 @@ class Home extends Component {
           label="Isi Capaian" fullWidth={false} />
         <br />
         <br />
+        <RaisedButton 
+          primary={true}
+          onClick={this.handleRedirect('/personality')}
+          icon={<FlightTakeoff />}
+          label="Isi Personality" fullWidth={false} />
+        <br />
+        <br />
       </div>
     )
   }
