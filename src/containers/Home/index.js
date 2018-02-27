@@ -7,6 +7,7 @@ import * as _ from 'lodash'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -24,7 +25,8 @@ class Home extends Component {
 
   state = {
     userProfile: {},
-    isLoadedProfile: false
+    isLoadedProfile: false,
+    isOpen: false
   }
 
   handleRedirect = (path) => () => {
@@ -51,10 +53,38 @@ class Home extends Component {
     }
   }
 
+  toggleModal = () => {
+    console.log("trigger modal");
+    this.setState({isOpen: !this.state.isOpen});
+  };
+
+  handleFinalSubmit = () => {
+    console.log("handleFinalSubmit");
+  }
+
   renderLoggedInUser = () => {
     const { user } = this.props
     const { userProfile } = this.state
     console.log("userProfile: ", userProfile);
+
+    const customModalStyle = {
+      width: '100%',
+      maxWidth: 'none',
+    };
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.toggleModal}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onClick={this.handleFinalSubmit}
+      />,
+    ];
+
     return (
       <div>
         Hallo {user.email}
@@ -90,6 +120,20 @@ class Home extends Component {
           label="Isi Tentang Aku dan FIM" fullWidth={false} />
         <br />
         <br />
+        <RaisedButton 
+          primary={true}
+          onClick={this.toggleModal}
+          icon={<FlightTakeoff />}
+          label="Submit ?" fullWidth={false} />
+        <Dialog
+          title="Kamu yakin akan submit pendaftaran kamu ?"
+          actions={actions}
+          modal={true}
+          contentStyle={customModalStyle}
+          open={this.state.isOpen}
+        >
+          Setelah melakukan submit, tidak bisa merubah isian formulir kembali
+        </Dialog>
       </div>
     )
   }
