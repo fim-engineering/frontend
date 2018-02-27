@@ -81,9 +81,9 @@ class LeftNavBar extends Component {
             {
               !isLogin && <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />
             }
-            {
+            {/*
               isLogin && <MenuItem onClick={this.handleRedirect('/account/change_password')} primaryText="Change" leftIcon={<FileUpload />} />
-            }
+            */}
             {
               isLogin && <MenuItem onClick={this.handleLogut} primaryText="Logout" leftIcon={<FileUpload />} />
             }

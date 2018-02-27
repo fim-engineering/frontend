@@ -34,6 +34,19 @@ export class App extends Component {
     super(props);
   }
 
+  componentDidMount = () => {
+    
+    var Tawk_API = window.Tawk_API || {}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/5a95d926d7591465c70814a0/default';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+      })();
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
