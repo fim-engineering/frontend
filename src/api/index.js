@@ -10,7 +10,9 @@ const FIM_SERVICES = {
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
   UpdateProfile: `${HOSTNAME}/myprofile/update`,
+  UpdateAchievement: `${HOSTNAME}/achievementbest/update`,
   GetProfile: `${HOSTNAME}/myprofile`,
+  GetAchievement: `${HOSTNAME}/achievementbest`,
   GetRegional: `${HOSTNAME}/admin/regionals`,
   getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
 };
@@ -62,6 +64,26 @@ const GetProfile = (content) => {
     })
 }
 
+const GetAchievement = (content) => {
+  const url = FIM_SERVICES.GetAchievement;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
 const GetRegional = (content) => {
   const url = FIM_SERVICES.GetRegional;
   
@@ -90,6 +112,26 @@ const UpdateProfile = (content) => {
   }
 
   return axios(configFetch(url, 'put', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const UpdateAchievement = (content) => {
+  const url = FIM_SERVICES.UpdateAchievement;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'post', content, true, extraHeaders))
     .then(response => response.data)
     .catch(err => {
       return {
@@ -159,6 +201,8 @@ export {
   Logout,
   getKota,
   UpdateProfile,
+  UpdateAchievement,
   GetProfile,
+  GetAchievement,
   GetRegional,
 }

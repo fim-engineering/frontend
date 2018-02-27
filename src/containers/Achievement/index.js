@@ -20,7 +20,9 @@ import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../ap
 import { 
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
-  GetProfile as getProfileAction
+  UpdateAchievement as updateAchievementAction,
+  GetProfile as getProfileAction,
+  GetAchievement as getAchievementAction,
 } from '../../api';
 import ImageUploader from '../../components/ImageUploader';
 import { listKota, listKampus } from '../../helpers'
@@ -33,6 +35,12 @@ class Achievement extends Component {
   state = {
     listKota: listKota,
     born_date: '2018-01-01',
+    date_from: '2018-01-01',
+    date_end: '2018-01-01',
+    date_from_2: '2018-01-01',
+    date_end_2: '2018-01-01',
+    date_from_3: '2018-01-01',
+    date_end_3: '2018-01-01',
     gender: 'Male',
     city: 'Dki Jakarta',
     email: '',
@@ -53,29 +61,31 @@ class Achievement extends Component {
   componentWillMount = () => {
     const token = _.result(this, 'props.user.token', '');
     const content = { token }
-    getProfileAction(content)
+    getAchievementAction(content)
       .then(response => {
+        console.log("response di willMpunt: ", response);
         this.setState({
-          full_name: _.result(response, 'user_profile.full_name', '') || '',
-          address: _.result(response, 'user_profile.address', '') || '',
-          phone: _.result(response, 'user_profile.phone', '') || '',
-          gender: _.result(response, 'user_profile.gender', '') || '',
-          city: _.result(response, 'user_profile.city', '') || '',
-          blood: _.result(response, 'user_profile.blood', '') || '',
-          institution: _.result(response, 'user_profile.institution', '') || '',
-          majors: _.result(response, 'user_profile.majors', '') || '',
-          generation: _.result(response, 'user_profile.generation', '') || '',
-          born_date: _.result(response, 'user_profile.born_date', '') || '2018-01-01',
-          born_city: _.result(response, 'user_profile.born_city', '') || '',
-          marriage_status: _.result(response, 'user_profile.marriage_status', '') || '',
-          religion: _.result(response, 'user_profile.religion', '') || '',
-          disease_history: _.result(response, 'user_profile.disease_history', '') || '',
-          facebook: _.result(response, 'user_profile.facebook', '') || '',
-          blog: _.result(response, 'user_profile.blog', '') || '',
-          line: _.result(response, 'user_profile.line', '') || '',
-          instagram: _.result(response, 'user_profile.instagram', '') || '',
-          imageURL: _.result(response, 'user_profile.ktp_link', '') || '',
-          imageURLProfile: _.result(response, 'user_profile.photo_profile_link', '') || '',
+          achievement: _.result(response, 'achie_best.achievement', '') || '',
+          date_from: _.result(response, 'achie_best.date_from', '') || '',
+          date_end: _.result(response, 'achie_best.date_end', '') || '',
+          position_name: _.result(response, 'achie_best.position_name', '') || '',
+          phone_leader: _.result(response, 'achie_best.phone_leader', '') || '',
+          email_leader: _.result(response, 'achie_best.email_leader', '') || '',
+          description: _.result(response, 'achie_best.description', '') || '',
+          achievement_2: _.result(response, 'achie_best.achievement_2', '') || '',
+          date_from_2: _.result(response, 'achie_best.date_from_2', '') || '',
+          date_end_2: _.result(response, 'achie_best.date_end_2', '') || '',
+          position_name_2: _.result(response, 'achie_best.position_name_2', '') || '',
+          phone_leader_2: _.result(response, 'achie_best.phone_leader_2', '') || '',
+          email_leader_2: _.result(response, 'achie_best.email_leader_2', '') || '',
+          description_2: _.result(response, 'achie_best.description_2', '') || '',
+          achievement_3: _.result(response, 'achie_best.achievement_3', '') || '',
+          date_from_3: _.result(response, 'achie_best.date_from_3', '') || '',
+          date_end_3: _.result(response, 'achie_best.date_end_3', '') || '',
+          position_name_3: _.result(response, 'achie_best.position_name_3', '') || '',
+          phone_leader_3: _.result(response, 'achie_best.phone_leader_3', '') || '',
+          email_leader_3: _.result(response, 'achie_best.email_leader_3', '') || '',
+          description_3: _.result(response, 'achie_best.description_3', '') || '',
         })
       })
     
@@ -121,6 +131,76 @@ class Achievement extends Component {
       isOpen: true,
       text: message
     });
+  }
+
+  handleClickData = () => {
+    const { actions } = this.props
+    const { 
+      achievement,
+      date_from,
+      date_end,
+      position_name,
+      phone_leader,
+      email_leader,
+      description,
+      achievement_2,
+      date_from_2,
+      date_end_2,
+      position_name_2,
+      phone_leader_2,
+      email_leader_2,
+      description_2,
+      achievement_3,
+      date_from_3,
+      date_end_3,
+      position_name_3,
+      phone_leader_3,
+      email_leader_3,
+      description_3,
+    } = this.state
+    const token = _.result(this, 'props.user.token', '');
+
+    const content = {
+      achievement,
+      date_from,
+      date_end,
+      position_name,
+      phone_leader,
+      email_leader,
+      description,
+      achievement_2,
+      date_from_2,
+      date_end_2,
+      position_name_2,
+      phone_leader_2,
+      email_leader_2,
+      description_2,
+      achievement_3,
+      date_from_3,
+      date_end_3,
+      position_name_3,
+      phone_leader_3,
+      email_leader_3,
+      description_3,
+      token,
+    }
+    actions.ui.toggleProgressbar(true);
+    updateAchievementAction(content)
+      .then(response => {
+        console.log("response==: ", response);
+        const resUserID = _.result(response, 'user_profile.user_id', 0)
+        if (resUserID !== 0) {
+          this.showToaster('Sukses Menyimpan')
+          this.handleChangeRoute('/')()
+        } else {
+          const errorMessage = _.result(response, 'message', '')
+          this.showToaster(errorMessage)
+        }
+        actions.ui.toggleProgressbar(false);
+      })
+      .catch(err => {
+        actions.ui.toggleProgressbar(false);
+      }) 
   }
 
   handleClick = () => {
@@ -212,75 +292,6 @@ class Achievement extends Component {
     })
   }
 
-  handleSaveData = () => {
-    const { actions } = this.props
-    const { 
-      full_name,
-      institution,
-      majors,
-      generation,
-      address,
-      city,
-      phone,
-      gender,
-      imageURLProfile,
-      imageURL,
-      blood,
-      born_date,
-      born_city,
-      marriage_status,
-      facebook,
-      instagram,
-      blog,
-      line,
-      disease_history,
-      video_profile,
-      religion,
-    } = this.state
-    const token = _.result(this, 'props.user.token', '');
-
-    const content = {
-      token,
-      full_name,
-      institution,
-      majors,
-      generation,
-      address,
-      city,
-      phone,
-      gender,
-      photo_profile_link: imageURLProfile,
-      ktp_link: imageURL,
-      blood,
-      born_date,
-      born_city,
-      marriage_status,
-      facebook,
-      instagram,
-      blog,
-      line,
-      disease_history,
-      religion,
-      is_ready: 0,
-    }
-    actions.ui.toggleProgressbar(true);
-    updateProfileAction(content)
-      .then(response => {
-        const resUserID = _.result(response, 'user_profile.user_id', 0)
-        if (resUserID !== 0) {
-          this.showToaster('Sukses Menyimpan')
-          this.handleChangeRoute('/')()
-        } else {
-          const errorMessage = _.result(response, 'message', '')
-          this.showToaster(errorMessage)
-        }
-        actions.ui.toggleProgressbar(false);
-      })
-      .catch(err => {
-        actions.ui.toggleProgressbar(false);
-      }) 
-  }
-
   showToaster = (message) => {
     this.props.actions.ui.toggleNotification({
       isOpen: true,
@@ -342,41 +353,59 @@ class Achievement extends Component {
 
   render() {
     const {
-      listKota,
-      email,
-      password,
-      isProcessLogin,
-      image,
-      full_name,
-      institution,
-      majors,
-      generation,
-      address,
-      city,
-      phone,
-      gender,
-      photo_profile_link,
-      ktp_link,
-      blood,
-      born_date,
-      born_city,
-      marriage_status,
-      facebook,
-      instagram,
-      blog,
-      line,
-      disease_history,
-      religion,
-      imageURL,
-      imageURLProfile,
+      achievement,
+      date_from,
+      date_end,
+      position_name,
+      phone_leader,
+      email_leader,
+      description,
+      achievement_2,
+      date_from_2,
+      date_end_2,
+      position_name_2,
+      phone_leader_2,
+      email_leader_2,
+      description_2,
+      achievement_3,
+      date_from_3,
+      date_end_3,
+      position_name_3,
+      phone_leader_3,
+      email_leader_3,
+      description_3,
     } = this.state
-    const isDisabledLogin = email === '' || password === '' || isProcessLogin
-    const labelButtonLogin = isProcessLogin ? 'Process' : 'Login'
 
-    const year = parseInt(born_date.split('-')[0], 10)
-    const month = parseInt(born_date.split('-')[1], 10)
-    const day = parseInt(born_date.split('-')[2], 10)
-    const oldDate = new Date(year,month,day);
+    const year_date_from = parseInt(date_from.split('-')[0], 10)
+    const month_date_from = parseInt(date_from.split('-')[1], 10)
+    const day_date_from = parseInt(date_from.split('-')[2], 10)
+    const oldDate_date_from = new Date(year_date_from,month_date_from,day_date_from);
+
+    const year_date_end = parseInt(date_end.split('-')[0], 10)
+    const month_date_end = parseInt(date_end.split('-')[1], 10)
+    const day_date_end = parseInt(date_end.split('-')[2], 10)
+    const oldDate_date_end = new Date(year_date_end,month_date_end,day_date_end);
+
+    const year_date_from_2 = parseInt(date_from_2.split('-')[0], 10)
+    const month_date_from_2 = parseInt(date_from_2.split('-')[1], 10)
+    const day_date_from_2 = parseInt(date_from_2.split('-')[2], 10)
+    const oldDate_date_from_2 = new Date(year_date_from_2,month_date_from_2,day_date_from_2);
+
+    const year_date_end_2 = parseInt(date_end_2.split('-')[0], 10)
+    const month_date_end_2 = parseInt(date_end_2.split('-')[1], 10)
+    const day_date_end_2 = parseInt(date_end_2.split('-')[2], 10)
+    const oldDate_date_end_2 = new Date(year_date_end_2,month_date_end_2,day_date_end_2);
+
+
+    const year_date_from_3 = parseInt(date_from_3.split('-')[0], 10)
+    const month_date_from_3 = parseInt(date_from_3.split('-')[1], 10)
+    const day_date_from_3 = parseInt(date_from_3.split('-')[2], 10)
+    const oldDate_date_from_3 = new Date(year_date_from_3,month_date_from_3,day_date_from_3);
+
+    const year_date_end_3 = parseInt(date_end_3.split('-')[0], 10)
+    const month_date_end_3 = parseInt(date_end_3.split('-')[1], 10)
+    const day_date_end_3 = parseInt(date_end_3.split('-')[2], 10)
+    const oldDate_date_end_3 = new Date(year_date_end_3,month_date_end_3,day_date_end_3);
 
     const styleDivider = { marginBottom: '20px', marginTop: '20px' }
     return (
@@ -389,6 +418,7 @@ class Achievement extends Component {
         <br />
         <h2>Nama Pencapaian</h2>
         <TextField
+          value={achievement}
           hintText="Nama Pencapaian"
           floatingLabelText="Nama Pencapaian"
           onChange = {(e, newValue) => this.handleInput('achievement', newValue)}/>
@@ -396,6 +426,7 @@ class Achievement extends Component {
         <h2>Tanggal Mulai</h2>
         <br />
         <DatePicker
+          value={oldDate_date_from}
           hintText="Tanggal Mulai"
           onChange={(_, date) => {
             const yyyy = date.getFullYear().toString();
@@ -408,6 +439,7 @@ class Achievement extends Component {
         <h2>Tanggal Selesai</h2>
         <br />
         <DatePicker
+          value={oldDate_date_end}
           hintText="Tanggal Selesai"
           onChange={(_, date) => {
             const yyyy = date.getFullYear().toString();
@@ -419,6 +451,7 @@ class Achievement extends Component {
         <br />
         <h2>Nama Posisi</h2>
         <TextField
+          value={position_name}
           hintText="Nama Posisi"
           floatingLabelText="Nama Posisi"
           onChange = {(e, newValue) => this.handleInput('position_name', newValue)}/>
@@ -426,6 +459,7 @@ class Achievement extends Component {
         <h2>Nomor Telpon Atasan</h2>
         <br />
         <TextField
+          value={phone_leader}
           hintText="Nomor Telpon Atasan"
           floatingLabelText="Nomor Telpon Atasan"
           type="number"
@@ -434,13 +468,15 @@ class Achievement extends Component {
         <h2>Email Atasan</h2>
         <br />
         <TextField
+          value={email_leader}
           hintText="Email Atasan"
           floatingLabelText="Email Atasan"
-          type="number"
+          type="text"
           onChange = {(e, newValue) => this.handleInput('email_leader', newValue)}/>
         <br />
         <h2>Deskripsi</h2>
         <TextField
+          value={description}
           multiLine={true}
           rows={2}
           rowsMax={5}
@@ -581,7 +617,7 @@ class Achievement extends Component {
         <br />
         <br />
         <br />
-        <RaisedButton label="Save" primary={true} onClick={this.handleSaveData}/>
+        <RaisedButton label="Save" primary={true} onClick={this.handleClickData}/>
         <br />
         <br />
         <br />
