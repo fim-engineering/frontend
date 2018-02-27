@@ -14,6 +14,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
+import FlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import { GetProfile as getProfileAction } from '../../api'
 
 class Home extends Component {
@@ -70,9 +71,11 @@ class Home extends Component {
         <br />
         <RaisedButton 
           primary={true}
-          onClick={this.handleRedirect('/myprofile')}
-          icon={<ActionAndroid />}
-          label="Lihat Profile" fullWidth={false} />
+          onClick={this.handleRedirect('/achievement')}
+          icon={<FlightTakeoff />}
+          label="Isi Capaian" fullWidth={false} />
+        <br />
+        <br />
       </div>
     )
   }

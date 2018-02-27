@@ -22,6 +22,7 @@ import Register       from 'containers/Register';
 import ResetPassword       from 'containers/ResetPassword';
 import ChangePassword       from 'containers/ChangePassword';
 import DataUmum       from 'containers/DataUmum';
+import Achievement       from 'containers/Achievement';
 import Profile       from 'containers/Profile';
 
 injectTapEventPlugin();
@@ -52,6 +53,7 @@ export class App extends Component {
                   <Route path="/account/reset_password/:token" component={ResetPassword}/>
                   <Route path="/account/change_password" component={ChangePassword}/>
                   <Route path="/profile" component={DataUmum}/>
+                  <Route path="/achievement" component={Achievement}/>
                   <Route path="/myprofile" component={Profile}/>
 
                   <Route path="/*" component={NotFound}/>
