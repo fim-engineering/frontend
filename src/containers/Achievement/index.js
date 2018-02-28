@@ -64,6 +64,7 @@ class Achievement extends Component {
     getAchievementAction(content)
       .then(response => {
         console.log("response di willMpunt: ", response);
+        if (_.result(response, 'code', 200) == 401) return;
         this.setState({
           achievement: _.result(response, 'achie_best.achievement', '') || '',
           date_from: _.result(response, 'achie_best.date_from', '') || '',
