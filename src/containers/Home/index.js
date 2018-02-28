@@ -93,6 +93,16 @@ class Home extends Component {
     console.log("handleFinalSubmit");
   }
 
+  renderNonLoggedInUser = () => {
+    return (<div><span>Please </span>
+      <RaisedButton 
+        primary={true}
+        onClick={this.handleRedirect('/sign_up')}
+        label="Register" fullWidth={false} />
+      <span>to get started</span>
+    </div>)
+  }
+
   renderLoggedInUser = (stepIndex) => {
     const { user } = this.props
     const { userProfile } = this.state
@@ -217,6 +227,9 @@ class Home extends Component {
         Welcome to FIM Information System
         {
           isLogin && this.renderLoggedInUser(ui.stepIndex)
+        }
+        {
+          !isLogin && this.renderNonLoggedInUser()
         }
       </div>
     );
