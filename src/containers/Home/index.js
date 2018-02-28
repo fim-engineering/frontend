@@ -286,7 +286,7 @@ class Home extends Component {
     const isSubmitFinalSubmit = _.result(user, 'statusSubmit.final', 0) === 1
     return (
       <div className={styles}>
-        <span> Welcome to FIM Information System </span>
+        <span style={{fontSize: '30pt', maxHeight: 400, margin: 'auto'}}> Selamat Datang pada Portal Pendaftaran FIM </span>
         {
           isLogin && this.renderLoggedInUser(ui.stepIndex)
         }
