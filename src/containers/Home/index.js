@@ -38,7 +38,7 @@ class Home extends Component {
     const { userProfile, isLoadedProfile } = this.state
     const isLogin = user.isLoggedIn
     console.log("trigger: ", isLogin);
-    
+
     if (isLogin && !isLoadedProfile ) {
       const token = _.result(nextProps, 'user.token', '');
       const content = { token }
@@ -91,7 +91,7 @@ class Home extends Component {
         <br />
         <br />
         <br />
-        <RaisedButton 
+        <RaisedButton
           primary={true}
           onClick={this.handleRedirect('/profile')}
           icon={<ActionAndroid />}
@@ -99,28 +99,28 @@ class Home extends Component {
         <br />
         <br />
         <br />
-        <RaisedButton 
+        <RaisedButton
           primary={true}
           onClick={this.handleRedirect('/achievement')}
           icon={<FlightTakeoff />}
-          label="Isi Capaian" fullWidth={false} />
+          label="Aktivitas dan Kepribadian" fullWidth={false} />
         <br />
         <br />
-        <RaisedButton 
+        <RaisedButton
           primary={true}
           onClick={this.handleRedirect('/personality')}
           icon={<FlightTakeoff />}
-          label="Isi Personality" fullWidth={false} />
+          label="Personality" fullWidth={false} />
         <br />
         <br />
-        <RaisedButton 
+        <RaisedButton
           primary={true}
           onClick={this.handleRedirect('/me-fim')}
           icon={<FlightTakeoff />}
-          label="Isi Tentang Aku dan FIM" fullWidth={false} />
+          label="Tentang aku dan FIM" fullWidth={false} />
         <br />
         <br />
-        <RaisedButton 
+        <RaisedButton
           primary={true}
           onClick={this.toggleModal}
           icon={<FlightTakeoff />}
