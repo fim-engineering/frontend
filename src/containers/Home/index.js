@@ -22,7 +22,10 @@ import {
   StepButton,
   StepContent,
 } from 'material-ui/Stepper';
-import { GetProfile as getProfileAction } from '../../api'
+import { 
+  GetProfile as getProfileAction,
+  SubmitFinal as submitFinalAction
+} from '../../api'
 
 class Home extends Component {
   constructor(props) {
@@ -91,6 +94,31 @@ class Home extends Component {
 
   handleFinalSubmit = () => {
     console.log("handleFinalSubmit");
+    const token = _.result(this, 'props.user.token', '');
+    const content = { token }
+    submitFinalAction(content)
+      .then(res => {
+        if (res.code === 200) {
+          this.props.actions.user.changeUserData({
+            statusSubmit: {
+              final: 1
+            }
+          })
+
+          this.toggleModal
+
+          this.showToaster('Sukses Submit')
+        }
+        this.showToaster('Gagal Submit')
+      })
+      .catch(() => this.showToaster('Gagal Submit'))
+  }
+
+  showToaster = (message) => {
+    this.props.actions.ui.toggleNotification({
+      isOpen: true,
+      text: message
+    });
   }
 
   renderNonLoggedInUser = () => {

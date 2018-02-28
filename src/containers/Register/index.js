@@ -60,14 +60,14 @@ class Register extends Component {
     this.toggleDisableButton()
     SignUpAction(content)
       .then(res => {
-        console.log('res==: ', res);
-        const userID = _.result(res, 'id', 0)
-        if (userID !== 0) {
+        console.log("res: ", res);
+        const errorMessage = _.result(res, 'user.message_error', '') || ''
+
+        if (errorMessage !== '') {
+          this.showToaster(errorMessage)
+        } else {
           this.showToaster('Sukses Daftar')
           this.handleChangeRoute('/sign_in')
-        } else {
-          const errorMessage = _.result(res, 'user.message_error', '')
-          this.showToaster(errorMessage)
         }
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()

@@ -13,6 +13,7 @@ const FIM_SERVICES = {
   UpdatePersonality: `${HOSTNAME}/personality/update`,
   UpdateAchievement: `${HOSTNAME}/achievementbest/update`,
   UpdateMeFIM: `${HOSTNAME}/meforfim/update`,
+  SubmitFinal: `${HOSTNAME}/final-submit/confirm`,
   GetProfile: `${HOSTNAME}/myprofile`,
   GetMeFIM: `${HOSTNAME}/meforfim`,
   GetAchievement: `${HOSTNAME}/achievementbest`,
@@ -38,6 +39,22 @@ const configFetch = (url, method, body, isJSON = false, extraHeaders = {}) => ({
 
 const Login = (content) => {
   const url = FIM_SERVICES.Login;
+  
+  return axios(configFetch(url, 'post', content))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Login')
+        }
+      }
+    })
+}
+
+const SubmitFinal = (content) => {
+  const url = FIM_SERVICES.SubmitFinal;
   
   return axios(configFetch(url, 'post', content))
     .then(response => response.data)
@@ -381,4 +398,5 @@ export {
   UpdateMeFIM,
   GetMeFIM,
   GetStatusFinal,
+  SubmitFinal,
 }
