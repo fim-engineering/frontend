@@ -446,7 +446,7 @@ class Personality extends Component {
         <br />
         <br />
         <h2>Apa tipe MBTI kamu ?</h2>
-        <h4>Jika belum mengetahui tipe mbti kamu <br/> silahkan cek MBTI kamu</h4>
+        <h4>Jika belum mengetahui tipe mbti kamu <br/> silahkan cek MBTI kamu <a href="https://mbti.anthonykusuma.com" target="_blank">di sini</a></h4>
         <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
           {
             listMBTI.map((mbti, index) => {
