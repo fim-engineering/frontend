@@ -8,6 +8,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import Checkbox from 'material-ui/Checkbox';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -33,6 +34,7 @@ class Home extends Component {
   }
 
   state = {
+    isConfirm: false,
     userProfile: {},
     isLoadedProfile: false,
     isOpen: false,
@@ -131,6 +133,12 @@ class Home extends Component {
     </div>)
   }
 
+  updateConfirm = () => {
+    this.setState({
+      isConfirm: !this.state.isConfirm
+    })
+  }
+
   renderLoggedInUser = (stepIndex) => {
     const { user } = this.props
     const { userProfile } = this.state
@@ -150,6 +158,7 @@ class Home extends Component {
         onClick={this.toggleModal}
       />,
       <FlatButton
+        disabled={!this.state.isConfirm}
         label="Submit"
         primary={true}
         onClick={this.handleFinalSubmit}
@@ -243,9 +252,20 @@ class Home extends Component {
                   actions={actions}
                   modal={true}
                   contentStyle={customModalStyle}
+                  autoScrollBodyContent={true}
                   open={this.state.isOpen}
                 >
                   Setelah melakukan submit, tidak bisa merubah isian formulir kembali
+                  <br />
+                  <br />
+                  <Checkbox
+                    label="Saya mengkonfirmasi kebenaran bahwa data yang diisi adalah data sebenarnya, dan jika saya diterima sebagai kader next gen FIM regional, saya akan berkontribusi selama minimal 1 tahun ke depan"
+                    checked={this.state.isConfirm}
+                    onCheck={this.updateConfirm}
+                    style={{
+                      marginBottom: 16,
+                    }}
+                  />
                 </Dialog>
                 {this.renderStepActions(4)}
               </StepContent>
