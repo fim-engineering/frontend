@@ -3,7 +3,7 @@
  */
 
 import React                   from 'react';
-import { AppBar as MuiAppBar } from 'material-ui';
+import MuiAppBar               from 'material-ui/AppBar';
 
 /* component styles */
 import { styles } from './styles.scss';
