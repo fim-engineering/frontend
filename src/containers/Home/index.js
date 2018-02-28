@@ -69,7 +69,7 @@ class Home extends Component {
     const { userProfile, isLoadedProfile } = this.state
     const isLogin = user.isLoggedIn
     console.log("trigger: ", isLogin);
-    
+
     if (isLogin && !isLoadedProfile ) {
       const token = _.result(nextProps, 'user.token', '');
       const content = { token }
@@ -153,14 +153,14 @@ class Home extends Component {
             </Step>
             <Step>
               <StepButton onClick={() => this.props.actions.ui.jumpToStep(1)}>
-                  Capaian
+                  Aktivitas dan Kepribadian
               </StepButton>
               <StepContent>
                 <RaisedButton 
                   primary={true}
                   onClick={this.handleRedirect('/achievement')}
                   icon={<FlightTakeoff />}
-                  label="Isi Capaian" fullWidth={false} />
+                  label="Aktivitas dan Kepribadian" fullWidth={false} />
                 {this.renderStepActions(1)}
               </StepContent>
             </Step>
@@ -173,20 +173,20 @@ class Home extends Component {
                   primary={true}
                   onClick={this.handleRedirect('/personality')}
                   icon={<FlightTakeoff />}
-                  label="Isi Personality" fullWidth={false} />
+                  label="Personality" fullWidth={false} />
                 {this.renderStepActions(2)}
               </StepContent>
             </Step>
             <Step>
               <StepButton onClick={() => this.props.actions.ui.jumpToStep(3)}>
-                Tentang Aku dan FIM
+                Tentang aku dan FIM
               </StepButton>
               <StepContent>
                 <RaisedButton 
                   primary={true}
                   onClick={this.handleRedirect('/me-fim')}
                   icon={<FlightTakeoff />}
-                  label="Isi Tentang Aku dan FIM" fullWidth={false} />
+                  label="Tentang aku dan FIM" fullWidth={false} />
                 {this.renderStepActions(3)}
               </StepContent>
             </Step>
