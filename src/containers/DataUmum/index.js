@@ -16,7 +16,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../api'
-import { 
+import {
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
   GetProfile as getProfileAction
@@ -77,7 +77,7 @@ class DataUmum extends Component {
           imageURLProfile: _.result(response, 'user_profile.photo_profile_link', '') || '',
         })
       })
-    
+
     GetRegionalAction(content)
       .then(res => {
         const regionals = res.regionals.map(regional => regional.regional_name)
@@ -162,7 +162,7 @@ class DataUmum extends Component {
   handleImageLoad = (path, stream, error) => {
     if(error === '') {
       this.setState({image: {
-        load: path, 
+        load: path,
         stream: stream
       }}, () => {
         this.handleUpload()
@@ -175,7 +175,7 @@ class DataUmum extends Component {
   handleImageLoadProfile = (path, stream, error) => {
     if(error === '') {
       this.setState({imageProfile: {
-        loadProfile: path, 
+        loadProfile: path,
         streamProfile: stream
       }}, () => {
         this.handleUploadProfile()
@@ -213,7 +213,7 @@ class DataUmum extends Component {
 
   handleSaveData = () => {
     const { actions } = this.props
-    const { 
+    const {
       full_name,
       institution,
       majors,
@@ -277,7 +277,7 @@ class DataUmum extends Component {
       })
       .catch(err => {
         actions.ui.toggleProgressbar(false);
-      }) 
+      })
   }
 
   showToaster = (message) => {
@@ -297,7 +297,7 @@ class DataUmum extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.image.load);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -318,7 +318,7 @@ class DataUmum extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.imageProfile.loadProfile);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -378,6 +378,8 @@ class DataUmum extends Component {
     const oldDate = new Date(year,month,day);
     return (
       <div className={styles}>
+        <br />
+        <br />
         <h2>Nama Lengkap</h2>
         <TextField
           value={full_name}
@@ -414,6 +416,9 @@ class DataUmum extends Component {
         <br />
 
         <h2>Regional</h2>
+        <br />
+        <h6>Tanda * merupakan regional baru, jika daftar FIM Regional di atas <br /> tidak ada yang sesuai dengan domisili kamu pilihlah domisili paling dekat dengan domisilimu </h6>
+
         <DropDownMenu value={city} onChange={(e, index, newValue) => this.handleInput('city', newValue)}>
           {
             listKota.map(kota => {
@@ -423,6 +428,25 @@ class DataUmum extends Component {
         </DropDownMenu>
 
         <br />
+
+          <AutoComplete
+            searchText={institution}
+            floatingLabelText="Kampus"
+            onUpdateInput={(searchText, dataSource) => this.handleInput('institution', searchText)}
+            filter={AutoComplete.fuzzyFilter}
+            dataSource={_.uniq(listKampus)}
+            maxSearchResults={5}
+            />
+
+            <br />
+            <TextField
+              value={majors}
+              hintText="Jurusan"
+              floatingLabelText="Jurusan"
+              type="text"
+              onChange = {(e, newValue) => this.handleInput('majors', newValue)}/>
+            <br />
+
         <TextField
           value={generation}
           hintText="Angkatan"
@@ -431,30 +455,17 @@ class DataUmum extends Component {
           onChange = {(e, newValue) => this.handleInput('generation', newValue)}/>
         <br />
 
-        <br />
-        <TextField
-          value={majors}
-          hintText="Jurusan"
-          floatingLabelText="Jurusan"
-          type="text"
-          onChange = {(e, newValue) => this.handleInput('majors', newValue)}/>
-        <br />
 
         <br />
-        <AutoComplete
-          searchText={institution}
-          floatingLabelText="Kampus"
-          onUpdateInput={(searchText, dataSource) => this.handleInput('institution', searchText)}
-          filter={AutoComplete.fuzzyFilter}
-          dataSource={_.uniq(listKampus)}
-          maxSearchResults={5}
-        />
-        
+
+
+
+
         <h2>Upload KTP</h2>
         {
-          imageURL === '' ? <ImageUploader 
-            onLoadFile={this.handleImageLoad} 
-            valueImage={this.state.image.stream} 
+          imageURL === '' ? <ImageUploader
+            onLoadFile={this.handleImageLoad}
+            valueImage={this.state.image.stream}
             onRemoveImage={this.handleRemoveImage}/>
           :
             <div>
@@ -468,9 +479,9 @@ class DataUmum extends Component {
 
         <h2>Upload Photo</h2>
         {
-          imageURLProfile === '' ? <ImageUploader 
-            onLoadFile={this.handleImageLoadProfile} 
-            valueImage={this.state.imageProfile.streamProfile} 
+          imageURLProfile === '' ? <ImageUploader
+            onLoadFile={this.handleImageLoadProfile}
+            valueImage={this.state.imageProfile.streamProfile}
             onRemoveImage={this.handleRemoveImageProfile}/>
           :
             <div>
@@ -523,8 +534,8 @@ class DataUmum extends Component {
         <h2>Status Menikah</h2>
         <br />
         <DropDownMenu value={marriage_status} onChange={(e, index, newValue) => this.handleInput('marriage_status', newValue)}>
-          <MenuItem value={1} primaryText="Menikah" />
           <MenuItem value={0} primaryText="Belum Menikah" />
+          <MenuItem value={1} primaryText="Menikah" />
         </DropDownMenu>
         <br />
 
@@ -576,7 +587,7 @@ class DataUmum extends Component {
           onChange = {(e, newValue) => this.handleInput('disease_history', newValue)}/>
         <br />
         <br />
-        
+
         <RaisedButton label="Save" primary={true} onClick={this.handleSaveData}/>
         <br />
         <br />
