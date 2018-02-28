@@ -468,6 +468,7 @@ class Achievement extends Component {
       <div className={styles}>
         <h1>PENCAPAIAN</h1>
         <br />
+        <h3> sebutkan 3 aktivitas atau pencapaian terbaikmu dalam berorganisasi,<br /> yang sekiranya relevan dengan rencana kontribusimu di FIM Regional</h3>
         <br />
         <br />
 
@@ -484,7 +485,7 @@ class Achievement extends Component {
         <h1>Pencapaian 3</h1>
         <br />
         {this.renderAchievementForm('_3', achievement_3, date_from_3, date_end_3, position_name_3, phone_leader_3, email_leader_3, description_3)}
-        
+
         <br />
         <br />
         <br />

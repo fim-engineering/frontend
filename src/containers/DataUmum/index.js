@@ -415,7 +415,7 @@ class DataUmum extends Component {
         </DropDownMenu>
         <br />
 
-        <h2>Regional</h2>
+        <h2>Saya mendaftar untuk menjadi kader next gen di regional :</h2>
         <br />
         <h6>Tanda * merupakan regional baru, jika daftar FIM Regional di atas <br /> tidak ada yang sesuai dengan domisili kamu pilihlah domisili paling dekat dengan domisilimu </h6>
 
@@ -535,7 +535,7 @@ class DataUmum extends Component {
         <br />
         <DropDownMenu value={marriage_status} onChange={(e, index, newValue) => this.handleInput('marriage_status', newValue)}>
           <MenuItem value={0} primaryText="Belum Menikah" />
-          <MenuItem value={1} primaryText="Menikah" />
+          {/* <MenuItem value={1} primaryText="Menikah" />*/}
         </DropDownMenu>
         <br />
 
