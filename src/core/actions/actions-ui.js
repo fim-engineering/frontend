@@ -32,3 +32,9 @@ export function toggleNotification(payload) {
   };
 }
 
+export function jumpToStep(payload) {
+  return {
+    type: constants.JUMP_TO_STEP,
+    payload
+  };
+}

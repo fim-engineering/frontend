@@ -9,5 +9,6 @@ export default keyMirror({
   TOGGLE_NOTIFICATION: null,
   CHANGE_USER_DATA: null,
   RESET_USER_DATA: null,
-  REDUX_STORAGE_LOAD: null
+  REDUX_STORAGE_LOAD: null,
+  JUMP_TO_STEP: null,
 });
