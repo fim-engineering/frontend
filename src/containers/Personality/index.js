@@ -17,7 +17,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../api'
-import { 
+import {
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
   UpdateAchievement as updateAchievementAction,
@@ -108,13 +108,13 @@ class Personality extends Component {
           problem_solver_3: _.result(response, 'personality.problem_solver_3', '') || '',
         })
       })
-    
+
     getMBTIAction(content)
       .then(res => {
         console.log("res: ", res);
         this.setState({ listMBTI: res.mbti })
       })
-    
+
     getBestPerformanceAction(content)
       .then(res => {
         this.setState({ listBest: res.best_performance })
@@ -160,7 +160,7 @@ class Personality extends Component {
 
   handleClickData = () => {
     const { actions } = this.props
-    const { 
+    const {
       best_performance,
       cintakasih,
       integritas,
@@ -212,7 +212,7 @@ class Personality extends Component {
       })
       .catch(err => {
         actions.ui.toggleProgressbar(false);
-      }) 
+      })
   }
 
   handleClick = () => {
@@ -255,7 +255,7 @@ class Personality extends Component {
   handleImageLoad = (path, stream, error) => {
     if(error === '') {
       this.setState({image: {
-        load: path, 
+        load: path,
         stream: stream
       }}, () => {
         this.handleUpload()
@@ -268,7 +268,7 @@ class Personality extends Component {
   handleImageLoadProfile = (path, stream, error) => {
     if(error === '') {
       this.setState({imageProfile: {
-        loadProfile: path, 
+        loadProfile: path,
         streamProfile: stream
       }}, () => {
         this.handleUploadProfile()
@@ -321,7 +321,7 @@ class Personality extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.image.load);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -342,7 +342,7 @@ class Personality extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.imageProfile.loadProfile);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -445,7 +445,7 @@ class Personality extends Component {
         <h1>PERSONALITY</h1>
         <br />
         <br />
-        <h2>MBTI</h2>
+        <h2>Apa tipe MBTI kamu ?</h2>
         <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
           {
             listMBTI.map(mbti => {
@@ -454,16 +454,9 @@ class Personality extends Component {
           }
         </DropDownMenu>
         <br />
-        <h2>Best Performance</h2>
-        <DropDownMenu value={best_performance} onChange={(e, index, newValue) => this.handleInput('best_performance', newValue)}>
-          {
-            listBest.map(mbti => {
-              return <MenuItem value={mbti} primaryText={mbti} />
-            })
-          }
-        </DropDownMenu>
 
-        <h2>Kekuatan</h2>
+
+        <h2>Sebutkan minimal 3 Kekuatan dirimu</h2>
         <TextField
           value={strength}
           multiLine={true}
@@ -473,7 +466,7 @@ class Personality extends Component {
           onChange = {(e, newValue) => this.handleInput('strength', newValue)}/>
         <br />
 
-        <h2>Kelemahan</h2>
+        <h2>Sebutkan minimal 3 Kelemahan dirimu</h2>
         <TextField
           value={weakness}
           multiLine={true}
@@ -483,65 +476,97 @@ class Personality extends Component {
           onChange = {(e, newValue) => this.handleInput('weakness', newValue)}/>
         <br />
 
-        <h2>Role Model</h2>
+          <br />
+
+          <h2>Self Assessment dalam organisasi</h2>
+          <h4>(performance diri paling baik pada saat di organisasi adalah di...) :</h4>
+          <DropDownMenu value={best_performance} onChange={(e, index, newValue) => this.handleInput('best_performance', newValue)}>
+            {
+              listBest.map(mbti => {
+                return <MenuItem value={mbti} primaryText={mbti} />
+              })
+            }
+          </DropDownMenu>
+
+            <br />
+            <h2>Sebutkan 3 tokoh idola Anda </h2>
+            <h3>yang cocok menjadi pemimpin Indonesia masa depan</h3>
+            <br />
+            <br />
+
+        <h2>Tokoh Idole Ke - 1</h2>
         <TextField
           value={role_model}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="role model"
+          hintText="Nama Tokoh Idola "
           onChange = {(e, newValue) => this.handleInput('role_model', newValue)}/>
-        <br />
+        <br /><br />
 
-        <h2>Problem Solver</h2>
-        <TextField
-          value={problem_solver}
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="problem solver"
-          onChange = {(e, newValue) => this.handleInput('problem_solver', newValue)}/>
-        <br />
-
-        <h2>Role Model 2</h2>
+        <h2>Tokoh Idole Ke - 2</h2>
         <TextField
           value={role_model_2}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="role model"
+          hintText="Nama Tokoh Idola "
           onChange = {(e, newValue) => this.handleInput('role_model_2', newValue)}/>
         <br />
 
-        <h2>Problem Solver 2</h2>
-        <TextField
-          value={problem_solver_2}
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="problem solver"
-          onChange = {(e, newValue) => this.handleInput('problem_solver_2', newValue)}/>
-        <br />
-
-        <h2>Role Model 3</h2>
+        <h2>Tokoh Idole Ke - 3</h2>
         <TextField
           value={role_model_3}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="role model"
+          hintText="Nama Tokoh Idola "
           onChange = {(e, newValue) => this.handleInput('role_model_3', newValue)}/>
         <br />
 
-        <h2>Problem Solver 3</h2>
+        <br />
+        <h2>Sebutkan 3 masalah anak muda </h2>
+        <h3>yang paling krusial untuk diatasi saat ini di Indonesia</h3>
+        <br />
+        <br />
+
+        <h2>Masalah Pertama</h2>
+        <TextField
+          value={problem_solver}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="Masalah Pertama"
+          onChange = {(e, newValue) => this.handleInput('problem_solver', newValue)}/>
+        <br />
+
+        <h2>Masalah Kedua</h2>
+        <TextField
+          value={problem_solver_2}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="Masalah Kedua"
+          onChange = {(e, newValue) => this.handleInput('problem_solver_2', newValue)}/>
+        <br />
+
+
+        <h2>Masalah Ketiga</h2>
         <TextField
           value={problem_solver_3}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="problem solver"
+          hintText="Masalah Ketiga"
           onChange = {(e, newValue) => this.handleInput('problem_solver_3', newValue)}/>
         <br />
+
+          <br />
+          <h2>Mohon Berikan Nilai </h2>
+          <h3>Tentang Kondisi anak muda di regionalmu</h3>
+          <h4>dari skala 1-5 dimana 1 = sangat prihatin dan 5 = sangat baik, dari aspek-aspek berikut :</h4>
+          <br />
+          <br />
 
         <h2>Cinta Kasih</h2>
         <DropDownMenu value={cintakasih} onChange={(e, index, newValue) => this.handleInput('cintakasih', newValue)}>
@@ -605,7 +630,7 @@ class Personality extends Component {
           <MenuItem value={4} primaryText="4" />
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
-        
+
         <br />
         <br />
         <br />

@@ -17,7 +17,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../api'
-import { 
+import {
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
   UpdateAchievement as updateAchievementAction,
@@ -88,7 +88,7 @@ class Achievement extends Component {
           description_3: _.result(response, 'achie_best.description_3', '') || '',
         })
       })
-    
+
     GetRegionalAction(content)
       .then(res => {
         const regionals = res.regionals.map(regional => regional.regional_name)
@@ -135,7 +135,7 @@ class Achievement extends Component {
 
   handleClickData = () => {
     const { actions } = this.props
-    const { 
+    const {
       achievement,
       date_from,
       date_end,
@@ -200,7 +200,7 @@ class Achievement extends Component {
       })
       .catch(err => {
         actions.ui.toggleProgressbar(false);
-      }) 
+      })
   }
 
   handleClick = () => {
@@ -243,7 +243,7 @@ class Achievement extends Component {
   handleImageLoad = (path, stream, error) => {
     if(error === '') {
       this.setState({image: {
-        load: path, 
+        load: path,
         stream: stream
       }}, () => {
         this.handleUpload()
@@ -256,7 +256,7 @@ class Achievement extends Component {
   handleImageLoadProfile = (path, stream, error) => {
     if(error === '') {
       this.setState({imageProfile: {
-        loadProfile: path, 
+        loadProfile: path,
         streamProfile: stream
       }}, () => {
         this.handleUploadProfile()
@@ -309,7 +309,7 @@ class Achievement extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.image.load);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -330,7 +330,7 @@ class Achievement extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.imageProfile.loadProfile);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -613,7 +613,7 @@ class Achievement extends Component {
           hintText="Deskripsi"
           onChange = {(e, newValue) => this.handleInput('description_3', newValue)}/>
         <br />
-        
+
         <br />
         <br />
         <br />
