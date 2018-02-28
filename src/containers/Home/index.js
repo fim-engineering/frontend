@@ -23,7 +23,7 @@ import {
   StepButton,
   StepContent,
 } from 'material-ui/Stepper';
-import { 
+import {
   GetProfile as getProfileAction,
   SubmitFinal as submitFinalAction
 } from '../../api'
@@ -125,7 +125,7 @@ class Home extends Component {
 
   renderNonLoggedInUser = () => {
     return (<div><span>Please </span>
-      <RaisedButton 
+      <RaisedButton
         primary={true}
         onClick={this.handleRedirect('/sign_up')}
         label="Register" fullWidth={false} />
@@ -185,7 +185,7 @@ class Home extends Component {
                 Data Diri
               </StepButton>
               <StepContent>
-                <RaisedButton 
+                <RaisedButton
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/profile')}
@@ -199,7 +199,7 @@ class Home extends Component {
                   Aktivitas dan Kepribadian
               </StepButton>
               <StepContent>
-                <RaisedButton 
+                <RaisedButton
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/achievement')}
@@ -213,7 +213,7 @@ class Home extends Component {
                 Personality
               </StepButton>
               <StepContent>
-                <RaisedButton 
+                <RaisedButton
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/personality')}
@@ -227,7 +227,7 @@ class Home extends Component {
                 Tentang aku dan FIM
               </StepButton>
               <StepContent>
-                <RaisedButton 
+                <RaisedButton
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/me-fim')}
@@ -241,7 +241,7 @@ class Home extends Component {
                 Konfirmasi
               </StepButton>
               <StepContent>
-                <RaisedButton 
+                <RaisedButton
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.toggleModal}
