@@ -352,6 +352,88 @@ class Achievement extends Component {
     })
   }
 
+  renderAchievementForm = (index, achievement, date_from ,date_end, position_name, phone_leader, email_leader, description) => {
+    const year_date_from = parseInt(date_from.split('-')[0], 10)
+    const month_date_from = parseInt(date_from.split('-')[1], 10)
+    const day_date_from = parseInt(date_from.split('-')[2], 10)
+    const oldDate_date_from = new Date(year_date_from,month_date_from,day_date_from);
+
+    const year_date_end = parseInt(date_end.split('-')[0], 10)
+    const month_date_end = parseInt(date_end.split('-')[1], 10)
+    const day_date_end = parseInt(date_end.split('-')[2], 10)
+    const oldDate_date_end = new Date(year_date_end,month_date_end,day_date_end);
+
+    return (<div>
+      <h2>Nama Pencapaian</h2>
+      <TextField
+        value={achievement}
+        hintText="Nama Pencapaian"
+        floatingLabelText="Nama Pencapaian"
+        onChange = {(e, newValue) => this.handleInput(`achievement${index}`, newValue)}/>
+      <br />
+      <h2>Tanggal Mulai</h2>
+      <br />
+      <DatePicker
+        value={oldDate_date_from}
+        hintText="Tanggal Mulai"
+        onChange={(_, date) => {
+          const yyyy = date.getFullYear().toString();
+          const mm = (date.getMonth()+1).toString();
+          const dd  = date.getDate().toString();
+          this.handleInput(`date_from${index}`, `${yyyy}-${mm}-${dd}`)
+        }}
+        container="inline" />
+      <br />
+      <h2>Tanggal Selesai</h2>
+      <br />
+      <DatePicker
+        value={oldDate_date_end}
+        hintText="Tanggal Selesai"
+        onChange={(_, date) => {
+          const yyyy = date.getFullYear().toString();
+          const mm = (date.getMonth()+1).toString();
+          const dd  = date.getDate().toString();
+          this.handleInput(`date_end${index}`, `${yyyy}-${mm}-${dd}`)
+        }}
+        container="inline" />
+      <br />
+      <h2>Nama Posisi</h2>
+      <TextField
+        value={position_name}
+        hintText="Nama Posisi"
+        floatingLabelText="Nama Posisi"
+        onChange = {(e, newValue) => this.handleInput(`position_name${index}`, newValue)}/>
+      <br />
+      <h2>Nomor Telpon Atasan</h2>
+      <br />
+      <TextField
+        value={phone_leader}
+        hintText="Nomor Telpon Atasan"
+        floatingLabelText="Nomor Telpon Atasan"
+        type="number"
+        onChange = {(e, newValue) => this.handleInput(`phone_leader${index}`, newValue)}/>
+      <br />
+      <h2>Email Atasan</h2>
+      <br />
+      <TextField
+        value={email_leader}
+        hintText="Email Atasan"
+        floatingLabelText="Email Atasan"
+        type="text"
+        onChange = {(e, newValue) => this.handleInput(`email_leader${index}`, newValue)}/>
+      <br />
+      <h2>Deskripsi</h2>
+      <TextField
+        value={description}
+        multiLine={true}
+        rows={2}
+        rowsMax={5}
+        hintText="Deskripsi"
+        onChange = {(e, newValue) => this.handleInput(`description${index}`, newValue)}/>
+      <br />
+    </div>)
+  }
+
   render() {
     const {
       achievement,
@@ -377,37 +459,6 @@ class Achievement extends Component {
       description_3,
     } = this.state
 
-    const year_date_from = parseInt(date_from.split('-')[0], 10)
-    const month_date_from = parseInt(date_from.split('-')[1], 10)
-    const day_date_from = parseInt(date_from.split('-')[2], 10)
-    const oldDate_date_from = new Date(year_date_from,month_date_from,day_date_from);
-
-    const year_date_end = parseInt(date_end.split('-')[0], 10)
-    const month_date_end = parseInt(date_end.split('-')[1], 10)
-    const day_date_end = parseInt(date_end.split('-')[2], 10)
-    const oldDate_date_end = new Date(year_date_end,month_date_end,day_date_end);
-
-    const year_date_from_2 = parseInt(date_from_2.split('-')[0], 10)
-    const month_date_from_2 = parseInt(date_from_2.split('-')[1], 10)
-    const day_date_from_2 = parseInt(date_from_2.split('-')[2], 10)
-    const oldDate_date_from_2 = new Date(year_date_from_2,month_date_from_2,day_date_from_2);
-
-    const year_date_end_2 = parseInt(date_end_2.split('-')[0], 10)
-    const month_date_end_2 = parseInt(date_end_2.split('-')[1], 10)
-    const day_date_end_2 = parseInt(date_end_2.split('-')[2], 10)
-    const oldDate_date_end_2 = new Date(year_date_end_2,month_date_end_2,day_date_end_2);
-
-
-    const year_date_from_3 = parseInt(date_from_3.split('-')[0], 10)
-    const month_date_from_3 = parseInt(date_from_3.split('-')[1], 10)
-    const day_date_from_3 = parseInt(date_from_3.split('-')[2], 10)
-    const oldDate_date_from_3 = new Date(year_date_from_3,month_date_from_3,day_date_from_3);
-
-    const year_date_end_3 = parseInt(date_end_3.split('-')[0], 10)
-    const month_date_end_3 = parseInt(date_end_3.split('-')[1], 10)
-    const day_date_end_3 = parseInt(date_end_3.split('-')[2], 10)
-    const oldDate_date_end_3 = new Date(year_date_end_3,month_date_end_3,day_date_end_3);
-
     const styleDivider = { marginBottom: '20px', marginTop: '20px' }
     return (
       <div className={styles}>
@@ -415,205 +466,20 @@ class Achievement extends Component {
         <br />
         <br />
         <br />
+
         <h1>Pencapaian 1</h1>
         <br />
-        <h2>Nama Pencapaian</h2>
-        <TextField
-          value={achievement}
-          hintText="Nama Pencapaian"
-          floatingLabelText="Nama Pencapaian"
-          onChange = {(e, newValue) => this.handleInput('achievement', newValue)}/>
-        <br />
-        <h2>Tanggal Mulai</h2>
-        <br />
-        <DatePicker
-          value={oldDate_date_from}
-          hintText="Tanggal Mulai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_from', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Tanggal Selesai</h2>
-        <br />
-        <DatePicker
-          value={oldDate_date_end}
-          hintText="Tanggal Selesai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_end', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Nama Posisi</h2>
-        <TextField
-          value={position_name}
-          hintText="Nama Posisi"
-          floatingLabelText="Nama Posisi"
-          onChange = {(e, newValue) => this.handleInput('position_name', newValue)}/>
-        <br />
-        <h2>Nomor Telpon Atasan</h2>
-        <br />
-        <TextField
-          value={phone_leader}
-          hintText="Nomor Telpon Atasan"
-          floatingLabelText="Nomor Telpon Atasan"
-          type="number"
-          onChange = {(e, newValue) => this.handleInput('phone_leader', newValue)}/>
-        <br />
-        <h2>Email Atasan</h2>
-        <br />
-        <TextField
-          value={email_leader}
-          hintText="Email Atasan"
-          floatingLabelText="Email Atasan"
-          type="text"
-          onChange = {(e, newValue) => this.handleInput('email_leader', newValue)}/>
-        <br />
-        <h2>Deskripsi</h2>
-        <TextField
-          value={description}
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="Deskripsi"
-          onChange = {(e, newValue) => this.handleInput('description', newValue)}/>
-        <br />
-
+        {this.renderAchievementForm('', achievement, date_from, date_end, position_name, phone_leader, email_leader, description)}
         <Divider style={styleDivider} />
 
         <h1>Pencapaian 2</h1>
         <br />
-        <h2>Nama Pencapaian</h2>
-        <TextField
-          hintText="Nama Pencapaian"
-          floatingLabelText="Nama Pencapaian"
-          onChange = {(e, newValue) => this.handleInput('achievement_2', newValue)}/>
-        <br />
-        <h2>Tanggal Mulai</h2>
-        <br />
-        <DatePicker
-          hintText="Tanggal Mulai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_from_2', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Tanggal Selesai</h2>
-        <br />
-        <DatePicker
-          hintText="Tanggal Selesai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_end_2', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Nama Posisi</h2>
-        <TextField
-          hintText="Nama Posisi"
-          floatingLabelText="Nama Posisi"
-          onChange = {(e, newValue) => this.handleInput('position_name_2', newValue)}/>
-        <br />
-        <h2>Nomor Telpon Atasan</h2>
-        <br />
-        <TextField
-          hintText="Nomor Telpon Atasan"
-          floatingLabelText="Nomor Telpon Atasan"
-          type="number"
-          onChange = {(e, newValue) => this.handleInput('phone_leader_2', newValue)}/>
-        <br />
-        <h2>Email Atasan</h2>
-        <br />
-        <TextField
-          hintText="Email Atasan"
-          floatingLabelText="Email Atasan"
-          type="number"
-          onChange = {(e, newValue) => this.handleInput('email_leader_2', newValue)}/>
-        <br />
-        <h2>Deskripsi</h2>
-        <TextField
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="Deskripsi"
-          onChange = {(e, newValue) => this.handleInput('description_2', newValue)}/>
-        <br />
-
+        {this.renderAchievementForm('_2', achievement_2, date_from_2, date_end_2, position_name_2, phone_leader_2, email_leader_2, description_2)}
         <Divider style={styleDivider} />
 
         <h1>Pencapaian 3</h1>
         <br />
-        <h2>Nama Pencapaian</h2>
-        <TextField
-          hintText="Nama Pencapaian"
-          floatingLabelText="Nama Pencapaian"
-          onChange = {(e, newValue) => this.handleInput('achievement_3', newValue)}/>
-        <br />
-        <h2>Tanggal Mulai</h2>
-        <br />
-        <DatePicker
-          hintText="Tanggal Mulai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_from_3', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Tanggal Selesai</h2>
-        <br />
-        <DatePicker
-          hintText="Tanggal Selesai"
-          onChange={(_, date) => {
-            const yyyy = date.getFullYear().toString();
-            const mm = (date.getMonth()+1).toString();
-            const dd  = date.getDate().toString();
-            this.handleInput('date_end_3', `${yyyy}-${mm}-${dd}`)
-          }}
-          container="inline" />
-        <br />
-        <h2>Nama Posisi</h2>
-        <TextField
-          hintText="Nama Posisi"
-          floatingLabelText="Nama Posisi"
-          onChange = {(e, newValue) => this.handleInput('position_name_3', newValue)}/>
-        <br />
-        <h2>Nomor Telpon Atasan</h2>
-        <br />
-        <TextField
-          hintText="Nomor Telpon Atasan"
-          floatingLabelText="Nomor Telpon Atasan"
-          type="number"
-          onChange = {(e, newValue) => this.handleInput('phone_leader_3', newValue)}/>
-        <br />
-        <h2>Email Atasan</h2>
-        <br />
-        <TextField
-          hintText="Email Atasan"
-          floatingLabelText="Email Atasan"
-          type="number"
-          onChange = {(e, newValue) => this.handleInput('email_leader_3', newValue)}/>
-        <br />
-        <h2>Deskripsi</h2>
-        <TextField
-          multiLine={true}
-          rows={2}
-          rowsMax={5}
-          hintText="Deskripsi"
-          onChange = {(e, newValue) => this.handleInput('description_3', newValue)}/>
-        <br />
+        {this.renderAchievementForm('_3', achievement_3, date_from_3, date_end_3, position_name_3, phone_leader_3, email_leader_3, description_3)}
         
         <br />
         <br />
