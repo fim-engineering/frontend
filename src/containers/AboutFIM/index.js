@@ -17,7 +17,7 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import { Login as LoginAction, GetRegional as GetRegionalAction } from '../../api'
-import { 
+import {
   getKota as getKotaAction,
   UpdateProfile as updateProfileAction,
   UpdateAchievement as updateAchievementAction,
@@ -105,23 +105,23 @@ class AboutFIM extends Component {
           problem_solver: _.result(response, 'personality.problem_solver', '') || '',
         })
       })
-    
+
     getMBTIAction(content)
       .then(res => {
         console.log("res: ", res);
         this.setState({ listMBTI: res.mbti })
       })
-    
+
     getBestPerformanceAction(content)
       .then(res => {
         this.setState({ listBest: res.best_performance })
       })
-    
+
     getFIMReferenceAction(content)
       .then(res => {
         this.setState({ listReference: res.fim_references })
       })
-    
+
     getMeFIMAction(content)
       .then(res => {
         this.setState({
@@ -172,7 +172,7 @@ class AboutFIM extends Component {
 
   handleClickData = () => {
     const { actions } = this.props
-    const { 
+    const {
       fim_reference,
       why_join_fim,
       skill_for_fim,
@@ -198,7 +198,7 @@ class AboutFIM extends Component {
       })
       .catch(err => {
         actions.ui.toggleProgressbar(false);
-      }) 
+      })
   }
 
   handleClick = () => {
@@ -241,7 +241,7 @@ class AboutFIM extends Component {
   handleImageLoad = (path, stream, error) => {
     if(error === '') {
       this.setState({image: {
-        load: path, 
+        load: path,
         stream: stream
       }}, () => {
         this.handleUpload()
@@ -254,7 +254,7 @@ class AboutFIM extends Component {
   handleImageLoadProfile = (path, stream, error) => {
     if(error === '') {
       this.setState({imageProfile: {
-        loadProfile: path, 
+        loadProfile: path,
         streamProfile: stream
       }}, () => {
         this.handleUploadProfile()
@@ -307,7 +307,7 @@ class AboutFIM extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.image.load);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -328,7 +328,7 @@ class AboutFIM extends Component {
     fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
     fd.append('file', this.state.imageProfile.loadProfile);
 
-    
+
     fetch(HOST,{
       body: fd,
       method: 'POST'
@@ -443,7 +443,7 @@ class AboutFIM extends Component {
         </DropDownMenu>
         <br />
 
-        <h2>Kenapa ingin ikut FIM</h2>
+        <h2>Ceritakan mengapa kamu ingin menjadi bagian dari FIM ?</h2>
         <TextField
           value={why_join_fim}
           multiLine={true}
@@ -453,23 +453,23 @@ class AboutFIM extends Component {
           onChange = {(e, newValue) => this.handleInput('why_join_fim', newValue)}/>
         <br />
 
-        <h2>Keahlian untuk FIM</h2>
+        <h2>Skill/sumberdaya apa yang bisa dikontribusikan ke FIM ?</h2>
         <TextField
           value={skill_for_fim}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="Keahlian untuk kontribusi di FIM"
+          hintText="Skill/sumberdaya untuk kontribusi di FIM"
           onChange = {(e, newValue) => this.handleInput('skill_for_fim', newValue)}/>
         <br />
 
-        <h2>Pertunjukkan untuk API ekspresi</h2>
+        <h2>Bakat apa yang bisa ditampilkan pada saat api ekspresi pelatihan FIM?</h2>
         <TextField
           value={performance_apiekspresi}
           multiLine={true}
           rows={2}
           rowsMax={5}
-          hintText="Pertunjukkan untuk API ekspresi"
+          hintText="Bakat untuk API ekspresi"
           onChange = {(e, newValue) => this.handleInput('performance_apiekspresi', newValue)}/>
         <br />
 
