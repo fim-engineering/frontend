@@ -78,6 +78,7 @@ class LeftNavBar extends Component {
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />
             <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AssistanIcon />} />
+            <MenuItem onClick={this.handleRedirect('/faq')} primaryText="FAQ" leftIcon={<AssistanIcon />} />
             {
               !isLogin && <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<AssistanIcon />} />
             }
