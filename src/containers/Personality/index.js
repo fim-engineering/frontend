@@ -448,8 +448,8 @@ class Personality extends Component {
         <h2>MBTI</h2>
         <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
           {
-            listMBTI.map(mbti => {
-              return <MenuItem value={mbti} primaryText={mbti} />
+            listMBTI.map((mbti, index) => {
+              return <MenuItem key={index} value={mbti} primaryText={mbti} />
             })
           }
         </DropDownMenu>
@@ -457,8 +457,8 @@ class Personality extends Component {
         <h2>Best Performance</h2>
         <DropDownMenu value={best_performance} onChange={(e, index, newValue) => this.handleInput('best_performance', newValue)}>
           {
-            listBest.map(mbti => {
-              return <MenuItem value={mbti} primaryText={mbti} />
+            listBest.map((mbti, index) => {
+              return <MenuItem key={index} value={mbti} primaryText={mbti} />
             })
           }
         </DropDownMenu>
