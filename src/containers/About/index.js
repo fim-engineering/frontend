@@ -24,7 +24,7 @@ export default class About extends Component {
       </p>
       <ul>
         <li>Pahlevi Fikri Aulia</li>
-        <li>Ihsan Satriawan</li>
+        <li>Ihsan S</li>
         <li>Almas Shabrina</li>
         <li>Febrian Imanda</li>
         <li>Bagus Dwi Utama</li>
