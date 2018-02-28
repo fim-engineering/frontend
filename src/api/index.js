@@ -19,6 +19,7 @@ const FIM_SERVICES = {
   GetPersonality: `${HOSTNAME}/personality`,
   GetRegional: `${HOSTNAME}/admin/regionals`,
   GetMBTI: `${HOSTNAME}/select/mbtis`,
+  GetStatusFinal: `${HOSTNAME}/final-submit/status`,
   GetFIMReference: `${HOSTNAME}/select/fim-references`,
   GetBestPerformance: `${HOSTNAME}/select/best-performances`,
   getKota: 'http://dev.farizdotid.com/api/daerahindonesia/provinsi'
@@ -113,6 +114,26 @@ const GetBestPerformance = (content) => {
 
 const GetMBTI = (content) => {
   const url = FIM_SERVICES.GetMBTI;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const GetStatusFinal = (content) => {
+  const url = FIM_SERVICES.GetStatusFinal;
   
   const extraHeaders = {
     Authorization: `Bearer ${content.token}`
@@ -359,4 +380,5 @@ export {
   GetFIMReference,
   UpdateMeFIM,
   GetMeFIM,
+  GetStatusFinal,
 }

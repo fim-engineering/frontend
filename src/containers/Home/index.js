@@ -108,6 +108,8 @@ class Home extends Component {
     const { userProfile } = this.state
     console.log("userProfile: ", userProfile);
 
+    const isSubmitFinalSubmit = _.result(user, 'statusSubmit.final', 0) === 1
+
     const customModalStyle = {
       width: '100%',
       maxWidth: 'none',
@@ -131,6 +133,9 @@ class Home extends Component {
         Hallo {user.email}
         <br />
         <br />
+        {
+          isSubmitFinalSubmit && <h1>Terima Kasih sudah mendaftar, tunggu kabar dari kami ya</h1>
+        }
         <br />
         <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
           <Stepper
@@ -144,6 +149,7 @@ class Home extends Component {
               </StepButton>
               <StepContent>
                 <RaisedButton 
+                  disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/profile')}
                   icon={<ActionAndroid />}
@@ -157,6 +163,7 @@ class Home extends Component {
               </StepButton>
               <StepContent>
                 <RaisedButton 
+                  disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/achievement')}
                   icon={<FlightTakeoff />}
@@ -170,6 +177,7 @@ class Home extends Component {
               </StepButton>
               <StepContent>
                 <RaisedButton 
+                  disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/personality')}
                   icon={<FlightTakeoff />}
@@ -183,6 +191,7 @@ class Home extends Component {
               </StepButton>
               <StepContent>
                 <RaisedButton 
+                  disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/me-fim')}
                   icon={<FlightTakeoff />}
@@ -196,6 +205,7 @@ class Home extends Component {
               </StepButton>
               <StepContent>
                 <RaisedButton 
+                  disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.toggleModal}
                   icon={<FlightTakeoff />}
@@ -221,7 +231,7 @@ class Home extends Component {
   render() {
     const { user, ui } = this.props
     const isLogin = user.isLoggedIn
-
+    const isSubmitFinalSubmit = _.result(user, 'statusSubmit.final', 0) === 1
     return (
       <div className={styles}>
         Welcome to FIM Information System

@@ -6,6 +6,8 @@ import MuiThemeProvider           from 'material-ui/styles/MuiThemeProvider';
 import { Route, Switch }      from 'react-router-dom'
 import { ConnectedRouter as Router } from 'react-router-redux'
 import { Helmet } from 'react-helmet';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 
 
 // global styles for entire app
@@ -27,11 +29,20 @@ import Personality       from 'containers/Personality';
 import AboutFIM       from 'containers/AboutFIM';
 import Profile       from 'containers/Profile';
 
+import * as uiActionCreators   from 'core/actions/actions-ui';
+import * as userActionCreators   from 'core/actions/actions-user';
+
+import { GetStatusFinal as getStatusFinalAction } from '../../api'
+
 injectTapEventPlugin();
 
 export class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  state = {
+    isLoaded: false
   }
 
   componentDidMount = () => {
@@ -45,6 +56,26 @@ export class App extends Component {
       s1.setAttribute('crossorigin','*');
       s0.parentNode.insertBefore(s1,s0);
       })();
+  }
+
+  componentWillUpdate = (nextProps, nextState) => {
+    const { user } = nextProps
+    console.log("user di APP: ", user);
+    const isLogin = user.isLoggedIn
+    console.log("isLogin: ", isLogin);
+
+    if (isLogin && !this.state.isLoaded) {
+      const token = _.result(nextProps, 'user.token', '');
+      const content = { token }
+      getStatusFinalAction(content)
+        .then(response => {
+          console.log("response: ", response);
+          this.setState({ isLoaded: true })
+          this.props.actions.user.changeUserData({
+            statusSubmit: response,
+          })
+        })
+    }
   }
 
   render() {
@@ -85,4 +116,21 @@ export class App extends Component {
   }
 }
 
-export default connect(null)(App);
+function mapStateToProps(state) {
+  return {
+    ui: state.ui,
+    user: state.user
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      ui   : bindActionCreators(uiActionCreators, dispatch),
+      user   : bindActionCreators(userActionCreators, dispatch)
+    },
+    push:  bindActionCreators(push, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
