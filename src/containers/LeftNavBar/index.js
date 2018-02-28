@@ -10,6 +10,10 @@ import MenuItem from 'material-ui/MenuItem';
 import FileUpload from 'material-ui/svg-icons/file/file-upload';
 import HomeIcon from 'material-ui/svg-icons/action/home';
 import AssistanIcon from 'material-ui/svg-icons/image/assistant';
+import AboutIcon from 'material-ui/svg-icons/action/supervisor-account';
+import RegIcon from 'material-ui/svg-icons/action/account-box';
+import FaqIcon from 'material-ui/svg-icons/action/speaker-notes';
+
 import { push } from 'react-router-redux';
 // import { Link } from 'react-router-dom';
 /* component styles */
@@ -77,10 +81,10 @@ class LeftNavBar extends Component {
           <Divider />
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />
-            <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AssistanIcon />} />
-            <MenuItem onClick={this.handleRedirect('/faq')} primaryText="FAQ" leftIcon={<AssistanIcon />} />
+            <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AboutIcon />} />
+            <MenuItem onClick={this.handleRedirect('/faq')} primaryText="FAQ" leftIcon={<FaqIcon />} />
             {
-              !isLogin && <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<AssistanIcon />} />
+              !isLogin && <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<RegIcon />} />
             }
             {
               !isLogin && <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />

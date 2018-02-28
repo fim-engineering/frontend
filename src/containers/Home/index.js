@@ -16,6 +16,10 @@ import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
+import RegIcon from 'material-ui/svg-icons/action/account-box';
+import ActIcon from 'material-ui/svg-icons/maps/local-activity';
+import PersIcon from 'material-ui/svg-icons/editor/bubble-chart';
+import MeandFIcon from 'material-ui/svg-icons/hardware/toys';
 import FlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
 import {
   Step,
@@ -189,7 +193,7 @@ class Home extends Component {
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/profile')}
-                  icon={<ActionAndroid />}
+                  icon={<RegIcon />}
                   label="Isi Data Diri" fullWidth={false} />
                 {this.renderStepActions(0)}
               </StepContent>
@@ -203,7 +207,7 @@ class Home extends Component {
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/achievement')}
-                  icon={<FlightTakeoff />}
+                  icon={<ActIcon />}
                   label="Aktivitas dan Kepribadian" fullWidth={false} />
                 {this.renderStepActions(1)}
               </StepContent>
@@ -217,7 +221,7 @@ class Home extends Component {
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/personality')}
-                  icon={<FlightTakeoff />}
+                  icon={<PersIcon />}
                   label="Personality" fullWidth={false} />
                 {this.renderStepActions(2)}
               </StepContent>
@@ -231,7 +235,7 @@ class Home extends Component {
                   disabled={isSubmitFinalSubmit}
                   primary={true}
                   onClick={this.handleRedirect('/me-fim')}
-                  icon={<FlightTakeoff />}
+                  icon={<MeandFIcon />}
                   label="Tentang aku dan FIM" fullWidth={false} />
                 {this.renderStepActions(3)}
               </StepContent>
@@ -282,7 +286,7 @@ class Home extends Component {
     const isSubmitFinalSubmit = _.result(user, 'statusSubmit.final', 0) === 1
     return (
       <div className={styles}>
-        Welcome to FIM Information System
+        <span style={{fontSize: '30pt', maxHeight: 400, margin: 'auto'}}> Selamat Datang pada Portal Pendaftaran FIM </span>
         {
           isLogin && this.renderLoggedInUser(ui.stepIndex)
         }
