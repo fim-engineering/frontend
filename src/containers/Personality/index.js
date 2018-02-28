@@ -448,13 +448,12 @@ class Personality extends Component {
         <h2>Apa tipe MBTI kamu ?</h2>
         <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
           {
-            listMBTI.map(mbti => {
-              return <MenuItem value={mbti} primaryText={mbti} />
+            listMBTI.map((mbti, index) => {
+              return <MenuItem key={index} value={mbti} primaryText={mbti} />
             })
           }
         </DropDownMenu>
         <br />
-
 
         <h2>Sebutkan minimal 3 Kekuatan dirimu</h2>
         <TextField

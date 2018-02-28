@@ -16,6 +16,12 @@ import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import FlightTakeoff from 'material-ui/svg-icons/action/flight-takeoff';
+import {
+  Step,
+  Stepper,
+  StepButton,
+  StepContent,
+} from 'material-ui/Stepper';
 import { GetProfile as getProfileAction } from '../../api'
 
 class Home extends Component {
@@ -26,11 +32,36 @@ class Home extends Component {
   state = {
     userProfile: {},
     isLoadedProfile: false,
-    isOpen: false
+    isOpen: false,
+    stepIndex: 0,
   }
 
   handleRedirect = (path) => () => {
     this.props.push(path)
+  }
+
+  renderStepActions(step) {
+    return (
+      <div style={{margin: '12px 0'}}>
+        {step > 0 && step < 4 && (
+          <FlatButton
+            label="Back"
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            onClick={() => this.props.actions.ui.jumpToStep(step - 1)}
+          />
+        )}
+        {step < 4 && (<RaisedButton
+            label="Next"
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            onClick={() => this.props.actions.ui.jumpToStep(step + 1)}
+            style={{marginRight: 12}}
+          />
+        )}
+      </div>
+    );
   }
 
   componentWillUpdate = (nextProps, nextState) => {
@@ -62,7 +93,17 @@ class Home extends Component {
     console.log("handleFinalSubmit");
   }
 
-  renderLoggedInUser = () => {
+  renderNonLoggedInUser = () => {
+    return (<div><span>Please </span>
+      <RaisedButton 
+        primary={true}
+        onClick={this.handleRedirect('/sign_up')}
+        label="Register" fullWidth={false} />
+      <span>to get started</span>
+    </div>)
+  }
+
+  renderLoggedInUser = (stepIndex) => {
     const { user } = this.props
     const { userProfile } = this.state
     console.log("userProfile: ", userProfile);
@@ -91,62 +132,104 @@ class Home extends Component {
         <br />
         <br />
         <br />
-        <RaisedButton
-          primary={true}
-          onClick={this.handleRedirect('/profile')}
-          icon={<ActionAndroid />}
-          label="Isi Data Diri" fullWidth={false} />
-        <br />
-        <br />
-        <br />
-        <RaisedButton
-          primary={true}
-          onClick={this.handleRedirect('/achievement')}
-          icon={<FlightTakeoff />}
-          label="Aktivitas dan Kepribadian" fullWidth={false} />
-        <br />
-        <br />
-        <RaisedButton
-          primary={true}
-          onClick={this.handleRedirect('/personality')}
-          icon={<FlightTakeoff />}
-          label="Personality" fullWidth={false} />
-        <br />
-        <br />
-        <RaisedButton
-          primary={true}
-          onClick={this.handleRedirect('/me-fim')}
-          icon={<FlightTakeoff />}
-          label="Tentang aku dan FIM" fullWidth={false} />
-        <br />
-        <br />
-        <RaisedButton
-          primary={true}
-          onClick={this.toggleModal}
-          icon={<FlightTakeoff />}
-          label="Submit ?" fullWidth={false} />
-        <Dialog
-          title="Kamu yakin akan submit pendaftaran kamu ?"
-          actions={actions}
-          modal={true}
-          contentStyle={customModalStyle}
-          open={this.state.isOpen}
-        >
-          Setelah melakukan submit, tidak bisa merubah isian formulir kembali
-        </Dialog>
+        <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
+          <Stepper
+            activeStep={stepIndex}
+            linear={false}
+            orientation="vertical"
+          >
+            <Step>
+              <StepButton onClick={() => this.props.actions.ui.jumpToStep(0)}>
+                Data Diri
+              </StepButton>
+              <StepContent>
+                <RaisedButton 
+                  primary={true}
+                  onClick={this.handleRedirect('/profile')}
+                  icon={<ActionAndroid />}
+                  label="Isi Data Diri" fullWidth={false} />
+                {this.renderStepActions(0)}
+              </StepContent>
+            </Step>
+            <Step>
+              <StepButton onClick={() => this.props.actions.ui.jumpToStep(1)}>
+                  Aktivitas dan Kepribadian
+              </StepButton>
+              <StepContent>
+                <RaisedButton 
+                  primary={true}
+                  onClick={this.handleRedirect('/achievement')}
+                  icon={<FlightTakeoff />}
+                  label="Aktivitas dan Kepribadian" fullWidth={false} />
+                {this.renderStepActions(1)}
+              </StepContent>
+            </Step>
+            <Step>
+              <StepButton onClick={() => this.props.actions.ui.jumpToStep(2)}>
+                Personality
+              </StepButton>
+              <StepContent>
+                <RaisedButton 
+                  primary={true}
+                  onClick={this.handleRedirect('/personality')}
+                  icon={<FlightTakeoff />}
+                  label="Personality" fullWidth={false} />
+                {this.renderStepActions(2)}
+              </StepContent>
+            </Step>
+            <Step>
+              <StepButton onClick={() => this.props.actions.ui.jumpToStep(3)}>
+                Tentang aku dan FIM
+              </StepButton>
+              <StepContent>
+                <RaisedButton 
+                  primary={true}
+                  onClick={this.handleRedirect('/me-fim')}
+                  icon={<FlightTakeoff />}
+                  label="Tentang aku dan FIM" fullWidth={false} />
+                {this.renderStepActions(3)}
+              </StepContent>
+            </Step>
+            <Step>
+              <StepButton onClick={() => this.props.actions.ui.jumpToStep(4)}>
+                Konfirmasi
+              </StepButton>
+              <StepContent>
+                <RaisedButton 
+                  primary={true}
+                  onClick={this.toggleModal}
+                  icon={<FlightTakeoff />}
+                  label="Submit ?" fullWidth={false} />
+                <Dialog
+                  title="Kamu yakin akan submit pendaftaran kamu ?"
+                  actions={actions}
+                  modal={true}
+                  contentStyle={customModalStyle}
+                  open={this.state.isOpen}
+                >
+                  Setelah melakukan submit, tidak bisa merubah isian formulir kembali
+                </Dialog>
+                {this.renderStepActions(4)}
+              </StepContent>
+            </Step>
+          </Stepper>
+        </div>
       </div>
     )
   }
 
   render() {
-    const { user } = this.props
+    const { user, ui } = this.props
     const isLogin = user.isLoggedIn
 
     return (
       <div className={styles}>
         Welcome to FIM Information System
         {
-          isLogin && this.renderLoggedInUser()
+          isLogin && this.renderLoggedInUser(ui.stepIndex)
+        }
+        {
+          !isLogin && this.renderNonLoggedInUser()
         }
       </div>
     );

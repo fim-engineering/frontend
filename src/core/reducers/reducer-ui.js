@@ -7,7 +7,8 @@ const initialState = {
     isOpen: false,
     text: '',
     autoHideDuration: 1000
-  }
+  },
+  stepIndex: 0,
 };
 
 export function uiReducer(state = initialState, action) {
@@ -37,6 +38,9 @@ export function uiReducer(state = initialState, action) {
         ...action.payload
       }
     }
+
+  case constants.JUMP_TO_STEP:
+      return Object.assign({}, state, { stepIndex: action.payload });
 
   default:
     return state;
