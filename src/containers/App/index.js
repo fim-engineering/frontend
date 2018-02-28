@@ -8,7 +8,7 @@ import { ConnectedRouter as Router } from 'react-router-redux'
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
-
+import ReactGA from 'react-ga';
 
 // global styles for entire app
 import './styles/app.scss';
@@ -40,6 +40,11 @@ injectTapEventPlugin();
 export class App extends Component {
   constructor(props) {
     super(props);
+
+    // Add your tracking ID created from https://analytics.google.com/analytics/web/#home/
+    ReactGA.initialize('UA-46836193-2');
+    // This just needs to be called once since we have no routes in this case.
+    ReactGA.pageview(window.location.pathname);
   }
 
   state = {
