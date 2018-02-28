@@ -3,7 +3,7 @@
  */
 
 import React                              from 'react';
-import { TextField as MaterialTextField } from 'material-ui';
+import MaterialTextField                  from 'material-ui/TextField';
 import PropTypes                          from 'prop-types';
 
 

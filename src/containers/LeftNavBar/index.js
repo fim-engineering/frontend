@@ -1,7 +1,9 @@
 import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Drawer, AppBar, Divider } from 'material-ui';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import Divider from 'material-ui/Divider';
 import * as _ from 'lodash';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
