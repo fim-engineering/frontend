@@ -19,6 +19,7 @@ import { Logout as LogoutAction } from '../../api'
 /* actions */
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
+import { redA700 } from 'material-ui/styles/colors';
 
 class LeftNavBar extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class LeftNavBar extends Component {
           docked={false}
           open={this.props.ui.leftNavOpen}
           onRequestChange={this.closeNav}>
-          <AppBar title={textAppBar} />
+          <AppBar style={{backgroundColor: redA700}}  title={textAppBar} />
           <Divider />
           <Menu>
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />

@@ -11,6 +11,7 @@ import * as uiActionCreators from 'core/actions/actions-ui';
 /* component styles */
 import { styles } from './styles.scss';
 import Snackbar from 'material-ui/Snackbar';
+import { red100, redA700 } from 'material-ui/styles/colors';
 
 class Header extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class Header extends Component {
           {
             ui.isRunProgressBar && <LinearProgress mode="indeterminate" color="red" />
           }
-          <AppBar onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
+          <AppBar style={{backgroundColor: redA700}} onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
           <Snackbar
             open={ui.snackBarOptions.isOpen}
             message={ui.snackBarOptions.text}
