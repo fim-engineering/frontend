@@ -65,24 +65,28 @@ class Achievement extends Component {
       .then(response => {
         console.log("response di willMpunt: ", response);
         if (_.result(response, 'code', 200) == 401) return;
+        const date = _.result(response, 'achie_best.date_end_2', '')
+        console.log("date di willMpunt: ", date);
+        const date_end_2 = date === null ? "lolo" : date
+        console.log("date_end_2 di willmount: ", date_end_2);
         this.setState({
           achievement: _.result(response, 'achie_best.achievement', '') || '',
-          date_from: _.result(response, 'achie_best.date_from', '') || '',
-          date_end: _.result(response, 'achie_best.date_end', '') || '',
+          date_from: _.result(response, 'achie_best.date_from', '') || '2018-01-01',
+          date_end: _.result(response, 'achie_best.date_end', '') || '2018-01-01',
           position_name: _.result(response, 'achie_best.position_name', '') || '',
           phone_leader: _.result(response, 'achie_best.phone_leader', '') || '',
           email_leader: _.result(response, 'achie_best.email_leader', '') || '',
           description: _.result(response, 'achie_best.description', '') || '',
           achievement_2: _.result(response, 'achie_best.achievement_2', '') || '',
-          date_from_2: _.result(response, 'achie_best.date_from_2', '') || '',
-          date_end_2: _.result(response, 'achie_best.date_end_2', '') || '',
+          date_from_2: _.result(response, 'achie_best.date_from_2', '') || '2018-01-01',
+          date_end_2: _.result(response, 'achie_best.date_end_2', '') || '2018-01-01',
           position_name_2: _.result(response, 'achie_best.position_name_2', '') || '',
           phone_leader_2: _.result(response, 'achie_best.phone_leader_2', '') || '',
           email_leader_2: _.result(response, 'achie_best.email_leader_2', '') || '',
           description_2: _.result(response, 'achie_best.description_2', '') || '',
           achievement_3: _.result(response, 'achie_best.achievement_3', '') || '',
-          date_from_3: _.result(response, 'achie_best.date_from_3', '') || '',
-          date_end_3: _.result(response, 'achie_best.date_end_3', '') || '',
+          date_from_3: _.result(response, 'achie_best.date_from_3', '') || '2018-01-01',
+          date_end_3: _.result(response, 'achie_best.date_end_3', '') || '2018-01-01',
           position_name_3: _.result(response, 'achie_best.position_name_3', '') || '',
           phone_leader_3: _.result(response, 'achie_best.phone_leader_3', '') || '',
           email_leader_3: _.result(response, 'achie_best.email_leader_3', '') || '',
@@ -458,7 +462,7 @@ class Achievement extends Component {
       email_leader_3,
       description_3,
     } = this.state
-
+    console.log("date_end_2: ", date_end_2);
     const styleDivider = { marginBottom: '20px', marginTop: '20px' }
     return (
       <div className={styles}>
