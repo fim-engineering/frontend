@@ -446,6 +446,7 @@ class Personality extends Component {
         <br />
         <br />
         <h2>Apa tipe MBTI kamu ?</h2>
+        <h4>Jika belum mengetahui tipe mbti kamu <br/> silahkan cek MBTI kamu</h4>
         <DropDownMenu value={mbti} onChange={(e, index, newValue) => this.handleInput('mbti', newValue)}>
           {
             listMBTI.map((mbti, index) => {
@@ -493,7 +494,7 @@ class Personality extends Component {
             <br />
             <br />
 
-        <h2>Tokoh Idole Ke - 1</h2>
+        <h2>Tokoh Idola Ke - 1</h2>
         <TextField
           value={role_model}
           multiLine={true}
@@ -503,7 +504,7 @@ class Personality extends Component {
           onChange = {(e, newValue) => this.handleInput('role_model', newValue)}/>
         <br /><br />
 
-        <h2>Tokoh Idole Ke - 2</h2>
+        <h2>Tokoh Idola Ke - 2</h2>
         <TextField
           value={role_model_2}
           multiLine={true}
@@ -513,7 +514,7 @@ class Personality extends Component {
           onChange = {(e, newValue) => this.handleInput('role_model_2', newValue)}/>
         <br />
 
-        <h2>Tokoh Idole Ke - 3</h2>
+        <h2>Tokoh Idola Ke - 3</h2>
         <TextField
           value={role_model_3}
           multiLine={true}
@@ -585,7 +586,7 @@ class Personality extends Component {
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
 
-        <h2>kebersahajaan</h2>
+        <h2>Kebersahajaan</h2>
         <DropDownMenu value={kebersahajaan} onChange={(e, index, newValue) => this.handleInput('kebersahajaan', newValue)}>
           <MenuItem value={1} primaryText="1" />
           <MenuItem value={2} primaryText="2" />
@@ -594,7 +595,7 @@ class Personality extends Component {
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
 
-        <h2>totalitas</h2>
+        <h2>Totalitas</h2>
         <DropDownMenu value={totalitas} onChange={(e, index, newValue) => this.handleInput('totalitas', newValue)}>
           <MenuItem value={1} primaryText="1" />
           <MenuItem value={2} primaryText="2" />
@@ -603,7 +604,7 @@ class Personality extends Component {
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
 
-        <h2>solidaritas</h2>
+        <h2>Solidaritas</h2>
         <DropDownMenu value={solidaritas} onChange={(e, index, newValue) => this.handleInput('solidaritas', newValue)}>
           <MenuItem value={1} primaryText="1" />
           <MenuItem value={2} primaryText="2" />
@@ -612,7 +613,7 @@ class Personality extends Component {
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
 
-        <h2>keadilan</h2>
+        <h2>Keadilan</h2>
         <DropDownMenu value={keadilan} onChange={(e, index, newValue) => this.handleInput('keadilan', newValue)}>
           <MenuItem value={1} primaryText="1" />
           <MenuItem value={2} primaryText="2" />
@@ -621,7 +622,7 @@ class Personality extends Component {
           <MenuItem value={5} primaryText="5" />
         </DropDownMenu>
 
-        <h2>keteladanan</h2>
+        <h2>Keteladanan</h2>
         <DropDownMenu value={keteladanan} onChange={(e, index, newValue) => this.handleInput('keteladanan', newValue)}>
           <MenuItem value={1} primaryText="1" />
           <MenuItem value={2} primaryText="2" />
