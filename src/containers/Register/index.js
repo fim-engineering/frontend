@@ -53,9 +53,9 @@ class Register extends Component {
     actions.ui.toggleProgressbar(true);
 
     const content = {
-      email,
+      email: email.toLowerCase(),
       password,
-      name,
+      name: name.toLowerCase(),
     }
     this.toggleDisableButton()
     SignUpAction(content)

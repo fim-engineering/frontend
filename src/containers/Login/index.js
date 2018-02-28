@@ -59,7 +59,7 @@ class Login extends Component {
     actions.ui.toggleProgressbar(true);
 
     const content = {
-      email,
+      email: email.toLowerCase(),
       password
     }
     this.toggleDisableButton()
