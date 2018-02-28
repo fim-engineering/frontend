@@ -51,7 +51,11 @@ class Personality extends Component {
     strength: '',
     weakness: '',
     role_model: '',
+    role_model_2: '',
+    role_model_3: '',
     problem_solver: '',
+    problem_solver_2: '',
+    problem_solver_3: '',
 
     listKota: listKota,
     born_date: '2018-01-01',
@@ -97,7 +101,11 @@ class Personality extends Component {
           strength: _.result(response, 'personality.strength', '') || '',
           weakness: _.result(response, 'personality.weakness', '') || '',
           role_model: _.result(response, 'personality.role_model', '') || '',
+          role_model_2: _.result(response, 'personality.role_model_2', '') || '',
+          role_model_3: _.result(response, 'personality.role_model_3', '') || '',
           problem_solver: _.result(response, 'personality.problem_solver', '') || '',
+          problem_solver_2: _.result(response, 'personality.problem_solver_2', '') || '',
+          problem_solver_3: _.result(response, 'personality.problem_solver_3', '') || '',
         })
       })
     
@@ -164,7 +172,11 @@ class Personality extends Component {
       strength,
       weakness,
       role_model,
+      role_model_2,
+      role_model_3,
       problem_solver,
+      problem_solver_2,
+      problem_solver_3,
       mbti,
     } = this.state
     const token = _.result(this, 'props.user.token', '');
@@ -181,7 +193,11 @@ class Personality extends Component {
       strength,
       weakness,
       role_model,
+      role_model_2,
+      role_model_3,
       problem_solver,
+      problem_solver_2,
+      problem_solver_3,
       token,
       mbti,
     }
@@ -385,7 +401,11 @@ class Personality extends Component {
       strength,
       weakness,
       role_model,
+      role_model_2,
+      role_model_3,
       problem_solver,
+      problem_solver_2,
+      problem_solver_3,
     } = this.state
 
     const year_date_from = parseInt(date_from.split('-')[0], 10)
@@ -481,6 +501,46 @@ class Personality extends Component {
           rowsMax={5}
           hintText="problem solver"
           onChange = {(e, newValue) => this.handleInput('problem_solver', newValue)}/>
+        <br />
+
+        <h2>Role Model 2</h2>
+        <TextField
+          value={role_model_2}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="role model"
+          onChange = {(e, newValue) => this.handleInput('role_model_2', newValue)}/>
+        <br />
+
+        <h2>Problem Solver 2</h2>
+        <TextField
+          value={problem_solver_2}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="problem solver"
+          onChange = {(e, newValue) => this.handleInput('problem_solver_2', newValue)}/>
+        <br />
+
+        <h2>Role Model 3</h2>
+        <TextField
+          value={role_model_3}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="role model"
+          onChange = {(e, newValue) => this.handleInput('role_model_3', newValue)}/>
+        <br />
+
+        <h2>Problem Solver 3</h2>
+        <TextField
+          value={problem_solver_3}
+          multiLine={true}
+          rows={2}
+          rowsMax={5}
+          hintText="problem solver"
+          onChange = {(e, newValue) => this.handleInput('problem_solver_3', newValue)}/>
         <br />
 
         <h2>Cinta Kasih</h2>
