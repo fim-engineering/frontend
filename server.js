@@ -22,7 +22,12 @@ app.use(history());
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-  app.use(express.static(__dirname + '/'));
+  app.use(express.static(__dirname + '/', {
+    setHeaders: function(res, path, stat) {
+      res.header('Cache-Control', 'no-cache, no-store, must-revalidate'); // 1 year in milliseconds
+    }
+  }));
+  
 })();
 
 app.get(/.*/, function root(req, res) {
