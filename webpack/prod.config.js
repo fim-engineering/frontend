@@ -48,6 +48,8 @@ module.exports = {
       __DEVELOPMENT__: false,
     }),
     new ExtractTextPlugin({filename:'bundle.css'}),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
