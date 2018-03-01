@@ -8,7 +8,7 @@ import { ConnectedRouter as Router } from 'react-router-redux'
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
-
+import ReactGA from 'react-ga';
 
 // global styles for entire app
 import './styles/app.scss';
@@ -40,6 +40,11 @@ injectTapEventPlugin();
 export class App extends Component {
   constructor(props) {
     super(props);
+
+    // Add your tracking ID created from https://analytics.google.com/analytics/web/#home/
+    ReactGA.initialize('UA-46836193-2');
+    // This just needs to be called once since we have no routes in this case.
+    ReactGA.pageview(window.location.pathname);
   }
 
   state = {
@@ -48,15 +53,15 @@ export class App extends Component {
 
   componentDidMount = () => {
     
-    var Tawk_API = window.Tawk_API || {}, Tawk_LoadStart=new Date();
-    (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/5a95d926d7591465c70814a0/default';
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-      })();
+    // var Tawk_API = window.Tawk_API || {}, Tawk_LoadStart=new Date();
+    // (function(){
+    //   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    //   s1.async=true;
+    //   s1.src='https://embed.tawk.to/5a95d926d7591465c70814a0/default';
+    //   s1.charset='UTF-8';
+    //   s1.setAttribute('crossorigin','*');
+    //   s0.parentNode.insertBefore(s1,s0);
+    //   })();
   }
 
   componentWillUpdate = (nextProps, nextState) => {

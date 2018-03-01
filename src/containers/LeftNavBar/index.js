@@ -95,9 +95,9 @@ class LeftNavBar extends Component {
             {
               isLogin && <MenuItem onClick={this.handleLogut} primaryText="Logout" leftIcon={<FileUpload />} />
             }
-            {
+            {/*
               isLogin && <MenuItem onClick={this.handleRedirect('/profile')} primaryText="Profile" leftIcon={<FileUpload />} />
-            }
+            */}
           </Menu>
         </Drawer>
       </div>

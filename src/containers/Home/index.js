@@ -110,12 +110,12 @@ class Home extends Component {
               final: 1
             }
           })
-
-          this.toggleModal
-
+          this.toggleModal()
           this.showToaster('Sukses Submit')
+        } else {
+          this.toggleModal()
+          this.showToaster('Gagal Submit')
         }
-        this.showToaster('Gagal Submit')
       })
       .catch(() => this.showToaster('Gagal Submit'))
   }
