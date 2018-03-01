@@ -432,9 +432,9 @@ class DataUmum extends Component {
           <AutoComplete
             searchText={institution}
             floatingLabelText="Kampus"
-            onUpdateInput={(searchText, dataSource) => this.handleInput('institution', searchText)}
+            onUpdateInput={(searchText, dataSource) => this.handleInput('institution', _.startCase(_.toLower(searchText)))}
             filter={AutoComplete.fuzzyFilter}
-            dataSource={_.uniq(listKampus)}
+            dataSource={_.uniq(listKampus.map(kampus => _.startCase(_.toLower(kampus))))}
             maxSearchResults={5}
             />
 
