@@ -97,6 +97,7 @@ class Login extends Component {
 
     return (
       <div className={styles}>
+        <h1>Login</h1>
         <TextField
           hintText="Enter your Email"
           floatingLabelText="Email"

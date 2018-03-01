@@ -86,6 +86,7 @@ class Register extends Component {
 
     return (
       <div className={styles}>
+        <h1>Register</h1>
         <TextField
           hintText="Name"
           floatingLabelText="Name"
