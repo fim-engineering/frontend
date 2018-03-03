@@ -410,8 +410,8 @@ class DataUmum extends Component {
 
         <h2>Jenis Kelamin</h2>
         <DropDownMenu value={gender} onChange={(e, index, newValue) => this.handleInput('gender', newValue)}>
-          <MenuItem value={'Male'} primaryText="Male" />
-          <MenuItem value={'Female'} primaryText="Female" />
+          <MenuItem value={'Male'} primaryText="Laki-Laki" />
+          <MenuItem value={'Female'} primaryText="Perempuan" />
         </DropDownMenu>
         <br />
 
@@ -531,7 +531,7 @@ class DataUmum extends Component {
         />
         <br />
 
-        <h2>Status Menikah</h2>
+        <h2>Status Pernikahan</h2>
         <br />
         <DropDownMenu value={marriage_status} onChange={(e, index, newValue) => this.handleInput('marriage_status', newValue)}>
           <MenuItem value={0} primaryText="Belum Menikah" />

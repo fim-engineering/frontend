@@ -78,13 +78,13 @@ class Login extends Component {
           this.toggleDisableButton()
           this.handleChangeRoute('/')()
         } else {
-          this.showToaster('Gagal Login')
+          this.showToaster('Gagal Login, sepertinya username atau password Anda salah')
           actions.ui.toggleProgressbar(false);
           this.toggleDisableButton()
         }
       })
       .catch(() => {
-        this.showToaster('Gagal Login')
+        this.showToaster('Gagal Login, sepertinya username atau password Anda salah')
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })

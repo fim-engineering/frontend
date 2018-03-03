@@ -330,7 +330,7 @@ class Statistik extends Component {
     var day = input.getDate()
     var date = ""
     if (day > 3 && day < 21) {
-      date = day + "th" 
+      date = day + "th"
     } else {
       switch (day % 10) {
         case 1:
@@ -345,9 +345,9 @@ class Statistik extends Component {
         default:
           date = day + "th"
           break;
-      }  
+      }
     }
-  
+
     var year = input.getFullYear()
     var seconds = input.getSeconds();
     var minutes = input.getMinutes();
@@ -404,7 +404,7 @@ class Statistik extends Component {
         <br />
         <br />
         <h2>Statistik {this.fancyDate(Date.now())} </h2>
-        <Table style={{ textAlign: 'center' }} selectable={false}>
+        <Table selectable={false} style={{maxWidth: 380, maxHeight: 400, margin: 'auto', padding: 10}}>
           <TableHeader displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>Regional</TableHeaderColumn>
