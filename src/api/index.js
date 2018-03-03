@@ -7,6 +7,7 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
+  RegisterByRegional: `${HOSTNAME}/statistic/count-regional `,
   ForgotPassword: `${HOSTNAME}/forgot-password`,
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
@@ -81,6 +82,26 @@ const SubmitFinal = (content) => {
         { 
           id: 0,
           message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Login')
+        }
+      }
+    })
+}
+
+const RegisterByRegional = (content) => {
+  const url = FIM_SERVICES.RegisterByRegional;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
         }
       }
     })
@@ -417,4 +438,5 @@ export {
   GetMeFIM,
   GetStatusFinal,
   SubmitFinal,
+  RegisterByRegional
 }
