@@ -29,6 +29,7 @@ import Personality       from 'containers/Personality';
 import AboutFIM       from 'containers/AboutFIM';
 import Profile       from 'containers/Profile';
 import FAQ       from 'containers/FAQ';
+import ForgotPassword       from 'containers/ForgotPassword';
 
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
@@ -109,6 +110,7 @@ export class App extends Component {
                   <Route path="/personality" component={Personality}/>
                   <Route path="/me-fim" component={AboutFIM}/>
                   <Route path="/myprofile" component={Profile}/>
+                  <Route path="/forgot-password" component={ForgotPassword}/>
                   <Route path="/faq" component={FAQ}/>
 
                   <Route path="/*" component={NotFound}/>

@@ -7,6 +7,7 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
+  ForgotPassword: `${HOSTNAME}/forgot-password`,
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
   UpdateProfile: `${HOSTNAME}/myprofile/update`,
@@ -41,6 +42,22 @@ const Login = (content) => {
   const url = FIM_SERVICES.Login;
   
   return axios(configFetch(url, 'post', content))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Login')
+        }
+      }
+    })
+}
+
+const ForgotPassword = (content) => {
+  const url = FIM_SERVICES.ForgotPassword;
+  
+  return axios(configFetch(url, 'post', content, true))
     .then(response => response.data)
     .catch(err => {
       return {
@@ -382,6 +399,7 @@ const getKota = () => {
 
 export {
   Login,
+  ForgotPassword,
   SignUp,
   Logout,
   getKota,
