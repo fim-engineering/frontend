@@ -404,7 +404,7 @@ class Statistik extends Component {
         <br />
         <br />
         <h2>Statistik {this.fancyDate(Date.now())} </h2>
-        <Table selectable={false} style={{maxWidth: 380, maxHeight: 400, margin: 'auto', padding: 10}}>
+        <Table selectable={false} style={{maxWidth: 1000, maxHeight: 400, margin: 'auto', padding: 10}}>
           <TableHeader displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>Regional</TableHeaderColumn>
