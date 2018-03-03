@@ -320,6 +320,39 @@ class Statistik extends Component {
     })
   }
 
+  fancyDate = (input) => {
+
+    var input = new Date(input)
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var monthName = monthNames[input.getMonth()]
+    var day = input.getDate()
+    var date = ""
+    if (day > 3 && day < 21) {
+      date = day + "th"
+    } else {
+      switch (day % 10) {
+        case 1:
+          date = day + "st"
+          break;
+        case 2:
+          date = day + "nd"
+          break;
+        case 3:
+          date = day + "rd"
+          break;
+        default:
+          date = day + "th"
+          break;
+      }
+    }
+
+    var year = input.getFullYear()
+    var seconds = input.getSeconds();
+    var minutes = input.getMinutes();
+    var hour = input.getHours();
+    return `${monthName} ${date}, ${year}  ${hour}:${minutes}:${seconds}`
+  }
+
   render() {
     const {
       listKota,
@@ -368,8 +401,8 @@ class Statistik extends Component {
       <div className={styles}>
         <br />
         <br />
-        <h2>Statistik</h2>
-        <Table selectable={false}>
+        <h2>Statistik {this.fancyDate(Date.now())} </h2>
+        <Table selectable={false} style={{maxWidth: 380, maxHeight: 400, margin: 'auto', padding: 10}}>
           <TableHeader displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>Regional</TableHeaderColumn>

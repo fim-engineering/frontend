@@ -45,10 +45,10 @@ class Header extends Component {
             autoHideDuration={ui.snackBarOptions.autoHideDuration}
             onRequestClose={this.handleCloseSnackbar}
           />*/}
-          <SweetAlert 
-            warning
+          <SweetAlert
+            success
             show={ui.snackBarOptions.isOpen}
-            title="Perhatian!" 
+            title="Perhatian!"
             onConfirm={this.handleCloseSnackbar}>
             {ui.snackBarOptions.text}
           </SweetAlert>

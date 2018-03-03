@@ -57,6 +57,7 @@ export default class About extends Component {
         <Chip
             onClick={this.handleClick(urlPath)}
             style={styles.chip}
+            style={{margin: 'auto', marginBottom:10}}
         >
           <Avatar src={imgSrc} />
           {Name}
@@ -68,7 +69,7 @@ export default class About extends Component {
   render() {
 
     return (
-      <div className={styles}>
+      <div className={styles} style={{maxWidth: 380, maxHeight: 400, margin: 'auto', padding:10}}>
       <p>
       Portal Sistem Informasi FIM dibangun sejak tahun 2013, awalnya sebagai portal pendaftaran peserta FIM 14.
       </p>
@@ -77,9 +78,12 @@ export default class About extends Component {
       Saat ini, portal direncanakan untuk menjadi pusat data bagi organisasi FIM secara keseluruhan, dan akan dibangun secara bertahap.
       </p>
 
-      <p>
+      <p style={{marginBottom: 20}}>
       Kontributor Portal 2013 - 2018 :
+
+
       </p>
+
       <ul>
       {
         listPeople.map(people => this.renderCard(people.urlPath, people.imgSrc, people.Name))

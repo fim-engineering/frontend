@@ -128,7 +128,7 @@ class Home extends Component {
   }
 
   renderNonLoggedInUser = () => {
-    return (<div><span>Please </span>
+    return (<div style={{marginTop: 30}}><span>Please </span>
       <RaisedButton
         primary={true}
         onClick={this.handleRedirect('/sign_up')}
