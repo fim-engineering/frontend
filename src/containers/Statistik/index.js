@@ -66,12 +66,14 @@ class Statistik extends Component {
       .then(res => {
         console.log("res di stat: ", res);
         const registered = res.registered
+        const submited = res.submited
         const newKey = []
         Object.keys(registered).map((key) => {
           if (registered[key]) {
             newKey.push({
-              x: key,
-              y: registered[key]
+              name: key,
+              registered: registered[key],
+              submited: submited[key]
             })
           }
         })
@@ -407,14 +409,19 @@ class Statistik extends Component {
             <TableRow>
               <TableHeaderColumn>Regional</TableHeaderColumn>
               <TableHeaderColumn>Jumlah Pendaftar</TableHeaderColumn>
+              <TableHeaderColumn>Jumlah Submit</TableHeaderColumn>
+              <TableHeaderColumn>Conversion Rate</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody displayRowCheckbox={false} >
+          <TableBody style={{ textAlign: 'center' }} displayRowCheckbox={false} >
             {
-              registeredByRegional.length > 0 && _.sortBy(registeredByRegional, (regional) => -regional.y).map(regional => {
+              registeredByRegional.length > 0 && _.sortBy(registeredByRegional, (regional) => -regional.registered).map(regional => {
+                const convRate = ((regional.submited/regional.registered) * 100).toFixed(2)
                 return <TableRow>
-                  <TableRowColumn>{regional.x}</TableRowColumn>
-                  <TableRowColumn>{regional.y}</TableRowColumn>
+                  <TableRowColumn>{regional.name}</TableRowColumn>
+                  <TableRowColumn>{regional.registered}</TableRowColumn>
+                  <TableRowColumn>{regional.submited}</TableRowColumn>
+                  <TableRowColumn>{`${convRate}%`}</TableRowColumn>
                 </TableRow>
               })
             }
