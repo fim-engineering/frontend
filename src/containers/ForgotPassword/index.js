@@ -10,9 +10,9 @@ import * as _ from 'lodash';
 import { styles } from './styles.scss';
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
-import { SignUp as SignUpAction } from '../../api'
+import { ForgotPassword as ForgotPasswordAction } from '../../api'
 
-class Register extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
   }
@@ -20,8 +20,14 @@ class Register extends Component {
   state = {
     email: '',
     password: '',
-    name: '',
     isProcessLogin: false
+  }
+
+  componentWillMount = () => {
+    const isLoggedIn = _.result(this, 'props.user.isLoggedIn', false);
+    if (isLoggedIn) {
+      this.handleChangeRoute('/')()
+    }
   }
 
   handleInput = (key, value) => {
@@ -30,7 +36,7 @@ class Register extends Component {
     })
   }
 
-  handleChangeRoute = (path) => {
+  handleChangeRoute = (path) => () => {
     this.props.push(path)
   }
 
@@ -49,62 +55,48 @@ class Register extends Component {
 
   handleClick = () => {
     const { actions } = this.props
-    const { email, password, name } = this.state
+    const { email, password } = this.state
     actions.ui.toggleProgressbar(true);
 
     const content = {
       email: email.toLowerCase(),
-      password,
-      name: name.toLowerCase(),
+      password
     }
     this.toggleDisableButton()
-    SignUpAction(content)
+    ForgotPasswordAction(content)
       .then(res => {
-        console.log("res: ", res);
-        const errorMessage = _.result(res, 'user.message_error', '') || ''
-
-        if (errorMessage !== '') {
-          this.showToaster(errorMessage)
+        if (res.code === 200) {
+          this.showToaster('Sukses! Silahkan cek email kamu')
+          actions.ui.toggleProgressbar(false);
+          this.toggleDisableButton()
+          this.handleChangeRoute('/')()
         } else {
-          this.showToaster('Sukses Daftar')
-          this.handleChangeRoute('/sign_in')
+          this.showToaster('Gagal Forgot Password')
+          actions.ui.toggleProgressbar(false);
+          this.toggleDisableButton()
         }
-        actions.ui.toggleProgressbar(false);
-        this.toggleDisableButton()
       })
       .catch(() => {
-        this.showToaster('Gagal Daftar')
+        this.showToaster('Gagal Forgot Password')
         actions.ui.toggleProgressbar(false);
         this.toggleDisableButton()
       })
   }
 
   render() {
-    const { email, password, isProcessLogin, name } = this.state
-    const isDisabledLogin = email === '' || password === '' || name === '' || isProcessLogin
-    const labelButtonLogin = isProcessLogin ? 'Process' : 'Daftar'
+    const { email, password, isProcessLogin } = this.state
+    const isDisabledLogin = email === '' || isProcessLogin
+    const labelButtonLogin = isProcessLogin ? 'Process' : 'Forgot Password'
 
     return (
       <div className={styles}>
-        <h1>Register</h1>
-        <TextField
-          hintText="Name"
-          floatingLabelText="Name"
-          onChange = {(e, newValue) => this.handleInput('name', newValue)}
-          />
-        <br />
+        <h1>Forgot Password</h1>
         <TextField
           hintText="Enter your Email"
           floatingLabelText="Email"
           onChange = {(e, newValue) => this.handleInput('email', newValue)}
           />
         <br/>
-        <TextField
-          type="password"
-          hintText="Enter your Password"
-          floatingLabelText="Password"
-          onChange = {(e, newValue) => this.handleInput('password', newValue)}
-          />
         <br/>
         <br/>
         <br/>
@@ -112,6 +104,13 @@ class Register extends Component {
       </div>
     );
   }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    ui: state.ui,
+    user: state.user
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -124,4 +123,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

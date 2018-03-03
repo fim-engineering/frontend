@@ -194,8 +194,9 @@ class Achievement extends Component {
       .then(response => {
         console.log("response==: ", response);
         const resUserID = _.result(response, 'user_profile.user_id', 0)
-        if (resUserID !== 0) {
-          this.showToaster('Sukses Menyimpan')
+        if (response.code === 200) {
+          const msg = _.result(response, 'message', '')
+          this.showToaster(msg)
           this.handleChangeRoute('/')()
         } else {
           const errorMessage = _.result(response, 'message', '')

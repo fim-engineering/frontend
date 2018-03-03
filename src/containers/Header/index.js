@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import AppBar                 from 'components/AppBar';
 import { push } from 'react-router-redux';
 import LinearProgress from 'material-ui/LinearProgress';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 /* actions */
 import * as uiActionCreators from 'core/actions/actions-ui';
 
 /* component styles */
 import { styles } from './styles.scss';
-import Snackbar from 'material-ui/Snackbar';
-import { red100, redA700 } from 'material-ui/styles/colors';
+import { redA700 } from 'material-ui/styles/colors';
 
 class Header extends Component {
   constructor(props) {
@@ -39,12 +39,19 @@ class Header extends Component {
             ui.isRunProgressBar && <LinearProgress mode="indeterminate" color="red" />
           }
           <AppBar style={{backgroundColor: redA700}} onLeftIconButtonClick={this.handleToggle} title="Forum Indonesia Muda" onTitleClick={this.handleToHome} />
-          <Snackbar
+          {/*<Snackbar
             open={ui.snackBarOptions.isOpen}
             message={ui.snackBarOptions.text}
             autoHideDuration={ui.snackBarOptions.autoHideDuration}
             onRequestClose={this.handleCloseSnackbar}
-          />
+          />*/}
+          <SweetAlert 
+            warning
+            show={ui.snackBarOptions.isOpen}
+            title="Perhatian!" 
+            onConfirm={this.handleCloseSnackbar}>
+            {ui.snackBarOptions.text}
+          </SweetAlert>
         </header>
       </div>
     );
