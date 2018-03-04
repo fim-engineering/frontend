@@ -69,13 +69,11 @@ class Statistik extends Component {
         const submited = res.submited
         const newKey = []
         Object.keys(registered).map((key) => {
-          if (registered[key]) {
-            newKey.push({
-              name: key,
-              registered: registered[key],
-              submited: submited[key]
-            })
-          }
+          newKey.push({
+            name: key,
+            registered: registered[key],
+            submited: submited[key]
+          })
         })
         console.log("newKey: ", newKey);
         this.setState({ registeredByRegional: newKey })
