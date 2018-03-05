@@ -375,7 +375,7 @@ class DataUmum extends Component {
     const year = parseInt(born_date.split('-')[0], 10)
     const month = parseInt(born_date.split('-')[1], 10)
     const day = parseInt(born_date.split('-')[2], 10)
-    const oldDate = new Date(year,month,day);
+    const oldDate = new Date(year,month-1,day);
     return (
       <div className={styles}>
         <br />
