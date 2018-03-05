@@ -31,7 +31,7 @@ import {
   RegisterByRegional as registerByRegionalAction,
 } from '../../api';
 import ImageUploader from '../../components/ImageUploader';
-import { listKota, listKampus } from '../../helpers'
+import { listKota, listKampus, regionalMapping } from '../../helpers'
 
 class Statistik extends Component {
   constructor(props) {
@@ -72,7 +72,8 @@ class Statistik extends Component {
           newKey.push({
             name: key,
             registered: registered[key],
-            submited: submited[key]
+            submited: submited[key],
+            wilayah: regionalMapping.find(x => x.regional === key) && regionalMapping.find(x => x.regional === key).wilayah
           })
         })
         console.log("newKey: ", newKey);
@@ -397,11 +398,26 @@ class Statistik extends Component {
       label: "A",
       values: registeredByRegional
     }]
+
+    const groupByWilayah = registeredByRegional.length > 0 && _.groupBy(registeredByRegional, (regional) => regional.wilayah)
+    const showWilayah = []
+    Object.keys(groupByWilayah).map((key) => {
+      showWilayah.push({
+        name: key,
+        registered: groupByWilayah[key].reduce((accum, current) => accum + current.registered, 0),
+        submited: groupByWilayah[key].reduce((accum, current) => accum + current.submited, 0),
+      })
+    })
+    console.log("showWilayah: ", showWilayah);
     return (
       <div className={styles}>
         <br />
         <br />
-        <h2>Statistik {this.fancyDate(Date.now())} </h2>
+        <h1>Statistik {this.fancyDate(Date.now())} </h1>
+        <br />
+        <br />
+
+        <h2>Per Regional</h2>
         <Table selectable={false} style={{maxWidth: 1000, maxHeight: 400, margin: 'auto', padding: 10}}>
           <TableHeader displaySelectAll={false}>
             <TableRow>
@@ -414,7 +430,7 @@ class Statistik extends Component {
           <TableBody style={{ textAlign: 'center' }} displayRowCheckbox={false} >
             {
               registeredByRegional.length > 0 && _.sortBy(registeredByRegional, (regional) => -regional.registered).map(regional => {
-                const convRate = ((regional.submited/regional.registered) * 100).toFixed(2)
+                const convRate = ((regional.submited / regional.registered) * 100).toFixed(2)
                 return <TableRow>
                   <TableRowColumn>{regional.name}</TableRowColumn>
                   <TableRowColumn>{regional.registered}</TableRowColumn>
@@ -427,6 +443,31 @@ class Statistik extends Component {
         </Table>
         <br />
         <br />
+
+        <h2>Per Wilayah</h2>
+        <Table selectable={false} style={{maxWidth: 1000, maxHeight: 400, margin: 'auto', padding: 10}}>
+          <TableHeader displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn>Wilayah</TableHeaderColumn>
+              <TableHeaderColumn>Jumlah Pendaftar</TableHeaderColumn>
+              <TableHeaderColumn>Jumlah Submit</TableHeaderColumn>
+              <TableHeaderColumn>Conversion Rate</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody style={{ textAlign: 'center' }} displayRowCheckbox={false} >
+            {
+              showWilayah.length > 0 && _.sortBy(showWilayah, (regional) => -regional.registered).map(regional => {
+                const convRate = ((regional.submited / regional.registered) * 100).toFixed(2)
+                return <TableRow>
+                  <TableRowColumn>{regional.name}</TableRowColumn>
+                  <TableRowColumn>{regional.registered}</TableRowColumn>
+                  <TableRowColumn>{regional.submited}</TableRowColumn>
+                  <TableRowColumn>{`${convRate}%`}</TableRowColumn>
+                </TableRow>
+              })
+            }
+          </TableBody>
+        </Table>
       </div>
     );
   }
