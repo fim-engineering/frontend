@@ -31,6 +31,7 @@ import {
   GetProfile as getProfileAction,
   SubmitFinal as submitFinalAction
 } from '../../api'
+import { GTM } from '../../helpers';
 
 class Home extends Component {
   constructor(props) {
@@ -105,6 +106,7 @@ class Home extends Component {
     submitFinalAction(content)
       .then(res => {
         if (res.code === 200) {
+          GTM.pushEvent('FIM20', 'Home', 'Submit Final', '')
           this.props.actions.user.changeUserData({
             statusSubmit: {
               final: 1
