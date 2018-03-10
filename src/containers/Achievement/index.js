@@ -361,12 +361,12 @@ class Achievement extends Component {
     const year_date_from = parseInt(date_from.split('-')[0], 10)
     const month_date_from = parseInt(date_from.split('-')[1], 10)
     const day_date_from = parseInt(date_from.split('-')[2], 10)
-    const oldDate_date_from = new Date(year_date_from,month_date_from,day_date_from);
+    const oldDate_date_from = new Date(year_date_from,month_date_from-1,day_date_from);
 
     const year_date_end = parseInt(date_end.split('-')[0], 10)
     const month_date_end = parseInt(date_end.split('-')[1], 10)
     const day_date_end = parseInt(date_end.split('-')[2], 10)
-    const oldDate_date_end = new Date(year_date_end,month_date_end,day_date_end);
+    const oldDate_date_end = new Date(year_date_end,month_date_end-1,day_date_end);
 
     return (<div>
       <h2>Nama Pencapaian</h2>
