@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import AutoComplete from 'material-ui/AutoComplete';
 import DatePicker from 'material-ui/DatePicker';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import CircularProgress from 'material-ui/CircularProgress';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -46,12 +47,15 @@ class DataUmum extends Component {
     imageProfile: {
       loadProfile: '',
       streamProfile: ''
-    }
+    },
+    isLoadingUploadKTP: false,
+    isLoadingUploadPhoto: false,
   }
 
   componentWillMount = () => {
     const token = _.result(this, 'props.user.token', '');
     const content = { token }
+    this.props.actions.ui.changeLoadingStatus(true);
     getProfileAction(content)
       .then(response => {
         this.setState({
@@ -75,7 +79,7 @@ class DataUmum extends Component {
           instagram: _.result(response, 'user_profile.instagram', '') || '',
           imageURL: _.result(response, 'user_profile.ktp_link', '') || '',
           imageURLProfile: _.result(response, 'user_profile.photo_profile_link', '') || '',
-        })
+        }, () => this.props.actions.ui.changeLoadingStatus(false))
       })
 
     GetRegionalAction(content)
@@ -288,6 +292,7 @@ class DataUmum extends Component {
   }
 
   handleUpload = () => {
+    this.setState({ isLoadingUploadKTP: true })
     const cloudName = 'fim-indonesia';
     const unsignedUploadPreset = 'ID_card';
     const HOST = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
@@ -304,11 +309,12 @@ class DataUmum extends Component {
     }).then((response) => {
       return response.json()
     }).then((result) => {
-      this.setState({ imageURL: result.secure_url })
+      this.setState({ imageURL: result.secure_url, isLoadingUploadKTP: false })
     })
   }
 
   handleUploadProfile = () => {
+    this.setState({ isLoadingUploadPhoto: true })
     const cloudName = 'fim-indonesia';
     const unsignedUploadPreset = 'profile_photo';
     const HOST = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
@@ -325,7 +331,7 @@ class DataUmum extends Component {
     }).then((response) => {
       return response.json()
     }).then((result) => {
-      this.setState({ imageURLProfile: result.secure_url })
+      this.setState({ imageURLProfile: result.secure_url, isLoadingUploadPhoto: false })
     })
   }
 
@@ -368,6 +374,8 @@ class DataUmum extends Component {
       religion,
       imageURL,
       imageURLProfile,
+      isLoadingUploadKTP,
+      isLoadingUploadPhoto
     } = this.state
     const isDisabledLogin = email === '' || password === '' || isProcessLogin
     const labelButtonLogin = isProcessLogin ? 'Process' : 'Login'
@@ -463,7 +471,7 @@ class DataUmum extends Component {
 
         <h2>Upload KTP</h2>
         {
-          imageURL === '' ? <ImageUploader
+          imageURL === '' ? isLoadingUploadKTP ? <CircularProgress size={80} thickness={5} /> : <ImageUploader
             onLoadFile={this.handleImageLoad}
             valueImage={this.state.image.stream}
             onRemoveImage={this.handleRemoveImage}/>
@@ -479,7 +487,7 @@ class DataUmum extends Component {
 
         <h2>Upload Photo</h2>
         {
-          imageURLProfile === '' ? <ImageUploader
+          imageURLProfile === '' ? isLoadingUploadPhoto ? <CircularProgress size={80} thickness={5} /> : <ImageUploader
             onLoadFile={this.handleImageLoadProfile}
             valueImage={this.state.imageProfile.streamProfile}
             onRemoveImage={this.handleRemoveImageProfile}/>

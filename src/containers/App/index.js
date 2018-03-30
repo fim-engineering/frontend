@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import ReactGA from 'react-ga';
+import CircularProgress from 'material-ui/CircularProgress';
 
 // global styles for entire app
 import './styles/app.scss';
@@ -99,6 +100,12 @@ export class App extends Component {
           <div className="container">
             <Router history={this.props.history} >
               <div>
+                {
+                  this.props.ui.isLoading && <div>
+                    <h1>Sedang Proses..mohon tunggu sebentar</h1>
+                    <CircularProgress size={80} thickness={5} />
+                  </div>
+                }
                 <Switch>
                   <Route exact path="/" component={Home}/>
                   <Route path="/about" component={About}/>

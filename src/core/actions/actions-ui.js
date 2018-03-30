@@ -38,3 +38,10 @@ export function jumpToStep(payload) {
     payload
   };
 }
+
+export function changeLoadingStatus(payload) {
+  return {
+    type: constants.IS_LOADING,
+    payload
+  };
+}

@@ -9,6 +9,7 @@ const initialState = {
     autoHideDuration: 100000000
   },
   stepIndex: 0,
+  isLoading: false,
 };
 
 export function uiReducer(state = initialState, action) {
@@ -27,6 +28,11 @@ export function uiReducer(state = initialState, action) {
   case constants.TOGGLE_PROGRESSBAR:
     return Object.assign({}, state, {
       isRunProgressBar: action.payload
+    });
+
+  case constants.IS_LOADING:
+    return Object.assign({}, state, {
+      isLoading: action.payload
     });
 
   case constants.TOGGLE_NOTIFICATION:

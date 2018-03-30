@@ -11,4 +11,5 @@ export default keyMirror({
   RESET_USER_DATA: null,
   REDUX_STORAGE_LOAD: null,
   JUMP_TO_STEP: null,
+  IS_LOADING: null,
 });
