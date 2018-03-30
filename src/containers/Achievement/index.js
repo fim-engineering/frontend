@@ -415,7 +415,6 @@ class Achievement extends Component {
         value={phone_leader}
         hintText="Nomor Telpon Atasan"
         floatingLabelText="Nomor Telpon Atasan"
-        type="number"
         onChange = {(e, newValue) => this.handleInput(`phone_leader${index}`, newValue)}/>
       <br />
       <h2>Email Atasan</h2>

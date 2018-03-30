@@ -412,7 +412,6 @@ class DataUmum extends Component {
           value={phone}
           hintText="Phone"
           floatingLabelText="Phone"
-          type="number"
           onChange = {(e, newValue) => this.handleInput('phone', newValue)}/>
         <br />
 
