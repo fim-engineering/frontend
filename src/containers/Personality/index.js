@@ -85,6 +85,7 @@ class Personality extends Component {
   componentWillMount = () => {
     const token = _.result(this, 'props.user.token', '');
     const content = { token }
+    this.props.actions.ui.changeLoadingStatus(true);
     getPersonalityAction(content)
       .then(response => {
         console.log("response di willMpunt: ", response);
@@ -106,6 +107,8 @@ class Personality extends Component {
           problem_solver: _.result(response, 'personality.problem_solver', '') || '',
           problem_solver_2: _.result(response, 'personality.problem_solver_2', '') || '',
           problem_solver_3: _.result(response, 'personality.problem_solver_3', '') || '',
+        }, () => {
+          this.props.actions.ui.changeLoadingStatus(false);
         })
       })
 

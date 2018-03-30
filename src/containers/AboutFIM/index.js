@@ -86,6 +86,7 @@ class AboutFIM extends Component {
   componentWillMount = () => {
     const token = _.result(this, 'props.user.token', '');
     const content = { token }
+    this.props.actions.ui.changeLoadingStatus(true);
     getPersonalityAction(content)
       .then(response => {
         console.log("response di willMpunt: ", response);
@@ -103,6 +104,8 @@ class AboutFIM extends Component {
           weakness: _.result(response, 'personality.weakness', '') || '',
           role_model: _.result(response, 'personality.role_model', '') || '',
           problem_solver: _.result(response, 'personality.problem_solver', '') || '',
+        }, () => {
+          this.props.actions.ui.changeLoadingStatus(false);
         })
       })
 

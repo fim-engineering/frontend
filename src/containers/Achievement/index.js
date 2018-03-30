@@ -61,6 +61,7 @@ class Achievement extends Component {
   componentWillMount = () => {
     const token = _.result(this, 'props.user.token', '');
     const content = { token }
+    this.props.actions.ui.changeLoadingStatus(true);
     getAchievementAction(content)
       .then(response => {
         console.log("response di willMpunt: ", response);
@@ -91,6 +92,8 @@ class Achievement extends Component {
           phone_leader_3: _.result(response, 'achie_best.phone_leader_3', '') || '',
           email_leader_3: _.result(response, 'achie_best.email_leader_3', '') || '',
           description_3: _.result(response, 'achie_best.description_3', '') || '',
+        }, () => {
+          this.props.actions.ui.changeLoadingStatus(false);
         })
       })
 
