@@ -32,6 +32,7 @@ import Profile       from 'containers/Profile';
 import FAQ       from 'containers/FAQ';
 import ForgotPassword       from 'containers/ForgotPassword';
 import Statistik       from 'containers/Statistik';
+import Rahasia       from 'containers/Rahasia';
 
 import * as uiActionCreators   from 'core/actions/actions-ui';
 import * as userActionCreators   from 'core/actions/actions-user';
@@ -121,6 +122,7 @@ export class App extends Component {
                   <Route path="/forgot-password" component={ForgotPassword}/>
                   <Route path="/faq" component={FAQ}/>
                   <Route path="/statistik" component={Statistik}/>
+                  <Route path="/rahasia" component={Rahasia}/>
 
                   <Route path="/*" component={NotFound}/>
                 </Switch>

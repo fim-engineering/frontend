@@ -8,6 +8,8 @@ const HOSTNAME = 'https://fim-backend.herokuapp.com/api'
 const FIM_SERVICES = {
   Login: `${HOSTNAME}/login`,
   RegisterByRegional: `${HOSTNAME}/statistic/count-regional `,
+  StatByDay: `${HOSTNAME}/statistic/day-by-day`,
+  CountSubmitted: `${HOSTNAME}/statistic/count-user`,
   ForgotPassword: `${HOSTNAME}/forgot-password`,
   SignUp: `${HOSTNAME}/signup`,
   Logout: `${HOSTNAME}/logout`,
@@ -82,6 +84,46 @@ const SubmitFinal = (content) => {
         { 
           id: 0,
           message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Login')
+        }
+      }
+    })
+}
+
+const CountSubmitted = (content) => {
+  const url = FIM_SERVICES.CountSubmitted;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
+        }
+      }
+    })
+}
+
+const StatByDay = (content) => {
+  const url = FIM_SERVICES.StatByDay;
+  
+  const extraHeaders = {
+    Authorization: `Bearer ${content.token}`
+  }
+
+  return axios(configFetch(url, 'get', content, true, extraHeaders))
+    .then(response => response.data)
+    .catch(err => {
+      return {
+        user: 
+        { 
+          id: 0,
+          message_error: _.result(err, 'response.data.errors.email[0]', 'Gagal Daftar')
         }
       }
     })
@@ -438,5 +480,7 @@ export {
   GetMeFIM,
   GetStatusFinal,
   SubmitFinal,
-  RegisterByRegional
+  RegisterByRegional,
+  StatByDay,
+  CountSubmitted,
 }

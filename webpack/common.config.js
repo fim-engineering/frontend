@@ -42,6 +42,10 @@ const common = {
       exclude: /node_modules/,
     },
     {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader'
+    },
+    {
       test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
       loader: "file-loader"
     }],
