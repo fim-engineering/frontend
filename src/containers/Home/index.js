@@ -171,6 +171,8 @@ class Home extends Component {
       />,
     ];
 
+    console.log("userProfile.city: ", userProfile.city || "");
+
     return (
       <div>
         Hallo {user.email}
@@ -264,14 +266,18 @@ class Home extends Component {
                   Setelah melakukan submit, tidak bisa merubah isian formulir kembali
                   <br />
                   <br />
-                  <Checkbox
-                    label="Saya mengkonfirmasi kebenaran bahwa data yang diisi adalah data sebenarnya, dan jika saya diterima sebagai kader next gen FIM regional, saya akan berkontribusi selama minimal 1 tahun ke depan"
-                    checked={this.state.isConfirm}
-                    onCheck={this.updateConfirm}
-                    style={{
-                      marginBottom: 16,
-                    }}
-                  />
+                  {
+                    (userProfile.city || "") === "" ? 'PILIH REGIONAL TERLEBIH DAHULU'
+                    : 
+                    <Checkbox
+                      label="Saya mengkonfirmasi kebenaran bahwa data yang diisi adalah data sebenarnya, dan jika saya diterima sebagai kader next gen FIM regional, saya akan berkontribusi selama minimal 1 tahun ke depan"
+                      checked={this.state.isConfirm}
+                      onCheck={this.updateConfirm}
+                      style={{
+                        marginBottom: 16,
+                      }}
+                    />
+                  }
                 </Dialog>
                 {this.renderStepActions(4)}
               </StepContent>
