@@ -472,7 +472,7 @@ class Rahasia extends Component {
         submited: groupByWilayah[key].reduce((accum, current) => accum + current.submited, 0),
       })
     })
-    console.log("showWilayahhhhh: ", showWilayah);
+    console.log("showWilayahhhhhssss: ", showWilayah);
     return (
       <div className={styles}>
         <br />
