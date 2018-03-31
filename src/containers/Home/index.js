@@ -298,9 +298,9 @@ class Home extends Component {
         {
           isLogin && this.renderLoggedInUser(ui.stepIndex)
         }
-        {
+        {/*
           !isLogin && this.renderNonLoggedInUser()
-        }
+        */}
       </div>
     );
   }
