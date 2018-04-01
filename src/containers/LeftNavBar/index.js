@@ -83,12 +83,12 @@ class LeftNavBar extends Component {
             <MenuItem onClick={this.handleRedirect('/')} primaryText="Home" leftIcon={<HomeIcon />} />
             <MenuItem onClick={this.handleRedirect('/about')} primaryText="About" leftIcon={<AboutIcon />} />
             <MenuItem onClick={this.handleRedirect('/faq')} primaryText="FAQ" leftIcon={<FaqIcon />} />
-            {
+            {/*
               !isLogin && <MenuItem onClick={this.handleRedirect('/sign_up')} primaryText="Register" leftIcon={<RegIcon />} />
-            }
-            {
+            */}
+            {/*
               !isLogin && <MenuItem onClick={this.handleRedirect('/sign_in')} primaryText="Login" leftIcon={<FileUpload />} />
-            }
+            */}
             {
               !isLogin && <MenuItem onClick={this.handleRedirect('/forgot-password')} primaryText="Forgot Password" leftIcon={<FileUpload />} />
             }
