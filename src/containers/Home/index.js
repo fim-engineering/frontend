@@ -300,6 +300,9 @@ class Home extends Component {
     return (
       <div className={styles}>
         <span style={{fontSize: '30pt', maxHeight: 400, margin: 'auto'}}> Selamat Datang pada Portal Pendaftaran FIM </span>
+        <h1>
+          Pendaftaran FIM resmi ditutup, silahkan tunggu kabar selanjutnya
+        </h1>
         {
           isLogin && this.renderLoggedInUser(ui.stepIndex)
         }
