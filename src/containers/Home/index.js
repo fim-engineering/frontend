@@ -178,14 +178,10 @@ class Home extends Component {
         Hallo {user.email}
         <br />
         <br />
-        <h1>
-          Pendaftaran FIM resmi ditutup, silahkan tunggu kabar selanjutnya
-        </h1>
-        {/*
+        {
           isSubmitFinalSubmit && <h1>Terima Kasih sudah mendaftar, tunggu kabar dari kami ya</h1>
-        */}
+        }
         <br />
-        {/*
         <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
           <Stepper
             activeStep={stepIndex}
@@ -288,7 +284,6 @@ class Home extends Component {
             </Step>
           </Stepper>
         </div>
-        */}
       </div>
     )
   }

@@ -110,6 +110,7 @@ export class App extends Component {
                 <Switch>
                   <Route exact path="/" component={Home}/>
                   <Route path="/about" component={About}/>
+                  <Route path="/sign_in" component={Login}/>
                   
                   <Route path="/account/reset_password/:token" component={ResetPassword}/>
                   <Route path="/account/change_password" component={ChangePassword}/>
