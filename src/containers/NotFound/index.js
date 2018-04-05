@@ -30,7 +30,6 @@ class NotFound extends Component {
         <br />
         <br />
         <br />
-        <RaisedButton label="Daftar" primary={true} style={styles} onClick={this.handleChangeRoute('/sign_up')}/>
       </div>
     );
   }
