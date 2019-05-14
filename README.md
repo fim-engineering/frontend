@@ -1,4 +1,7 @@
 ## Development
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/fim-engineering/frontend.svg)](https://greenkeeper.io/)
+
 ```
 $ npm install
 $ npm run dev
